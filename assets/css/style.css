@@ -4,3 +4,28 @@ UCN MMDA0920 */
 @charset "uft-8";
 * {box-sizing: border-box;}
 
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+
+}
+
+header {
+    grid-column: 1/5;
+    margin: 0;
+    padding: 0;
+    border: none;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    height: 100px;
+}
+
+header nav ul li {
+    display: inline;
+    float: right;
+    text-decoration: none;
+    list-style: none;
+    margin-right: 2vw;
+}
