@@ -1,13 +1,16 @@
 //JS by Gruppe 3 (Anders, Anna, Caroline & Nadia)
 //UCN MMDA0920
 
+// Projektet er inspireret af Dan's lektion: https://ucn.instructure.com/courses/25101/modules/items/651989
+// Samt inspiration fra tidligere projekt https://mmd.ucn.dk/class/mmda0920/1086088/Sem2/Tem3/Rubrics/Englerod-Gruppe3/
 
 const   login = {
             "username":"api.user",
             "password":"API-key-1234#!"
         },
         URLsite = "https://aenders.dk/wp-json/wp/v2/",
-        URLtoken = "https://aenders.dk/wp-json/jwt-auth/v1/token";
+        URLtoken = "https://aenders.dk/wp-json/jwt-auth/v1/token",
+        categoryToLookFor = 43; //43 er tallet på kategorien som bruges på alle SNV.dk Posts, for at den kun leder efter relevante Posts og ikke alle som ligger på WordPress.
 
 const xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function () { // Onreadystatechange, bliver aktiveret når f.eks hjemmesiden bliver åbnet og skal til at loade. 
@@ -43,21 +46,50 @@ function afterToken() {
         console.log("Der opstod en fejl, være venlig at vende tilbage senere!")
     }
 }
-xhttp.open("GET", URLsite + "posts?status=private&categories=17&per_page=100", true) // GET fordi nu hvor vi har vores token, så vil vi gerne spørge om noget data vi kan arbejde med. 
+xhttp.open("GET", URLsite + 'posts?status=private&categories=' + categoryToLookFor + '&per_page=100', true) // GET fordi nu hvor vi har vores token, så vil vi gerne spørge om noget data vi kan arbejde med. 
 xhttp.setRequestHeader("Authorization", "Bearer " + window.localStorage.getItem("token")); //For at kunne få data, skal bruge vores login, som her er en token som sendes sammed med vores GET-request.
 xhttp.send();
 }
 
 function makeSite(data) {
-    console.log(data[0])
+    console.log(data[0]);
+    
+    let current = getURL();
+    function getURL (URL) {
+        let id = 0;
+        const pageURL = window.location.pathname;
 
-    function makeTitle (site) {
-        let split = site.title.rendered.split("Private: "),
+        if(pageURL.indexOf("pageId") != -1) {
+            let split = pageURL.split("pageId=");
+            id = split[1];
+        }
+        return id;
+    }
+    function findCurrent (current) {
+        let currentSite = data.find(site => site.id == current); // Kigger på current(Kunne være f.eks 0), og skal finde en post i vores data-set som matcher.
+        return currentSite; // Den skal give den post som matcher tilbage til den som spurgte, her ville det være hvem end som brugte function findCurrent. Den vil så give hele JSON objektet som mathcer id'et.
+    }
+
+    function makeTitle (current) {
+        let split = current.title.rendered.split("Private: "),
             title = split[1];
-        
-        document.title = title + " - SNV.dk";
+        document.title = title + " - SNV.dk"; // Titlen skal være den rette posts title minus Private: , så puttes foran af WordPress, men som vi ikke skal bruge.
     }
     
-    function getURL (URL)
+    function createSite(current) {
+        if (current == 0 || current == undefined) {// Skal bruges til at hvis pageId = 0 eller ikke defineret, så skal den lave Forsiden som vi definere.
+            const forside = data.find(search => search.id == 1236);
+            current = forside.id;
+        }
+        console.log(current);
+
+    }
+    createSite(current);
+
+    console.log("fisk",current);
     //Lave matchID og FindpageID sammen med drawSite??
+    //findpagebyIDinURL - split at = to begin with?? only need the pageId number??
 }
+
+//======================== TO DO
+//ændre i URL så den har den rette kategori( SNV.dk = 43 )
