@@ -48,6 +48,7 @@ grid-row: 2/3;
     width: 40vw;
     height: 45vw;
     background-color:  #1C3E56;
+    border: none;
 
     clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%)
 }
@@ -55,15 +56,18 @@ grid-row: 2/3;
 main {
     grid-column: 1/13;
     grid-row: 3/4;
-    padding: 5vw;
 }
 
 .news{
+    width: 100%;
+    height: auto;
+    padding: 5vw;
 }
 
-.newsPosts {
+.newsPosts, .eventPost, .afdelingFlex {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .newsBox {
@@ -73,3 +77,41 @@ main {
 
     background-color: #648DAA;
 }
+
+.events {
+    width: 100%;
+    height: auto;
+    padding: 5vw;
+    background-color: #B2CEDE;
+}
+
+.eventBox {
+    display: inline-block;
+    width: 43vw;
+    height: 20vw;
+
+    background-color: #ffffff;
+    border-left: 9px solid #B12818;
+}
+
+.afdeling{
+    padding: 5vw;
+}
+
+.afdelingBox{
+    width: 43vw;
+    height: 20vw;
+    margin-bottom: 5vw;
+    
+    background-color: black;
+}
+
+.textAfdeling{
+    width: 43vw;
+    height: 20vw;
+    background-color:  #1C3E56;
+    border: none;
+    clip-path: polygon(0 0, 75% 0, 25% 100%, 0% 100%);
+}
+
+
