@@ -16,7 +16,7 @@ header {
     grid-column: 1/13;
     grid-row: 1/2;
     margin: 0;
-    padding: 0;
+    padding: 1vw 5vw;
     border: none;
     position: sticky;
     top: 0;
@@ -24,19 +24,20 @@ header {
 
     display: flex;
     justify-content: space-between;
+    z-index: 1;
 }
 
 header nav ul li {
     display: inline-block;
     list-style: none;
-    margin-right: 5vw;
-    margin-bottom: 3vh;
+    margin-left: 5vw;
 }
 
 a {
     text-decoration: none;
     color: black;
 }
+
 
 
 .hero {
