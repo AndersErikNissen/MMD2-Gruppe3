@@ -4,14 +4,15 @@ UCN MMDA0920 */
 /* fælles for flere sider */
 
 @charset "uft-8";
-* {box-sizing: border-box;}
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-
 }
 
 header {
@@ -23,7 +24,6 @@ header {
     position: sticky;
     top: 0;
     background-color: white;
-
     display: flex;
     justify-content: space-between;
     z-index: 1;
@@ -67,9 +67,8 @@ a {
 .textBoxHeroLille {
     width: 100%;
     height: 20vw;
-    background-color:  #1C3E56;
+    background-color: #1C3E56;
     border: none;
-
     clip-path: polygon(100% 0, 21% 0, 38% 100%, 100% 100%);
 }
 
@@ -81,6 +80,7 @@ a {
     margin: 0;
     padding: 1vw 7vw;
 }
+
 .secondNav ul li {
     display: inline-block;
     list-style: none;
@@ -92,27 +92,27 @@ a {
     border: none;
 }
 
+.intro {
+    padding: 1vw 7vw;
+}
+
 main {
     grid-column: 1/13;
     grid-row: 4/5;
 }
 
-
-
-
 /* Forside */
 
 .hero {
-grid-column: 1/13;
-grid-row: 2/3;
+    grid-column: 1/13;
+    grid-row: 2/3;
 }
 
 .textBoxHero {
     width: 40vw;
     height: 45vw;
-    background-color:  #1C3E56;
+    background-color: #1C3E56;
     border: none;
-
     clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%)
 }
 
@@ -121,7 +121,7 @@ grid-row: 2/3;
     grid-row: 3/4;
 }
 
-.news{
+.news {
     width: 100%;
     height: auto;
     padding: 7vw;
@@ -137,7 +137,6 @@ grid-row: 2/3;
     display: inline-block;
     width: 27vw;
     height: 35vw;
-
     background-color: #648DAA;
 }
 
@@ -152,46 +151,41 @@ grid-row: 2/3;
     display: inline-block;
     width: 42vw;
     height: 20vw;
-
     background-color: #ffffff;
     border-left: 9px solid #B12818;
 }
 
-.afdeling{
+.afdeling {
     padding: 7vw;
 }
 
-.afdelingBox{
+.afdelingBox {
     width: 42vw;
     height: 20vw;
     margin-bottom: 2vw;
-    
     background-color: black;
 }
 
-.textAfdeling{
+.textAfdeling {
     width: 42vw;
     height: 20vw;
-    background-color:  #1C3E56;
+    background-color: #1C3E56;
     border: none;
     clip-path: polygon(0 0, 75% 0, 25% 100%, 0% 100%);
 }
 
 /* Om klubben */
-    /* betyrelsen */
-.bestyrelse{
-    padding: 1vw 7vw;
-}
+
+/* betyrelsen */
 
 .bestyrelseListe {
     padding: 1vw 7vw;
-
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.bestyrelseBox{
+.bestyrelseBox {
     display: block;
     width: 42vw;
     height: 15vw;
@@ -204,12 +198,50 @@ grid-row: 2/3;
     display: block;
 }
 
-    /* klub politik */
-.politik {
+/* klub politik */
+
+/* klubblad */
+.bladListe {
+    display: block;
     padding: 1vw 7vw;
 }
-    
 
+.bladBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35vw;
+    height: 4vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+    border-right: solid 1px black;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
 
+.bladBox p {
+    margin: 1vw;
+}
 
+/* Historie */
+.historie {
+    display: flex;
+    justify-content: space-evenly;
+}
 
+.historieText {
+    width: 40vw;
+    height: fit-content;
+}
+
+.historieImg{
+    width: 20vw;
+    width: fit-content;
+}
+
+.historieImg div{
+    background-color: black;
+    margin-bottom: 2vw;
+    width: 20vw;
+    height: 20vw;
+}
