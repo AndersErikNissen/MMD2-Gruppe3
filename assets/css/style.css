@@ -16,7 +16,7 @@ header {
     grid-column: 1/13;
     grid-row: 1/2;
     margin: 0;
-    padding: 1vw 5vw;
+    padding: 1vw 7vw;
     border: none;
     position: sticky;
     top: 0;
@@ -36,6 +36,17 @@ header nav ul li {
 a {
     text-decoration: none;
     color: black;
+}
+
+#medlem {
+    background-color: #5684B8;
+    border-radius: 2px;
+    border: #5684B8 solid 12px;
+    margin-left: 4vw;
+}
+
+#medlem a {
+    color: white;
 }
 
 
@@ -62,7 +73,7 @@ main {
 .news{
     width: 100%;
     height: auto;
-    padding: 5vw;
+    padding: 7vw;
 }
 
 .newsPosts, .eventPost, .afdelingFlex {
@@ -82,13 +93,13 @@ main {
 .events {
     width: 100%;
     height: auto;
-    padding: 5vw;
+    padding: 7vw;
     background-color: #B2CEDE;
 }
 
 .eventBox {
     display: inline-block;
-    width: 43vw;
+    width: 42vw;
     height: 20vw;
 
     background-color: #ffffff;
@@ -96,19 +107,19 @@ main {
 }
 
 .afdeling{
-    padding: 5vw;
+    padding: 7vw;
 }
 
 .afdelingBox{
-    width: 43vw;
+    width: 42vw;
     height: 20vw;
-    margin-bottom: 5vw;
+    margin-bottom: 2vw;
     
     background-color: black;
 }
 
 .textAfdeling{
-    width: 43vw;
+    width: 42vw;
     height: 20vw;
     background-color:  #1C3E56;
     border: none;
