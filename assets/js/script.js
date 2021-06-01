@@ -59,7 +59,6 @@ function makeSite(data) {
     // Rækkefølge på data: Category, Tag, (Post - Hvis nødvendig)
         IDforside = [postData.acf.id.categories.forside, postData.acf.id.tags.forside, postData.acf.posts.forside], //ID'er fra categorier og tags som er relevant i henhold til Forsiden.
         IDnavigation = postData.acf.id.categories.navigation; // Dette ID er til alle hjemmesider som skal kunne findes i den globale navigation.
-    
         //== FUNKTIONER
     function createHTML (placement, element) { // Skal tilføje indhold til et sted i DOM'en, men skulle det "område/element" have indhold vil det blive erstattet.
         document.querySelector(placement).innerHTML = element;
@@ -90,37 +89,48 @@ function makeSite(data) {
             title = split[1];
             document.title = title + " - SNV.dk"; // Titlen skal være den rette posts title minus Private: , så puttes foran af WordPress, men som vi ikke skal bruge.
     }
-    function makeNavigation () {
-        let navPosts = data.filter(post => { //.Filter laver et array af elementer som matcher vores kriterier.
-            if (post.categories.indexOf(IDnavigation)) {
-                return true; //Hvis en post har IDnavigation(67) så skal den tilføjes til arrayet. 
+    function makeNavigation (current) {
+        let navigationlist = postData.acf.id.categories.navigationlist,
+            allNav = '<nav>',
+            navigation = '<ul>';
+        //== LIST OF NAV POSTS
+        navigationlist.forEach(navID => {// Skal lave en <li> for hver element i natPosts, og give en class med et nummer som vi kan ramme senere.
+            let site = data.find(post => post.id == navID), //Leder alle vores posts(som matcher SNV.dk ID'et) som kan findes i vores liste af ID'er. Vi kunne også have kigget efter posts som matcher vores SNV.dk - Navigation ID, men vi har mest kontrol på denne måde.
+                siteTitleSplit = site.title.rendered.split("Private: "),
+                siteTitle = siteTitleSplit[1],
+                currentPage = "";
+            //== Tilføjer currentPage class, til Nav-element som matcher current(Altså den aktive side på dette tidspunkt).
+            if (site.id == current) {
+                currentPage = 'class="currentPage"';
             }
+            //== Skaber HTML elementer med information fra hver Post som matcher ID'et.
+            navigation += '<li id="nav-' + siteTitle +'" ' + currentPage +'><a href="?pageId="' + site.id +'">' + siteTitle +'</a></li>';
         })
-        let navigation = '<ul>',
-            navNumber = 0,
-            navID;
-        navPosts.forEach(post => {// Skal lave en <li> for hver element i natPosts, og give en class med et nummer som vi kan ramme senere.
-            navigation += '<li id="nav' + navNumber +'"></li>';
-            navNumber++;
-        })
-        navPosts.forEach(post => {
-            navID = post.id;
-            switch (navID) {
-                case 
-            }
-        })
-        
-
         navigation += '</ul>';
 
-        //=== Mobil/Tablet and Desktop Mediaqueries
-        let mobil = window.matchMedia("(max-width: 480px)");
-        if (mobil) {
-            console.log("mobil")
+        //== Mobil/Tablet and Desktop Mediaqueries
+        // - Mobil og Tablet, bruges til at kigge hvilke elementer som skal skabes/ikke skabes. F.eks. til en HamburgerMenu. 
+        let mobil = window.matchMedia("(max-width: 480px)"),
+            tablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)");
+        if (mobil.matches || tablet.matches) { //Matches går ind og kigger på vores MediaQueryString og ser om den "matcher", altså om den er rigtig i forhold til window.innerWidth.
+            allNav += '<div id="burgerBtnContainer"><div class="burger"></div><div class="burger"></div><div class="burger"></div></div>' // Skaber HamburgerMenu
+            allNav += '<section id="curtainContainer"><article id="curtain">' + navigation + '</article></section></nav>'; // Skaber Curtain som indeholder hele den Globale Navigation
+            
+            
+            if (mobil.matches) {
+                console.log("mobil")
+            }
+            if (tablet.matches) {
+                console.log("tablet")
+            }
         } 
-        if (mobil == false) {
+        if (!mobil.matches && !tablet.matches) {
             console.log("not mobil")
+            allNav += navigation;
+            allNav += '</nav>';
         }
+        console.log(allNav)
+        createHTML("body", allNav);
     }
     makeNavigation();
     function makeFooter () {
@@ -155,6 +165,7 @@ function makeSite(data) {
             current = forside.id;
         }
 
+        makeLayout(current);
         console.log(current);
 
     }
