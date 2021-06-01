@@ -1,6 +1,8 @@
 /*--HTML by **********
 UCN MMDA0920 */
 
+/* fælles for flere sider */
+
 @charset "uft-8";
 * {box-sizing: border-box;}
 
@@ -38,6 +40,10 @@ a {
     color: black;
 }
 
+.aktiv {
+    color: #B12818;
+}
+
 #medlem {
     background-color: #5684B8;
     border-radius: 2px;
@@ -49,7 +55,43 @@ a {
     color: white;
 }
 
+.heroLille {
+    grid-column: 1/13;
+    grid-row: 2/3;
+}
 
+.textBoxHeroLille {
+    width: 100%;
+    height: 20vw;
+    background-color:  #1C3E56;
+    border: none;
+
+    clip-path: polygon(100% 0, 21% 0, 38% 100%, 100% 100%);
+}
+
+.secondNav {
+    display: flex;
+    justify-content: space-evenly;
+    grid-column: 1/13;
+    grid-row: 3/4;
+    margin: 0;
+    padding: 1vw 7vw;
+}
+.secondNav ul li {
+    display: inline-block;
+    list-style: none;
+    padding: 0 5vw;
+    border-left: solid #888888 1px;
+}
+
+.secondNav ul li:first-of-type {
+    border: none;
+}
+
+
+
+
+/* Forside */
 
 .hero {
 grid-column: 1/13;
@@ -125,5 +167,9 @@ main {
     border: none;
     clip-path: polygon(0 0, 75% 0, 25% 100%, 0% 100%);
 }
+
+/* Om klubben */
+
+
 
 
