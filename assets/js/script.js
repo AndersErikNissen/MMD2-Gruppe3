@@ -53,14 +53,20 @@ xhttp.send();
 
 function makeSite(data) {
     console.log(data);
-    //========================== LISTE MED DATA
+    //========================== LISTE MED DATA OG UNIVERSALE FUNCTIONER
     //== ID's
-    let postData = data.find(post => post.id == 1248);
+    let postData = data.find(post => post.id == 1248), // Er den bestemte post(id) som indeholder general data til produktet. 
     // Rækkefølge på data: Category, Tag, (Post - Hvis nødvendig)
-    let IDforside = [postData.acf.id.categories.forside, postData.acf.id.tags.forside, postData.acf.posts.forside],
-        IDnavigation = postData.acf.id.categories.navigation;
+        IDforside = [postData.acf.id.categories.forside, postData.acf.id.tags.forside, postData.acf.posts.forside], //ID'er fra categorier og tags som er relevant i henhold til Forsiden.
+        IDnavigation = postData.acf.id.categories.navigation; // Dette ID er til alle hjemmesider som skal kunne findes i den globale navigation.
     
-
+        //== FUNKTIONER
+    function createHTML (placement, element) { // Skal tilføje indhold til et sted i DOM'en, men skulle det "område/element" have indhold vil det blive erstattet.
+        document.querySelector(placement).innerHTML = element;
+    }
+    function addToHTML (placement, element) {// Derfor er der også en function som tilføjer til eksiterende data i et område. 
+        document.querySelector(placement).innerHTML += element;
+    }
 
      //========================== FIND ID AND PAGE INFORMATION
     let current = getURL();
@@ -90,7 +96,22 @@ function makeSite(data) {
                 return true; //Hvis en post har IDnavigation(67) så skal den tilføjes til arrayet. 
             }
         })
-        // navPosts.forEach()
+        let navigation = '<ul>',
+            navNumber = 0,
+            navID;
+        navPosts.forEach(post => {// Skal lave en <li> for hver element i natPosts, og give en class med et nummer som vi kan ramme senere.
+            navigation += '<li id="nav' + navNumber +'"></li>';
+            navNumber++;
+        })
+        navPosts.forEach(post => {
+            navID = post.id;
+            switch (navID) {
+                case 
+            }
+        })
+        
+
+        navigation += '</ul>';
 
         //=== Mobil/Tablet and Desktop Mediaqueries
         let mobil = window.matchMedia("(max-width: 480px)");
