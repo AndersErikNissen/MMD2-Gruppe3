@@ -88,6 +88,11 @@ a {
     border: none;
 }
 
+main {
+    grid-column: 1/13;
+    grid-row: 4/5;
+}
+
 
 
 
@@ -107,7 +112,7 @@ grid-row: 2/3;
     clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%)
 }
 
-main {
+#forside {
     grid-column: 1/13;
     grid-row: 3/4;
 }
@@ -169,6 +174,32 @@ main {
 }
 
 /* Om klubben */
+    /* betyrelsen */
+.bestyrelse{
+    padding: 1vw 7vw;
+}
+
+.bestyrelseListe {
+    padding: 1vw 7vw;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.bestyrelseBox{
+    display: block;
+    width: 42vw;
+    height: 15vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+}
+
+.kontakt {
+    height: 15vw;
+    display: block;
+}
+    
 
 
 
