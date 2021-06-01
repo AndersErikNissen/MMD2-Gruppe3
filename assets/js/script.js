@@ -52,12 +52,21 @@ xhttp.send();
 }
 
 function makeSite(data) {
-    console.log(data[0]);
+    console.log(data);
+    //========================== LISTE MED DATA
+    //== ID's
+    let postData = data.find(post => post.id == 1248);
+    // Rækkefølge på data: Category, Tag, (Post - Hvis nødvendig)
+    let IDforside = [postData.acf.id.categories.forside, postData.acf.id.tags.forside, postData.acf.posts.forside],
+        IDnavigation = postData.acf.id.categories.navigation;
     
+
+
+     //========================== FIND ID AND PAGE INFORMATION
     let current = getURL();
-    function getURL (URL) {
+    function getURL () {
         let id = 0;
-        const pageURL = window.location.pathname;
+        const pageURL = window.location.pathname; //Pathname bruges i stedet for href, fordi vi behøver ikke kigge i domænenavnet(På studie serveren ville det være https://mmd.ucn.dk/), alt efter er pathname f.eks. /class/mmda0920/
 
         if(pageURL.indexOf("pageId") != -1) {
             let split = pageURL.split("pageId=");
@@ -69,18 +78,62 @@ function makeSite(data) {
         let currentSite = data.find(site => site.id == current); // Kigger på current(Kunne være f.eks 0), og skal finde en post i vores data-set som matcher.
         return currentSite; // Den skal give den post som matcher tilbage til den som spurgte, her ville det være hvem end som brugte function findCurrent. Den vil så give hele JSON objektet som mathcer id'et.
     }
-
+    //========================== MAKE BLOCKS OF ELEMENTS FOR PRODUCT
     function makeTitle (current) {
         let split = current.title.rendered.split("Private: "),
             title = split[1];
-        document.title = title + " - SNV.dk"; // Titlen skal være den rette posts title minus Private: , så puttes foran af WordPress, men som vi ikke skal bruge.
+            document.title = title + " - SNV.dk"; // Titlen skal være den rette posts title minus Private: , så puttes foran af WordPress, men som vi ikke skal bruge.
     }
-    
+    function makeNavigation () {
+        let navPosts = data.filter(post => { //.Filter laver et array af elementer som matcher vores kriterier.
+            if (post.categories.indexOf(IDnavigation)) {
+                return true; //Hvis en post har IDnavigation(67) så skal den tilføjes til arrayet. 
+            }
+        })
+        // navPosts.forEach()
+
+        //=== Mobil/Tablet and Desktop Mediaqueries
+        let mobil = window.matchMedia("(max-width: 480px)");
+        if (mobil) {
+            console.log("mobil")
+        } 
+        if (mobil == false) {
+            console.log("not mobil")
+        }
+    }
+    makeNavigation();
+    function makeFooter () {
+
+    }
+    function makeLayout (current) {
+        //===== WHICH CASE TO USE TO DRAW CONTENT
+        let currentSite = findCurrent(current);
+        const currentTag = currentSite.tags[0]; //Vi tilføjer [0] fordi vi kigger i et array, som har et tal.
+        switch (currentTag) {
+            case IDforside[1]:
+                makeForside();
+                break;
+            case 41:
+                makeBegivenhed();
+                break;
+            case 42:
+                makeNyhed();
+                break;
+            default:
+                makeForside();
+        }
+        //===== EXTRA THINGS TO ADD
+        makeTitle(currentSite);
+        makeNavigation(currentSite);
+        makeFooter();
+    }
+     //========================== CREATE THE PRODUCT
     function createSite(current) {
         if (current == 0 || current == undefined) {// Skal bruges til at hvis pageId = 0 eller ikke defineret, så skal den lave Forsiden som vi definere.
-            const forside = data.find(search => search.id == 1236);
+            const forside = data.find(forside => forside.id == IDforside[2]);
             current = forside.id;
         }
+
         console.log(current);
 
     }
