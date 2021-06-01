@@ -44,15 +44,19 @@ a {
     color: #B12818;
 }
 
-#medlem {
+.button {
     background-color: #5684B8;
     border-radius: 2px;
     border: #5684B8 solid 12px;
-    margin-left: 4vw;
+    width: fit-content;
 }
 
-#medlem a {
+.button a {
     color: white;
+}
+
+#medlem {
+    margin-left: 4vw;
 }
 
 .heroLille {
@@ -198,6 +202,11 @@ grid-row: 2/3;
 .kontakt {
     height: 15vw;
     display: block;
+}
+
+    /* klub politik */
+.politik {
+    padding: 1vw 7vw;
 }
     
 
