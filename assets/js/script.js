@@ -60,6 +60,7 @@ function makeSite(data) {
     // Number() og map(Number) bruges til at lave et object og et array af "string-tal" om til tal som kan bruges i blandt andet vores switch-cases.
         IDforside = [postData.acf.id.categories.forside, postData.acf.id.tags.forside, postData.acf.posts.forside].map(Number), //ID'er fra categorier og tags som er relevant i henhold til Forsiden.
         IDnavigation = Number(postData.acf.id.categories.navigation), // Dette ID er til alle hjemmesider som skal kunne findes i den globale navigation.
+        // Rækkefølge: post.id, tags.
         IDomklubben = [postData.acf.id.categories.navigationlist[0], postData.acf.id.tags.omklubben].map(Number),
         IDafdelinger = [postData.acf.id.categories.navigationlist[1], postData.acf.id.tags.afdelinger].map(Number),
         IDbegivenheder = [postData.acf.id.categories.navigationlist[2], postData.acf.id.tags.begivenheder].map(Number),
@@ -172,14 +173,11 @@ function makeSite(data) {
     }
     //========================== ALLE TEMPLATES
     function makeForside (current) {
-        let allHTML, news, events, afdeling, sponsor;
+        let allHTML, news, events, afdeling, sponsor,
+            forside = data.find(post => post.id == IDforside[2]);
         const nyhedsList = data.filter(post => post.categories.includes(IDnyhedtemplate));
-        console.log("Nyhedsliste Elementer: ", nyhedsList);
-
         //== Skaber Nyhedsindlæg
-        let forside = data.find(post => post.id == IDforside[2]);
-        console.log("fasd", forside)
-        news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2>';
+        news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2><div id="newsPost>"';
         for (let i = 0; i < 3; i++) { //Kan bruge nyhedsList.length, men vi vil gerne kun have vidst 3 på forsiden så vi bruger i < 3, som giver os et loop på 3(Selvom en starter på 0). 
             let overskrift = nyhedsList[i].acf.overskrift,
                 tekst = nyhedsList[i].acf.brodtekst_box[0],
@@ -190,8 +188,29 @@ function makeSite(data) {
             }
             news += '<article class="newsBox"><h3>' + overskrift + '</h3><p>' + tekstSub + ' ...</p><a href="?pageId=' + nyhedsList[i].id + '">SE MERE</a></article>';
         }
-        news += '</section>';
+        news += '</div><a href="?pageId=' + IDnyheder[0] + '">SE NYHEDSOVERSIGT</a></section>';
+        //== Skaber Events
+        events += '<section id="events"><h2>' + forside.acf.overskrifter[2] + '</h2><div id="eventPosts">'
         
+        let eventList = data.filter(post => post.categories.includes(66));
+        console.log("Eventlist: ", eventList);
+        let list = eventList.sort((first, second) => {
+            let date_1 = first.acf.dato[0],
+                date_2 = second.acf.dato[0];
+            
+            
+                // if (date_1 < date_2) {
+            //     return -1;
+            // }
+            //  if (date_1 == date_2) {
+            //     return 0;
+            // } 
+            // if (date_1 > date_2) {
+            //     return 1;
+            // }
+        });
+        console.log("List = ", list)
+
         allHTML = news;
         createHTML("main", allHTML)
     }
