@@ -55,10 +55,19 @@ function makeSite(data) {
     console.log(data);
     //========================== LISTE MED DATA OG UNIVERSALE FUNCTIONER
     //== ID's
-    let postData = data.find(post => post.id == 1248), // Er den bestemte post(id) som indeholder general data til produktet. 
+    const postData = data.find(post => post.id == 1248), // Er den bestemte post(id) som indeholder general data til produktet. 
     // Rækkefølge på data: Category, Tag, (Post - Hvis nødvendig)
-        IDforside = [postData.acf.id.categories.forside, postData.acf.id.tags.forside, postData.acf.posts.forside], //ID'er fra categorier og tags som er relevant i henhold til Forsiden.
-        IDnavigation = postData.acf.id.categories.navigation; // Dette ID er til alle hjemmesider som skal kunne findes i den globale navigation.
+    // Number() og map(Number) bruges til at lave et object og et array af "string-tal" om til tal som kan bruges i blandt andet vores switch-cases.
+        IDforside = [postData.acf.id.categories.forside, postData.acf.id.tags.forside, postData.acf.posts.forside].map(Number), //ID'er fra categorier og tags som er relevant i henhold til Forsiden.
+        IDnavigation = Number(postData.acf.id.categories.navigation), // Dette ID er til alle hjemmesider som skal kunne findes i den globale navigation.
+        IDomklubben = [postData.acf.id.categories.navigationlist[0], postData.acf.id.tags.omklubben].map(Number),
+        IDafdelinger = [postData.acf.id.categories.navigationlist[1], postData.acf.id.tags.afdelinger].map(Number),
+        IDbegivenheder = [postData.acf.id.categories.navigationlist[2], postData.acf.id.tags.begivenheder].map(Number),
+        IDnyheder = [postData.acf.id.categories.navigationlist[3], postData.acf.id.tags.nyheder].map(Number),
+        IDblivmedlem = [postData.acf.id.categories.navigationlist[4], postData.acf.id.tags.blivmedlem].map(Number),
+        
+        logo = postData.acf.billeder[0];
+    
         //== FUNKTIONER
     function createHTML (placement, element) { // Skal tilføje indhold til et sted i DOM'en, men skulle det "område/element" have indhold vil det blive erstattet.
         document.querySelector(placement).innerHTML = element;
@@ -68,22 +77,25 @@ function makeSite(data) {
     }
 
      //========================== FIND ID AND PAGE INFORMATION
-    let current = getURL();
+    let currentID = getURL();
     function getURL () {
         let id = 0;
-        const pageURL = window.location.pathname; //Pathname bruges i stedet for href, fordi vi behøver ikke kigge i domænenavnet(På studie serveren ville det være https://mmd.ucn.dk/), alt efter er pathname f.eks. /class/mmda0920/
-
-        if(pageURL.indexOf("pageId") != -1) {
+        const pageURL = window.location.href; //Pathname kigger op indtil ?pageId=, til gengæld virker .href (På studie serveren ville det være https://mmd.ucn.dk/) og .search fint.
+        console.log(pageURL)
+        
+        if(pageURL.indexOf("pageId") != -1) { // Hvis pageURL indeholder pageId, og -1 ikke er true, så skal if sætningen bruges. 
             let split = pageURL.split("pageId=");
             id = split[1];
         }
+        console.log("Det her er pageID = ", id)
+    
         return id;
     }
     function findCurrent (current) {
         let currentSite = data.find(site => site.id == current); // Kigger på current(Kunne være f.eks 0), og skal finde en post i vores data-set som matcher.
         return currentSite; // Den skal give den post som matcher tilbage til den som spurgte, her ville det være hvem end som brugte function findCurrent. Den vil så give hele JSON objektet som mathcer id'et.
     }
-    //========================== MAKE BLOCKS OF ELEMENTS FOR PRODUCT
+    //========================== MAKE ADDONS
     function makeTitle (current) {
         let split = current.title.rendered.split("Private: "),
             title = split[1];
@@ -104,59 +116,105 @@ function makeSite(data) {
                 currentPage = 'class="currentPage"';
             }
             //== Skaber HTML elementer med information fra hver Post som matcher ID'et.
-            navigation += '<li id="nav-' + siteTitle +'" ' + currentPage +'><a href="?pageId="' + site.id +'">' + siteTitle +'</a></li>';
+            navigation += '<li id="nav-' + siteTitle +'" ' + currentPage +'><a href="?pageId=' + site.id +'">' + siteTitle +'</a></li>';
         })
         navigation += '</ul>';
 
         //== Mobil/Tablet and Desktop Mediaqueries
         // - Mobil og Tablet, bruges til at kigge hvilke elementer som skal skabes/ikke skabes. F.eks. til en HamburgerMenu. 
-        let mobil = window.matchMedia("(max-width: 480px)"),
+        let mobil = window.matchMedia("(min-width: 320px) and (max-width: 480px)"),
             tablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)");
         if (mobil.matches || tablet.matches) { //Matches går ind og kigger på vores MediaQueryString og ser om den "matcher", altså om den er rigtig i forhold til window.innerWidth.
             allNav += '<div id="burgerBtnContainer"><div class="burger"></div><div class="burger"></div><div class="burger"></div></div>' // Skaber HamburgerMenu
-            allNav += '<section id="curtainContainer"><article id="curtain">' + navigation + '</article></section></nav>'; // Skaber Curtain som indeholder hele den Globale Navigation
-            
+            allNav += '<section id="curtainContainer"><article id="curtain">' + navigation + '</article></section>'; // Skaber Curtain som indeholder hele den Globale Navigation
+            allNav += '<div><a href=?pageId="' + IDforside[2] + '"><img src="' + logo +'" alt=""></a></div></nav>';
             
             if (mobil.matches) {
-                console.log("mobil")
+                console.log("Layout: Mobile Version")
             }
             if (tablet.matches) {
-                console.log("tablet")
+                console.log("Layout: Tablet Version")
             }
         } 
         if (!mobil.matches && !tablet.matches) {
-            console.log("not mobil")
-            allNav += navigation;
-            allNav += '</nav>';
+            console.log("Layout: Desktop Version")
+            allNav += '<div><a href="?pageId=' + IDforside[2] + '"><img src="' + logo +'" alt=""></a></div>';
+            allNav += navigation + '</nav>';
         }
-        console.log(allNav)
-        createHTML("body", allNav);
+        createHTML("header", allNav);
     }
-    makeNavigation();
     function makeFooter () {
+        let address = '<address><h2>KONTAKT</h2></address>',
+        footerNav = '<nav><ul>',
+        navigationlist = postData.acf.id.categories.navigationlist,
+        //== Finder data omkring Forsiden.
+        forside = data.find(post => post.id == IDforside[2]), //Leder alle vores posts(som matcher SNV.dk ID'et) som kan findes i vores liste af ID'er. Vi kunne også have kigget efter posts som matcher vores SNV.dk - Navigation ID, men vi har mest kontrol på denne måde.
+        forsideTitleSplit = forside.title.rendered.split("Private: "),
+        forsideTitle = forsideTitleSplit[1];
+        
+        //== Skaber Forside + Nav-List 
+        footerNav += '<li><a href="?pageId=' + IDforside[2] + '">' + forsideTitle + '</a></li>';
+        navigationlist.forEach(navID => {
+            let site = data.find(post => post.id == navID),
+            siteTitleSplit = site.title.rendered.split("Private: "),
+            siteTitle = siteTitleSplit[1],
+            currentPage = "";
+            //== Skaber HTML elementer med information fra hver Post som matcher ID'et.
+            footerNav += '<li id="nav-' + siteTitle +'" ' + currentPage + '><a href="?pageId=' + site.id +'">' + siteTitle +'</a></li>';
+        })
+        footerNav += '</ul></nav>'
 
+        let footer = address + footerNav;
+        createHTML("footer", footer);
     }
+    //========================== ALLE TEMPLATES
+    function makeForside (current) {
+        createHTML("main", '<h1>YAAAAA</h1>')
+    }
+    function makeOmklubben (current) {
+        console.log("OmKlubben Template")
+    }
+    function makeAfdelinger (current) {
+        console.log("Afdelinger Template")
+    }
+
     function makeLayout (current) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
         const currentTag = currentSite.tags[0]; //Vi tilføjer [0] fordi vi kigger i et array, som har et tal.
+        makeTitle(currentSite);
+
         switch (currentTag) {
             case IDforside[1]:
-                makeForside();
-                break;
+                    makeForside(currentSite);
+                    break;
+            case IDomklubben[1]:
+                    makeOmklubben(currentSite);
+                    break;
+            case IDafdelinger[1]:
+                    makeAfdelinger(currentSite);
+                    break;
+            case IDbegivenheder[1]:
+                    makeBegivenheder(currentSite);
+                    break;
+            case IDnyheder[1]:
+                    makeNyheder(currentSite);
+                    break;
+            case IDblivmedlem[1]:
+                    makeBlivmedlem(currentSite);
+                    break;
+
+
             case 41:
-                makeBegivenhed();
-                break;
+                    makeBegivenhed(currentSite);
+                    break;
             case 42:
-                makeNyhed();
-                break;
-            default:
-                makeForside();
+                    makeNyhed(currentSite);
+                    break;
+            default: //F.eks hvis den ikke kan finde et tag, så bruger den default
+                    makeForside(currentSite);
+                    console.log("USING Template: Default")
         }
-        //===== EXTRA THINGS TO ADD
-        makeTitle(currentSite);
-        makeNavigation(currentSite);
-        makeFooter();
     }
      //========================== CREATE THE PRODUCT
     function createSite(current) {
@@ -165,16 +223,12 @@ function makeSite(data) {
             current = forside.id;
         }
 
+        makeNavigation(current);
         makeLayout(current);
-        console.log(current);
+        makeFooter();
+
 
     }
-    createSite(current);
-
-    console.log("fisk",current);
-    //Lave matchID og FindpageID sammen med drawSite??
-    //findpagebyIDinURL - split at = to begin with?? only need the pageId number??
+    createSite(currentID);
 }
 
-//======================== TO DO
-//ændre i URL så den har den rette kategori( SNV.dk = 43 )
