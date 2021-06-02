@@ -65,8 +65,14 @@ function makeSite(data) {
         IDbegivenheder = [postData.acf.id.categories.navigationlist[2], postData.acf.id.tags.begivenheder].map(Number),
         IDnyheder = [postData.acf.id.categories.navigationlist[3], postData.acf.id.tags.nyheder].map(Number),
         IDblivmedlem = [postData.acf.id.categories.navigationlist[4], postData.acf.id.tags.blivmedlem].map(Number),
+
+        IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
+        logo = postData.acf.billeder[0],
+
+        // - Mobil og Tablet, bruges til at kigge hvilke elementer som skal skabes/ikke skabes. F.eks. til en HamburgerMenu. 
+        mobil = window.matchMedia("(min-width: 320px) and (max-width: 480px)"),
+        tablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)");
         
-        logo = postData.acf.billeder[0];
     
         //== FUNKTIONER
     function createHTML (placement, element) { // Skal tilføje indhold til et sted i DOM'en, men skulle det "område/element" have indhold vil det blive erstattet.
@@ -121,9 +127,6 @@ function makeSite(data) {
         navigation += '</ul>';
 
         //== Mobil/Tablet and Desktop Mediaqueries
-        // - Mobil og Tablet, bruges til at kigge hvilke elementer som skal skabes/ikke skabes. F.eks. til en HamburgerMenu. 
-        let mobil = window.matchMedia("(min-width: 320px) and (max-width: 480px)"),
-            tablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)");
         if (mobil.matches || tablet.matches) { //Matches går ind og kigger på vores MediaQueryString og ser om den "matcher", altså om den er rigtig i forhold til window.innerWidth.
             allNav += '<div id="burgerBtnContainer"><div class="burger"></div><div class="burger"></div><div class="burger"></div></div>' // Skaber HamburgerMenu
             allNav += '<section id="curtainContainer"><article id="curtain">' + navigation + '</article></section>'; // Skaber Curtain som indeholder hele den Globale Navigation
@@ -169,7 +172,28 @@ function makeSite(data) {
     }
     //========================== ALLE TEMPLATES
     function makeForside (current) {
-        createHTML("main", '<h1>YAAAAA</h1>')
+        let allHTML, news, events, afdeling, sponsor;
+        const nyhedsList = data.filter(post => post.categories.includes(IDnyhedtemplate));
+        console.log("Nyhedsliste Elementer: ", nyhedsList);
+
+        //== Skaber Nyhedsindlæg
+        let forside = data.find(post => post.id == IDforside[2]);
+        console.log("fasd", forside)
+        news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2>';
+        for (let i = 0; i < 3; i++) { //Kan bruge nyhedsList.length, men vi vil gerne kun have vidst 3 på forsiden så vi bruger i < 3, som giver os et loop på 3(Selvom en starter på 0). 
+            let overskrift = nyhedsList[i].acf.overskrift,
+                tekst = nyhedsList[i].acf.brodtekst_box[0],
+                tekstSub;
+            //== Bestemmer mængden af tekst som bliver fremvist  
+            for (let i = 0; i < 150; i++) { // Inspiration fra https://stackoverflow.com/questions/36770446/javascript-loop-adding-a-letter-every-time
+                tekstSub = tekst.substring(0, i + 1); //Substring vælger dele fra en string, her siger vi at den skal starte på 0, og for hver loop bliver tallet som den skal stoppe ved højere(+1). Det betyder at i for-loopet kan vi bestemme hvor mange tegn skal vises.
+            }
+            news += '<article class="newsBox"><h3>' + overskrift + '</h3><p>' + tekstSub + ' ...</p><a href="?pageId=' + nyhedsList[i].id + '">SE MERE</a></article>';
+        }
+        news += '</section>';
+        
+        allHTML = news;
+        createHTML("main", allHTML)
     }
     function makeOmklubben (current) {
         console.log("OmKlubben Template")
@@ -203,7 +227,6 @@ function makeSite(data) {
             case IDblivmedlem[1]:
                     makeBlivmedlem(currentSite);
                     break;
-
 
             case 41:
                     makeBegivenhed(currentSite);
