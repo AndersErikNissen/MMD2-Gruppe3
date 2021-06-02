@@ -14,55 +14,107 @@
     <a href="/test1.html">test</a>
 
     <header></header>
+    
+    <section class="hero">
+        <h1></h1>
+        <p></p>
+        <img src="" alt="">
+        <div class="textBoxHero"></div><!--Ved ikke om det bare det blå overlay?-->
+    </section>
+
     <main></main>
     <footer></footer>
 
 
-    <section class="hero">
-        <div class="textBoxHero"></div>
-    </section>
 
-    <main id="forside">
-        <section class="news">
-            <h2>Nyheder</h2>
+
+    <main> <!--Ikke nødvendigt (id="forside"), bruger ID på body-->
+        <section id="news">
+            <h2></h2>
             <div class="newsPosts">
-                <div class="newsBox"></div>
-                <div class="newsBox"></div>
-                <div class="newsBox"></div>
+                <article class="newsBox">
+                    <h3></h3>
+                    <p></p>
+                    <a href=""></a>
+                </article>
+                <article class="newsBox">
+                    <h3></h3>
+                    <p></p>
+                    <a href=""></a>
+                </article>
+                <article class="newsBox">
+                    <h3></h3>
+                    <p></p>
+                    <a href=""></a>
+                </article>                
             </div>
+
+            <a href=""></a> <!-- Skal lede brugeren videre til (Nyheder), brug på en lille div? flex > reverse for at placere til sidst? (Float Right?)-->
         </section>
 
-        <section class="events">
-            <h2>Begivenheder</h2>
+        <section id="events">
+            <h2></h2>
             <div class="eventPost">
-                <div class="eventBox"></div>
-                <div class="eventBox"></div>
+                <article class="eventBox">
+                    <h3></h3>
+                    <h4></h4>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <a href=""></a>
+                </article>              
+                <article class="eventBox">
+                    <h3></h3>
+                    <h4></h4>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <a href=""></a>
+                </article>              
             </div>
+
+            <a href=""></a> <!--Bruges til at vise brugeren videre til (Begivenheder)-->
         </section>
 
         <section class="afdeling">
-            <h2>Afdelinger</h2>
+            <h2></h2>
             
-            <div class="afdelingFlex">
-                <div class="afdelingBox">
-                    <div class="textAfdeling"></div>
-                </div>
+            <div id="afdelingFlex">
                 <article class="afdelingBox">
+                    <div class="afdelingOverlay"></div>
+                    <h3></h3>
                     <p></p>
+                    <a href=""></a>
+                    <img src="" alt="">
                 </article>
-                <div class="afdelingBox">
-                    <div class="textAfdeling"></div>
-                </div>
-                <div class="afdelingBox">
-                    <div class="textAfdeling"></div>
-                </div>
-                <div class="afdelingBox">
-                    <div class="textAfdeling"></div>
-                </div>
+                <article class="afdelingBox">
+                    <div class="afdelingOverlay"></div>
+                    <h3></h3>
+                    <p></p>
+                    <a href=""></a>
+                    <img src="" alt="">
+                </article>
+                <article class="afdelingBox">
+                    <div class="afdelingOverlay"></div>
+                    <h3></h3>
+                    <p></p>
+                    <a href=""></a>
+                    <img src="" alt="">
+                </article>
+                <article class="afdelingBox">
+                    <div class="afdelingOverlay"></div>
+                    <h3></h3>
+                    <p></p>
+                    <a href=""></a>
+                    <img src="" alt="">
+                </article>
             </div>
         </section>
 
-        <section class="sponsor">
+        <section id="sponsorContainer">
+            <!-- List at billeder .childNode > appendChild, som skal animeres     -->
         </section>
     </main>
 </body>
