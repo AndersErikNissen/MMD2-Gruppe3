@@ -141,7 +141,7 @@ main {
 .news {
     width: 100%;
     height: auto;
-    padding: 7vw;
+    padding: 1vw 7vw;
 }
 
 .newsPosts, .eventPost, .afdelingFlex {
@@ -240,6 +240,7 @@ main {
 }
 
 .contentBox {
+    display: block;
     width: 86vw;
     height: fit-content;
     margin: -1px 0;
@@ -247,6 +248,7 @@ main {
 }
 
 .foldUd {
+    display: block;
     background-color: white;
     border-left: 9px solid #B12818;
     height: 6vw;
@@ -297,4 +299,14 @@ main {
     margin-bottom: 2vw;
     border-left: 9px solid #B12818;
     padding: 1vw;
+}
+
+/* Afdelinger */
+.afdeling p {
+    margin-bottom: 5vw;
+}
+
+/* nyheder */
+.margin{
+    margin-bottom: 2vw;
 }
