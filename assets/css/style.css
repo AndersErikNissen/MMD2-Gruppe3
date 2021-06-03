@@ -245,3 +245,24 @@ main {
     width: 30vw;
     height: 20vw;
 }
+
+.aeresmedlem {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1vw 7vw;
+}
+
+.aeresmedlemBox {
+    width: 20vw;
+    margin-bottom: 2vw;
+}
+
+.aeresmedlemBox h3 {
+    border-left: 9px solid #B12818;
+    padding: 1vw;
+}
+.aeresmedlemBox p {
+    padding: 0 1vw;
+    border-left: 9px solid white;
+}
