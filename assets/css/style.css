@@ -92,7 +92,7 @@ a {
     border: none;
 }
 
-.intro {
+.padding {
     padding: 1vw 7vw;
 }
 
@@ -179,7 +179,6 @@ main {
 /* betyrelsen */
 
 .bestyrelseListe {
-    padding: 1vw 7vw;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -198,12 +197,13 @@ main {
     display: block;
 }
 
+
+
 /* klub politik */
 
 /* klubblad */
 .bladListe {
     display: block;
-    padding: 1vw 7vw;
 }
 
 .bladBox {
@@ -250,19 +250,11 @@ main {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 1vw 7vw;
 }
 
 .aeresmedlemBox {
     width: 20vw;
     margin-bottom: 2vw;
-}
-
-.aeresmedlemBox h3 {
     border-left: 9px solid #B12818;
     padding: 1vw;
-}
-.aeresmedlemBox p {
-    padding: 0 1vw;
-    border-left: 9px solid white;
 }
