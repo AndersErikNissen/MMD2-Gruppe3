@@ -67,7 +67,15 @@ function makeSite(data) {
         IDnyheder = [postData.acf.id.categories.navigationlist[3], postData.acf.id.tags.nyheder].map(Number),
         IDblivmedlem = [postData.acf.id.categories.navigationlist[4], postData.acf.id.tags.blivmedlem].map(Number),
 
-        //Afdelinger Data
+        //Banner Data
+        IDbannerOmklubben = postData.acf.bannerdata[0],
+        IDbannerAfdelinger = postData.acf.bannerdata[1],
+        IDbannerUngdom = postData.acf.bannerdata[2],
+        IDbannerSejlerskolen = postData.acf.bannerdata[3],
+        IDbannerBlivmedlem = postData.acf.bannerdata[4],
+        IDbannerBegivenhed = postData.acf.bannerdata[5],
+        IDbannerNyheder = postData.acf.bannerdata[6],
+
 
         IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
         logo = postData.acf.billeder[0],
@@ -76,7 +84,7 @@ function makeSite(data) {
         mobil = window.matchMedia("(min-width: 320px) and (max-width: 480px)"),
         tablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)");
         
-    
+        console.log("data", postData)
         //== FUNKTIONER
     function createHTML (placement, element) { // Skal tilføje indhold til et sted i DOM'en, men skulle det "område/element" have indhold vil det blive erstattet.
         document.querySelector(placement).innerHTML = element;
@@ -278,7 +286,19 @@ function makeSite(data) {
             events += '<article class="eventBox"><h3>' + day + '. <span class="spanTable">' + month + '</span></h3><h4>' + title + '</h4><ul><li>Dato: ' + dato[0] + ' - ' + dato[1] + '</li><li>Tid: ' + tid[0] + ' - ' + tid[1] + '</li></ul><a href="?pageId=' + sortedList[i].id + '">SE MERE</a></article>'
         }
         events += '</div><a href="?pageId=' + IDbegivenheder[0] + '">SE FLERE</a></section>'
-        console.log("Split", events)
+        //== Skaber Afdelinger
+        let underafdeling_KapJ70 = [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
+            underafdeling_UngSejl = [IDbannerUngdom, IDbannerSejlerskolen],
+            underafdeling = '<div id="afdelingFlex">';
+
+        underafdeling_UngSejl.forEach(item => {
+            underafdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href="?pageId=' +  + '"><img src="' + item[2] + '" alt=""></article>';
+        })
+        underafdeling_KapJ70.forEach(item => {
+            underafdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href=""><img src="' + item[2] + '" alt=""></article>';
+        })
+        underafdeling += '</div>';
+        console.log("Afdeling", underafdeling)
 
         allHTML = hero + news + events;
         createHTML("main", allHTML)
