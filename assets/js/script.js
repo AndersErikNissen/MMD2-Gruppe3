@@ -175,11 +175,25 @@ function makeSite(data) {
     }
     //========================== ALLE TEMPLATES
     function makeForside (current) {
-        let allHTML, news, events, afdeling, sponsor,
+        let allHTML, hero = "", news = "", events = "", afdeling = "", sponsor = "",
             forside = data.find(post => post.id == IDforside[2]);
         const nyhedsList = data.filter(post => post.categories.includes(IDnyhedtemplate));
+        
+        //== Skaber Hero Banner
+        let forsideh1 = forside.acf.overskrifter[0],
+            forsideTekst = forside.acf.brodtekst,
+            forsideImgs = forside.acf.hero,
+            heroUl = '<ul>',
+            nr = 1;
+
+            forsideImgs.forEach(img => {
+                heroUl += '<li><img id="hero' + nr + '" src="' + img + '" alt="Hero' + nr + '"></li>'
+                nr++; // Bruges til at give et nummer til hver billede(Id og alt tekst)
+            })
+            hero += '<section id="heroSlideShow"><h1>' + forsideh1 + '</h1><p>' + forsideTekst + '</p>' + heroUl + '<div id="heroSlideShowCover"></div></section>'
+        
         //== Skaber Nyhedsindlæg
-        news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2><div id="newsPost>"';
+        news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2><div id="newsPost">';
         for (let i = 0; i < 3; i++) { //Kan bruge nyhedsList.length, men vi vil gerne kun have vidst 3 på forsiden så vi bruger i < 3, som giver os et loop på 3(Selvom en starter på 0). 
             let overskrift = nyhedsList[i].acf.overskrift,
                 tekst = nyhedsList[i].acf.brodtekst_box[0],
@@ -261,12 +275,12 @@ function makeSite(data) {
                     month = "DEC"
                     break;
             }
-            events += '<article class="eventBox"><h3>' + day + '. <span class="spanTable">' + month + '</span></h3><h4>' + title + '</h4><ul><li>Dato: ' + dato[0] + ' - ' + dato[1] + '</li><li>Tid: ' + tid[0] + ' - ' + tid[1] + '</li></ul><a href="?pageId=' + sortedList[i].id + '">SE MERE</a>'
+            events += '<article class="eventBox"><h3>' + day + '. <span class="spanTable">' + month + '</span></h3><h4>' + title + '</h4><ul><li>Dato: ' + dato[0] + ' - ' + dato[1] + '</li><li>Tid: ' + tid[0] + ' - ' + tid[1] + '</li></ul><a href="?pageId=' + sortedList[i].id + '">SE MERE</a></article>'
         }
         events += '</div><a href="?pageId=' + IDbegivenheder[0] + '">SE FLERE</a></section>'
         console.log("Split", events)
 
-        allHTML = news + events;
+        allHTML = hero + news + events;
         createHTML("main", allHTML)
     }
     function makeOmklubben (current) {

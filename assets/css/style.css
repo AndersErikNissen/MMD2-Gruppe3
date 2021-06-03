@@ -3,8 +3,6 @@ UCN MMDA0920 */
 
 @charset "uft-8";
 * {box-sizing: border-box;}
-
-
 :root {
     /* Farver */
     --color-red: #B22918;
@@ -14,7 +12,22 @@ UCN MMDA0920 */
     --color-lightblue-box: #B2CEDE;
     --color-white: #E3E3E3;
 }
+
+li {
+    list-style: none;
+}
 /* Skrifter til næste linje, bruges i stedet for /br. Bruger span i stedet. Inspiration fra: https://css-tricks.com/injecting-line-break/*/
 .spanTable {
     display: table;
+}
+#heroSlideShow img {
+    width: 50px;
+    height: auto;
+}
+#heroSlideShow li {
+    display: inline-block;
+}
+header img {
+    height: 150px;
+    width: auto;
 }
