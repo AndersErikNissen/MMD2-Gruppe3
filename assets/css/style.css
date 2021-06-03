@@ -6,6 +6,15 @@ UCN MMDA0920 */
 
 
 :root {
-    
+    /* Farver */
+    --color-red: #B22918;
+    --color-darkblue: #1C3E56;
+    --color-blue-btn: #5684B8;
+    --color-darkblue-box: #648DAA;
+    --color-lightblue-box: #B2CEDE;
+    --color-white: #E3E3E3;
 }
-
+/* Skrifter til næste linje, bruges i stedet for /br. Bruger span i stedet. Inspiration fra: https://css-tricks.com/injecting-line-break/*/
+.spanTable {
+    display: table;
+}
