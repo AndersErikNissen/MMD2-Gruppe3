@@ -101,6 +101,23 @@ main {
     grid-row: 4/5;
 }
 
+.dokumentBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35vw;
+    height: 4vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+    border-right: solid 1px black;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
+
+.dokumentBox p {
+    margin: 1vw;
+}
+
 /* Forside */
 
 .hero {
@@ -197,8 +214,46 @@ main {
     display: block;
 }
 
+.infoBox {
+    width: 86vw;
+    height: 15vw;
+    margin: 0;
+    background-color: #E3E3E3;
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6vw;
+    
+}
 
+.skraaBox {
+    display: block;
+    width: 20vw;
+    height: 15vw;
+    padding: 5vw 3vw;
+    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
+}
+
+.lysblaa {
+    background-color:  #B2CEDE;
+}
+
+.contentBox {
+    width: 86vw;
+    height: fit-content;
+    margin: -1px 0;
+    padding: 3vw;
+}
+
+.foldUd {
+    background-color: white;
+    border-left: 9px solid #B12818;
+    height: 6vw;
+    padding: 1vw;
+    margin-bottom: 2vw;
+
+}
 /* klub politik */
 
 /* klubblad */
@@ -206,22 +261,7 @@ main {
     display: block;
 }
 
-.bladBox {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 35vw;
-    height: 4vw;
-    margin-bottom: 2vw;
-    border-left: 9px solid #B12818;
-    border-right: solid 1px black;
-    border-top: solid 1px black;
-    border-bottom: solid 1px black;
-}
 
-.bladBox p {
-    margin: 1vw;
-}
 
 /* Historie */
 .historie {
