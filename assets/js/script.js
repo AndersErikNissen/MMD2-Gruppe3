@@ -67,6 +67,8 @@ function makeSite(data) {
         IDnyheder = [postData.acf.id.categories.navigationlist[3], postData.acf.id.tags.nyheder].map(Number),
         IDblivmedlem = [postData.acf.id.categories.navigationlist[4], postData.acf.id.tags.blivmedlem].map(Number),
 
+        //Afdelinger Data
+
         IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
         logo = postData.acf.billeder[0],
 
@@ -190,28 +192,81 @@ function makeSite(data) {
         }
         news += '</div><a href="?pageId=' + IDnyheder[0] + '">SE NYHEDSOVERSIGT</a></section>';
         //== Skaber Events
-        events += '<section id="events"><h2>' + forside.acf.overskrifter[2] + '</h2><div id="eventPosts">'
-        
-        let eventList = data.filter(post => post.categories.includes(66));
-        console.log("Eventlist: ", eventList);
-        let list = eventList.sort((first, second) => {
+        events += '<section id="events"><h2>' + forside.acf.overskrifter[2] + '</h2><div id="eventPosts">';
+        //== Sortering og HTML til hvert "card/kort"
+        let eventList = data.filter(post => post.categories.includes(66)),
+            sortedList = eventList.sort((first, second) => {// .sort sammenligner values, men den skal arbejde med de datoer vi har vi vores ACF.
             let date_1 = first.acf.dato[0],
                 date_2 = second.acf.dato[0];
             
-            
-                // if (date_1 < date_2) {
-            //     return -1;
-            // }
-            //  if (date_1 == date_2) {
-            //     return 0;
-            // } 
-            // if (date_1 > date_2) {
-            //     return 1;
-            // }
+            //== Inspiret af https://stackoverflow.com/questions/7513040/how-to-sort-objects-by-date-ascending-order/21244139
+            //== Kigger på hvilken af datoerne som er størst/mindst, og giver dem der efter en value.
+            if (date_1 < date_2) { //== Hvis first er mindre end second, så er den "false"
+                return -1;
+            }
+             if (date_1 == date_2) { //== Hvis first er lige med second, så er den "equal/neutral"
+                return 0;
+            } 
+            if (date_1 > date_2) { //== Hvis first er større end second, så er den "true/postive"
+                return 1;
+            }
         });
-        console.log("List = ", list)
+        for (let i = 0; i < 2; i++) {
+            //== Lav måned om til bogstaver fra tal.
+            let splitDate = sortedList[i].acf.dato[0].split("/"), // Spliter ved begge /
+                splitTid1 = sortedList[i].acf.tid[0].split(":"),
+                splitTid2 = sortedList[i].acf.tid[1].split(":"),
+                month = Number(splitDate[1]), // Skal bruge talende i midten 00/00(Dem her)/00. Plus vi skal bruge Number så det ikke bare er en string med et "Tal".
+                day = splitDate[0],
+                title = sortedList[i].acf.overskrift,
+                dato = [sortedList[i].acf.dato[0], sortedList[i].acf.dato[1]],
+                tid = [splitTid1[0] + ':' + splitTid1[1], splitTid2[0] + ':' + splitTid2[1]], //Vi har ikke brug for de sidste 2 decimaler.
+                sted = sortedList[i].acf.sted;
+            //== Switchen: Skal skrive forkortelsen for måneden i stedet for tallet.
+            switch (month) {
+                case 01:
+                    month = "JAN"
+                    break;
+                case 02:
+                    month = "FEB"
+                    break;
+                case 03:
+                    month = "MAR"
+                    break;
+                case 04:
+                    month = "APR"
+                    break;
+                case 05:
+                    month = "MAJ"
+                    break;
+                case 06:
+                    month = "JUN"
+                    break;
+                case 07:
+                    month = "JUL"
+                    break;
+                case 08:
+                    month = "AUG"
+                    break;
+                case 09:
+                    month = "SEP"
+                    break;
+                case 10:
+                    month = "OKT"
+                    break;
+                case 11:
+                    month = "NOV"
+                    break;
+                case 12:
+                    month = "DEC"
+                    break;
+            }
+            events += '<article class="eventBox"><h3>' + day + '. <span class="spanTable">' + month + '</span></h3><h4>' + title + '</h4><ul><li>Dato: ' + dato[0] + ' - ' + dato[1] + '</li><li>Tid: ' + tid[0] + ' - ' + tid[1] + '</li></ul><a href="?pageId=' + sortedList[i].id + '">SE MERE</a>'
+        }
+        events += '</div><a href="?pageId=' + IDbegivenheder[0] + '">SE FLERE</a></section>'
+        console.log("Split", events)
 
-        allHTML = news;
+        allHTML = news + events;
         createHTML("main", allHTML)
     }
     function makeOmklubben (current) {
