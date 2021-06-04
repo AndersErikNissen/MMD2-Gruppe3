@@ -231,9 +231,7 @@ function makeSite(data) {
             }
         })
         sponsor += '</ul></section>';
-        console.log("Sponsor Block", sponsor)
         addToHTML("main", sponsor);
-
     }
     function makeFooter () {
         let address = '<address><h2>KONTAKT</h2></address>',
@@ -335,9 +333,27 @@ function makeSite(data) {
         createHTML("main", allHTML)
     }
     function makeOmklubben (current) {
-        let omklubben = '<'
+        let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til ' + IDbannerOmklubben[0] + '">',
+            navListe = IDbannerOmklubben[3],
+            liListe = document.querySelectorAll(".underNav");
+        omklubben += '<ul id="underNav">';
+        //== Laver liste over alle underNavigations Elementer, og tilføjer en function som skal placere en aktiv class på et element af gangen.
+        // for (let i = 0; i < navListe.length; i++) {
+        //     liListe += '<li>' + navListe[i] + '</li>'
+        // }
+        navListe.forEach(list => {
+            let li = '<li class="underNav">' + list + '</li>';
+            omklubben += li;
+        })
+        omklubben += '</ul></header>'
 
-
+        createHTML("main", omklubben)
+        liListe.forEach(li => {
+            li.addEventListener("click", () => {
+                li.classList.add("active")
+            })
+        })
+        console.log("OmKlubben", omklubben)
         console.log("OmKlubben Template")
     }
     function makeAfdelinger (current) {
