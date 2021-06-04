@@ -31,3 +31,9 @@ header img {
     height: 150px;
     width: auto;
 }
+a {
+    color: black;
+}
+.currentPage a {
+    color: var(--color-red);
+}
