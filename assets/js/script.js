@@ -335,27 +335,71 @@ function makeSite(data) {
     function makeOmklubben (current) {
         let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til ' + IDbannerOmklubben[0] + '">',
             navListe = IDbannerOmklubben[3],
-            liListe = document.querySelectorAll(".underNav");
-        omklubben += '<ul id="underNav">';
-        //== Laver liste over alle underNavigations Elementer, og tilføjer en function som skal placere en aktiv class på et element af gangen.
-        // for (let i = 0; i < navListe.length; i++) {
-        //     liListe += '<li>' + navListe[i] + '</li>'
-        // }
-        navListe.forEach(list => {
-            let li = '<li class="underNav">' + list + '</li>';
-            omklubben += li;
-        })
-        omklubben += '</ul></header>'
+            nrID = 1;
 
         createHTML("main", omklubben)
-        liListe.forEach(li => {
-            li.addEventListener("click", () => {
-                li.classList.add("active")
+
+        function addAndRemove (li) {
+            li.addEventListener("click", function() {
+                let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
+                    ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
+                li.classList.add("selected") // Tilføjer Active til den som er blevet klikket
             })
-        })
+        }
+        let nr = 0,
+            underUl = document.createElement("ul");
+            underUl.id = "ulUnderNav";
+        for (let i = 0; i < 5; i++) {
+            let idName;
+            switch (nrID) {
+                case 1:
+                    idName = "one"
+                    break;
+                case 2:
+                    idName = "two"
+                    break;
+                case 3:
+                    idName = "three"
+                    break;
+                case 4:
+                    idName = "four"
+                    break;
+                case 5:
+                    idName = "five"
+                    break;
+            }
+            let li = document.createElement("li");
+                li.classList.add('underNav_' + idName);
+                li.textContent = navListe[nr];
+    
+            underUl.appendChild(li);
+                addAndRemove(li);
+            nr++;
+            nrID++;
+
+        }
+        function makeMain () {
+            let ulList = document.querySelectorAll(".underNav"),
+                lulSplit = ulList.classList.contains("underNav").split("_");
+            console.log(ulList[1])
+            // switch () {
+            //     case "0":
+            //         break;
+            //     default:
+
+            // }
+        }
+        
+        document.querySelector("main").appendChild(underUl);
+
+
+    
         console.log("OmKlubben", omklubben)
         console.log("OmKlubben Template")
     }
+
+
+
     function makeAfdelinger (current) {
         console.log("Afdelinger Template")
     }
