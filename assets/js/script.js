@@ -76,6 +76,9 @@ function makeSite(data) {
         IDbannerBegivenhed = postData.acf.bannerdata[5],
         IDbannerNyheder = postData.acf.bannerdata[6],
 
+        //Underside Data
+        IDomklubbenUndersider = postData.acf.id.categories.omklubbenundersider;
+
 
         IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
         logo = postData.acf.billeder[0],
@@ -337,15 +340,18 @@ function makeSite(data) {
             navListe = IDbannerOmklubben[3],
             nrID = 1;
 
-        createHTML("main", omklubben)
+        createHTML("main", omklubben);
 
         function addAndRemove (li) {
-            li.addEventListener("click", function() {
-                let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
-                    ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
-                li.classList.add("selected") // Tilføjer Active til den som er blevet klikket
+            li.addEventListener("click", () => {
+                // let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
+                // // ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
+                // li.classList.add("selected"); // Tilføjer Active til den som er blevet klikket
+                console.log("-----------------------------------1111-------",li)
+                li.classList.add("fisk")
             })
-        }
+        };
+
         let nr = 0,
             underUl = document.createElement("ul");
             underUl.id = "ulUnderNav";
@@ -368,33 +374,56 @@ function makeSite(data) {
                     idName = "five"
                     break;
             }
+
             let li = document.createElement("li");
-                li.classList.add('underNav_' + idName);
+                li.classList.add('underNav');
+                li.id = idName;
                 li.textContent = navListe[nr];
-    
             underUl.appendChild(li);
-                addAndRemove(li);
+            addAndRemove(li);
+            // li.addEventListener("click", addAndRemove)
             nr++;
             nrID++;
-
         }
-        function makeMain () {
-            let ulList = document.querySelectorAll(".underNav"),
-                lulSplit = ulList.classList.contains("underNav").split("_");
-            console.log(ulList[1])
-            // switch () {
-            //     case "0":
-            //         break;
-            //     default:
-
-            // }
-        }
-        
         document.querySelector("main").appendChild(underUl);
 
+        //== Undernavigations Indhold i Main
+        function makeBegivenheder() {
+            let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
+                title = findPost.acf.overskrift,
+                tekst = findPost.acf.beskrivelse,
+                begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>'
 
-    
-        console.log("OmKlubben", omklubben)
+            addToHTML("main", begivenheder)
+        }
+        //== Hvilket indhold skal skabes?
+        let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
+        ulList.forEach(li => {
+            addAndRemove(li);
+            if (li.classList.contains("selected")) {
+                let selected = li.id;
+                switch(selected) {
+                    case "one":
+                        makeBegivenheder();
+                        break;
+                    case "two":
+                        makePolitik();
+                        break;
+                    case "three":
+                        makeKlubblad();
+                        break;
+                    case "four":
+                        makeHistorie();
+                        break;
+                    case "five":
+                        makeGalleri();
+                        break;
+                    // default:
+                    //     makeBegivenheder();
+                }
+
+            }
+        })
         console.log("OmKlubben Template")
     }
 
