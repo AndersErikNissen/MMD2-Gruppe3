@@ -310,3 +310,30 @@ main {
 .margin{
     margin-bottom: 2vw;
 }
+
+#nyhedsside {
+    padding: 3vw 17vw;
+}
+
+.nyhed {
+    display: flex;
+    flex-direction: column;
+}
+
+.imgNyhed {
+    background-color: black;
+    height: 30vw;
+}
+
+.forfatter {
+    padding: 1vw 1vw;
+    border-top: 1px solid #D7D7D7;
+    border-bottom: 1px solid #D7D7D7;
+}
+
+.newsBoxLille {
+    display: inline-block;
+    width: 20vw;
+    height: 28vw;
+    background-color: #648DAA;
+}
