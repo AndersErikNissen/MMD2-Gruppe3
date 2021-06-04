@@ -127,13 +127,14 @@ function makeSite(data) {
             let site = data.find(post => post.id == navID), //Leder alle vores posts(som matcher SNV.dk ID'et) som kan findes i vores liste af ID'er. Vi kunne også have kigget efter posts som matcher vores SNV.dk - Navigation ID, men vi har mest kontrol på denne måde.
                 siteTitleSplit = site.title.rendered.split("Private: "),
                 siteTitle = siteTitleSplit[1],
+                siteTitleNoSpace = siteTitle.replace(" ", ""),// Fjerner "whitespace"/mellemrum fra stringen.
                 currentPage = "";
             //== Tilføjer currentPage class, til Nav-element som matcher current(Altså den aktive side på dette tidspunkt).
             if (site.id == current) {
                 currentPage = 'class="currentPage"';
             }
             //== Skaber HTML elementer med information fra hver Post som matcher ID'et.
-            navigation += '<li id="nav-' + siteTitle +'" ' + currentPage +'><a href="?pageId=' + site.id +'">' + siteTitle +'</a></li>';
+            navigation += '<li id="nav-' + siteTitleNoSpace +'" ' + currentPage +'><a href="?pageId=' + site.id +'">' + siteTitle +'</a></li>';
         })
         navigation += '</ul>';
 
@@ -156,6 +157,22 @@ function makeSite(data) {
             allNav += navigation + '</nav>';
         }
         createHTML("header", allNav);
+    }
+    function makeSponsor () {
+        let sponsor = '<section id="infi"><ul id="infiContent">',
+            infiChildren = postData.acf.billeder[1],
+            sponsorNr = 1;
+        
+        infiChildren.forEach(child => {
+            if (!child == "") {// Har 12 pladser i ACF'en, så der er plads til flere sponsorer. Når en af dem er tomme, så er der ingen grund til at lave et <li>.
+                sponsor += '<li class="infiChild"><img src="' + child + '" alt="Spononsor Nummer: ' + sponsorNr + '"></li>';
+                sponsorNr++;
+            }
+        })
+        sponsor += '</ul></section>';
+        console.log("Sponsor Block", sponsor)
+        addToHTML("main", sponsor);
+
     }
     function makeFooter () {
         let address = '<address><h2>KONTAKT</h2></address>',
@@ -183,8 +200,9 @@ function makeSite(data) {
     }
     //========================== ALLE TEMPLATES
     function makeForside (current) {
-        let allHTML, hero = "", news = "", events = "", afdeling = "", sponsor = "",
-            forside = data.find(post => post.id == IDforside[2]);
+
+        let forside = data.find(post => post.id == IDforside[2]), 
+            allHTML, hero = "", news = "", events = "", afdeling = '<section id="afdeling"><h2>' + forside.acf.overskrifter[3] + '</h2>', sponsor = "";
         const nyhedsList = data.filter(post => post.categories.includes(IDnyhedtemplate));
         
         //== Skaber Hero Banner
@@ -195,7 +213,7 @@ function makeSite(data) {
             nr = 1;
 
             forsideImgs.forEach(img => {
-                heroUl += '<li><img id="hero' + nr + '" src="' + img + '" alt="Hero' + nr + '"></li>'
+                heroUl += '<li class="heroSlide"><img id="hero' + nr + '" src="' + img + '" alt="Hero' + nr + '"></li>'
                 nr++; // Bruges til at give et nummer til hver billede(Id og alt tekst)
             })
             hero += '<section id="heroSlideShow"><h1>' + forsideh1 + '</h1><p>' + forsideTekst + '</p>' + heroUl + '<div id="heroSlideShowCover"></div></section>'
@@ -287,20 +305,25 @@ function makeSite(data) {
         }
         events += '</div><a href="?pageId=' + IDbegivenheder[0] + '">SE FLERE</a></section>'
         //== Skaber Afdelinger
-        let underafdeling_KapJ70 = [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
-            underafdeling_UngSejl = [IDbannerUngdom, IDbannerSejlerskolen],
-            underafdeling = '<div id="afdelingFlex">';
+        let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
+                underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
+                underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
+                ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
+            },
+            nrInArray = 0;
+            afdeling += '<div id="afdelingFlex">';
 
-        underafdeling_UngSejl.forEach(item => {
-            underafdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href="?pageId=' +  + '"><img src="' + item[2] + '" alt=""></article>';
+        objAfdeling.underafdeling_UngSejl.forEach(item => {
+            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a><img src="' + item[2] + '" alt=""></article>';
+            nrInArray++;
         })
-        underafdeling_KapJ70.forEach(item => {
-            underafdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href=""><img src="' + item[2] + '" alt=""></article>';
+        objAfdeling.underafdeling_KapJ70.forEach(item => {
+            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a hrefSE MERE=""></a><img src="' + item[2] + '" alt=""></article>';
         })
-        underafdeling += '</div>';
-        console.log("Afdeling", underafdeling)
+        afdeling += '</div></section>';
+        console.log("Afdeling", afdeling)
 
-        allHTML = hero + news + events;
+        allHTML = hero + news + events + afdeling;
         createHTML("main", allHTML)
     }
     function makeOmklubben (current) {
@@ -356,8 +379,8 @@ function makeSite(data) {
 
         makeNavigation(current);
         makeLayout(current);
+        makeSponsor();
         makeFooter();
-
 
     }
     createSite(currentID);
