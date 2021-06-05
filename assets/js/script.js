@@ -156,6 +156,117 @@ function makeSite(data) {
         });
         return list;
     }
+    //== Skal skabe undernavigation på bestemte sider
+    function makeUnderNavigation (makeList, numberForLoop) {
+        function addAndRemove (li) {
+            li.addEventListener("click", () => {
+                let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
+                ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
+                li.classList.add("selected"); // Tilføjer Active til den som er blevet klikket
+            
+            ulList.forEach(li => {
+            if (li.classList.contains("selected")) {
+                let selected = li.id;
+                switch(selected) {
+                    case "one":
+                        makeBegivenheder();
+                        break;
+                    case "two":
+                        makePolitik();
+                        console.log("================================= TWO")
+                        break;
+                    case "three":
+                        makeKlubblad();
+                        break;
+                    case "four":
+                        makeHistorie();
+                        break;
+                    case "five":
+                        makeGalleri();
+                        break;
+                    default:
+                        makeBegivenheder();
+                }
+
+            }
+
+            })
+        })    
+        };
+        //== Funktioner til at skabe indhold.
+        function makePolitik() {
+            let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
+                title = findPost.acf[10],
+                tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
+                begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>',
+                medlemmer = '<section id="bestyrelseListe">';
+            medlemmer += '</section>'
+            createHTML("main", begivenheder + medlemmer)
+        }
+        function makeBegivenheder() {
+            let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
+                title = findPost.acf[10],
+                tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
+                begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>',
+                medlemmer = '<section id="bestyrelseListe">';
+                console.log(findPost)
+            for(let i = 2; i < 10; i++) { // Skal skabe 8, medlems kasser. Starter på  let i = 2 fordi der efter komme de ønskede data.
+                let medlemsInfo = findPost.acf[i], //Finder data til hver medlem.
+                    billede = medlemsInfo.medlems_billede;
+                if (billede == false) { //Hvis medlemmet ikke har et billede, bruges et dummy billede i stedet for.
+                    billede = findPost.acf[11];
+                }
+                medlemmer += '<article><img src="' + billede + '" alt="Billede af medlem ' + medlemsInfo.navn + '">';
+                medlemmer += '<div><h3>' + medlemsInfo.navn + '</h3><h4>' + medlemsInfo.position + '</h4><ul><li>Tlf nr: ' + medlemsInfo.telefon + '</li>Email: ' + medlemsInfo.email + '<li></li></ul></div></article>';
+            }
+            medlemmer += '</section>'
+            createHTML("main", begivenheder + medlemmer)
+        }
+        //== Skaber Navigation med alt indhold:
+        let nr = 0,
+            underUl = document.createElement("ul");
+            underUl.id = "ulUnderNav"
+            navListe = makeList,
+            nrID = 1;
+        for (let i = 0; i < numberForLoop; i++) {
+            let idName;
+            // Giver et mere unikt id i stedet for bare et tal.
+            switch (nrID) {
+                case 1:
+                    idName = "one"
+                    break;
+                case 2:
+                    idName = "two"
+                    break;
+                case 3:
+                    idName = "three"
+                    break;
+                case 4:
+                    idName = "four"
+                    break;
+                case 5:
+                    idName = "five"
+                    break;
+            }
+            let li = document.createElement("li");
+                li.classList.add('underNav');
+                li.id = idName;
+                li.textContent = navListe[nr];
+            underUl.appendChild(li);
+            if (nr == 0) {
+                li.classList.add("selected")
+                makeBegivenheder();
+            }
+            addAndRemove(li);
+            nr++;
+            nrID++;
+        }
+        //== Skaber de sidste elementer til at skabe Undernavigationen.
+        let underNavigation = document.createElement("section");
+        underNavigation.id = "underNavigation";
+        document.querySelector("header").after(underNavigation);
+        document.querySelector("#underNavigation").appendChild(underUl);
+    }
 
      //========================== FIND ID AND PAGE INFORMATION
     let currentID = getURL();
@@ -336,95 +447,11 @@ function makeSite(data) {
         createHTML("main", allHTML)
     }
     function makeOmklubben (current) {
-        let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til ' + IDbannerOmklubben[0] + '">',
-            navListe = IDbannerOmklubben[3],
-            nrID = 1;
+        let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til ' + IDbannerOmklubben[0] + '">';
 
         createHTML("main", omklubben);
-
-        function addAndRemove (li) {
-            li.addEventListener("click", () => {
-                // let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
-                // // ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
-                // li.classList.add("selected"); // Tilføjer Active til den som er blevet klikket
-                console.log("-----------------------------------1111-------",li)
-                li.classList.add("fisk")
-            })
-        };
-
-        let nr = 0,
-            underUl = document.createElement("ul");
-            underUl.id = "ulUnderNav";
-        for (let i = 0; i < 5; i++) {
-            let idName;
-            switch (nrID) {
-                case 1:
-                    idName = "one"
-                    break;
-                case 2:
-                    idName = "two"
-                    break;
-                case 3:
-                    idName = "three"
-                    break;
-                case 4:
-                    idName = "four"
-                    break;
-                case 5:
-                    idName = "five"
-                    break;
-            }
-
-            let li = document.createElement("li");
-                li.classList.add('underNav');
-                li.id = idName;
-                li.textContent = navListe[nr];
-            underUl.appendChild(li);
-            addAndRemove(li);
-            // li.addEventListener("click", addAndRemove)
-            nr++;
-            nrID++;
-        }
-        document.querySelector("main").appendChild(underUl);
-
-        //== Undernavigations Indhold i Main
-        function makeBegivenheder() {
-            let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
-                title = findPost.acf.overskrift,
-                tekst = findPost.acf.beskrivelse,
-                begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>'
-
-            addToHTML("main", begivenheder)
-        }
-        //== Hvilket indhold skal skabes?
-        let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
-        ulList.forEach(li => {
-            addAndRemove(li);
-            if (li.classList.contains("selected")) {
-                let selected = li.id;
-                switch(selected) {
-                    case "one":
-                        makeBegivenheder();
-                        break;
-                    case "two":
-                        makePolitik();
-                        break;
-                    case "three":
-                        makeKlubblad();
-                        break;
-                    case "four":
-                        makeHistorie();
-                        break;
-                    case "five":
-                        makeGalleri();
-                        break;
-                    // default:
-                    //     makeBegivenheder();
-                }
-
-            }
-        })
-        console.log("OmKlubben Template")
+        //== Laver Undernavigation med knapper og eventlisteners
+        makeUnderNavigation(IDbannerOmklubben[3], IDbannerOmklubben[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
 
 
@@ -486,3 +513,60 @@ function makeSite(data) {
     createSite(currentID);
 }
 
+
+// ===================================================================================== GAMMELT INDHOLD
+
+//Lave indhold til Om Klubben Undernav
+        // //== Undernavigations Indhold i Main
+        // function makeBegivenheder() {
+        //     let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
+        //         title = findPost.acf.overskrift,
+        //         tekst = findPost.acf[10], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
+        //         begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>',
+        //         medlemmer = '<section id="bestyrelseListe">';
+        //         console.log(findPost)
+        //     for(let i = 2; i < 10; i++) { // Skal skabe 8, medlems kasser. Starter på  let i = 2 fordi der efter komme de ønskede data.
+        //         let medlemsInfo = findPost.acf[i], //Finder data til hver medlem.
+        //             billede = medlemsInfo.medlems_billede;
+        //         if (billede == false) { //Hvis medlemmet ikke har et billede, bruges et dummy billede i stedet for.
+        //             billede = findPost.acf[11];
+        //         }
+        //         medlemmer += '<article><img src="' + billede + '" alt="Billede af medlem ' + medlemsInfo.navn + '">';
+        //         medlemmer += '<div><h3>' + medlemsInfo.navn + '</h3><h4>' + medlemsInfo.position + '</h4><ul><li>Tlf nr: ' + medlemsInfo.telefon + '</li>Email: ' + medlemsInfo.email + '<li></li></ul></div></article>';
+        //     }
+        //     medlemmer += '</section>'
+
+
+        //     addToHTML("main", begivenheder + medlemmer)
+        // }
+        // //== Hvilket indhold skal skabes?
+        // function makeContent () {
+        //     let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
+        //         ulList.forEach(li => {
+        //     if (li.classList.contains("selected")) {
+        //         let selected = li.id;
+        //         switch(selected) {
+        //             case "one":
+        //                 makeBegivenheder();
+        //                 break;
+        //             case "two":
+        //                 makePolitik();
+        //                 console.log("================================= TWO")
+        //                 break;
+        //             case "three":
+        //                 makeKlubblad();
+        //                 break;
+        //             case "four":
+        //                 makeHistorie();
+        //                 break;
+        //             case "five":
+        //                 makeGalleri();
+        //                 break;
+        //             default:
+        //                 makeBegivenheder();
+        //         }
+
+        //     }
+        // })
+        // console.log("OmKlubben Template")
+        // }
