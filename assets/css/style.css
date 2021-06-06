@@ -305,6 +305,11 @@ main {
 .introUngdom {
 
 }
+
+.introUngdom ul li {
+    line-height: 2vw;
+}
+
 .infoBoxUngdom {
     width: 86vw;
     height: 15vw;
@@ -368,3 +373,17 @@ main {
 
 /* begivenheder */
 
+/* bliv medlemsside */
+.button.aktivButton{ 
+    /* begge classes sættes på uden mellemrum, så det kun gælder for elementer med begge classes */
+    background-color: #B12818;
+    border: #B12818 solid 12px;
+}
+
+.infoTilmeld {
+    width: 50vw;
+    height: fit-content;
+    padding-left: 1vw;
+    border-left: 9px solid #B12818;
+    margin-bottom: 2vw;
+}
