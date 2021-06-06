@@ -138,7 +138,7 @@ function makeSite(data) {
         return month;
     }
     function sortNew (list) {
-        list.sort((first, second) => {// .sort sammenligner values, men den skal arbejde med de datoer vi har vi vores ACF.
+        list.sort((first, second) => {// .sort sammenligner values, og den skal arbejde med de datoer vi har fra vores ACF-data.
             let date_1 = first.acf.dato[0],
                 date_2 = second.acf.dato[0];
             
@@ -173,7 +173,6 @@ function makeSite(data) {
                         break;
                     case "two":
                         makePolitik();
-                        console.log("================================= TWO")
                         break;
                     case "three":
                         makeKlubblad();
