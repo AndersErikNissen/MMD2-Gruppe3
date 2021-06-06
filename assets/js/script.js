@@ -77,7 +77,7 @@ function makeSite(data) {
         IDbannerNyheder = postData.acf.bannerdata[6],
 
         //Underside Data
-        IDomklubbenUndersider = postData.acf.id.categories.omklubbenundersider;
+        IDomklubbenUndersider = postData.acf.id.categories.omklubbenundersider,
 
 
         IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
@@ -86,6 +86,7 @@ function makeSite(data) {
         // - Mobil og Tablet, bruges til at kigge hvilke elementer som skal skabes/ikke skabes. F.eks. til en HamburgerMenu. 
         mobil = window.matchMedia("(min-width: 320px) and (max-width: 480px)"),
         tablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)");
+
         
         console.log("data", postData)
     //== FUNKTIONER
@@ -156,6 +157,11 @@ function makeSite(data) {
         });
         return list;
     }
+    function makeUnderNavMainSection() {
+        let section = document.createElement("section");
+        section.id = "mainContent";
+        document.querySelector("main").appendChild(section);
+    }
     //== Skal skabe undernavigation på bestemte sider
     function makeUnderNavigation (makeList, numberForLoop) {
         function addAndRemove (li) {
@@ -169,7 +175,7 @@ function makeSite(data) {
                 let selected = li.id;
                 switch(selected) {
                     case "one":
-                        makeBegivenheder();
+                        makeBestyrelsen();
                         break;
                     case "two":
                         makePolitik();
@@ -184,7 +190,7 @@ function makeSite(data) {
                         makeGalleri();
                         break;
                     default:
-                        makeBegivenheder();
+                        makeBestyrelsen();
                 }
 
             }
@@ -193,16 +199,7 @@ function makeSite(data) {
         })    
         };
         //== Funktioner til at skabe indhold.
-        function makePolitik() {
-            let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
-                title = findPost.acf[10],
-                tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
-                begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>',
-                medlemmer = '<section id="bestyrelseListe">';
-            medlemmer += '</section>'
-            createHTML("main", begivenheder + medlemmer)
-        }
-        function makeBegivenheder() {
+        function makeBestyrelsen() {
             let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
                 title = findPost.acf[10],
                 tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
@@ -216,10 +213,83 @@ function makeSite(data) {
                     billede = findPost.acf[11];
                 }
                 medlemmer += '<article><img src="' + billede + '" alt="Billede af medlem ' + medlemsInfo.navn + '">';
-                medlemmer += '<div><h3>' + medlemsInfo.navn + '</h3><h4>' + medlemsInfo.position + '</h4><ul><li>Tlf nr: ' + medlemsInfo.telefon + '</li>Email: ' + medlemsInfo.email + '<li></li></ul></div></article>';
+                medlemmer += '<div><h3>' + medlemsInfo.navn + '</h3><h4>' + medlemsInfo.position + '</h4><ul><li>Tlf nr: ' + medlemsInfo.telefon + '</li><li>Email: ' + medlemsInfo.email + '</li></ul></div></article>';
             }
-            medlemmer += '</section>'
-            createHTML("main", begivenheder + medlemmer)
+            medlemmer += '</section>';
+            //== Skaber Referater
+            // - Find Referater
+            const IDreferat = Number(postData.acf.id.categories.referater);
+
+            let
+            referatListe = data.filter(post => post.categories.includes(IDreferat)),
+            referatBox = "",
+            referatOutput = "";
+            //Skaber kasse til hver referat
+            referatListe.forEach(referat => {
+                //Skal finde ud af hvornår posten sidst er blevet ændret.
+                function modDato() {
+                    let mod = referat.modified, //Data på sidste gange der er sket ændringer.
+                        splitMod1 = mod.split("T");
+                        splitMod2 = splitMod1[0].split("-"),
+                        day = Number(splitMod2[2]),
+                        month = Number(splitMod2[1]),
+                        year = Number(splitMod2[0]),
+                        nonNumberMonth = numberToMonth(month),
+                        output = day + '. ' + nonNumberMonth + ' ' + year;
+                        return output;
+                }
+                let overskrift = referat.acf.overskrift,
+                    dato = modDato(),
+                    link = referat.acf.link;
+
+                referatBox = '<div class="referatBox"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
+                referatOutput += referatBox;
+                
+            })
+            console.log(referatOutput)
+            referatBestyrelse = '<article>' + referatOutput + '</article>';
+            referat = '<section id="referat"><div><h2><h2><p></p></button></div>' + referatBestyrelse + '</section>';
+            
+
+            createHTML("#mainContent", begivenheder + medlemmer + referat);
+            let aside = document.createElement("aside");
+            document.querySelector("#mainContent").after(aside);
+            let bttn = document.createElement("div");
+            bttn.id = "referatBtn";
+            document.querySelector("aside").after(bttn);
+            //Viser elementer til ReferatContaineren            
+            
+            console.log(document.querySelector("#referatBtn"))
+            
+            // let o = 1;
+            // document.querySelector("#referatBtn").addEventListener("click", function () {
+            //     let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
+            //     console.log(boxList)
+            //     boxList.forEach(post => {
+            //         post.style.display = "none";
+            //     })
+            //     //== Skal vise forskellige indhold ved hver click
+            //     for (let i = o; i < o + 1; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
+            //         boxList[i].style.display = "block";
+            //     }
+            //     o += 1;
+            //     console.log(o)
+            // })
+           
+    
+        }
+
+
+
+
+
+
+        function makePolitik() {
+            let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
+                title = findPost.acf[10],
+                tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
+                begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>';
+            createHTML("#mainContent", begivenheder)
         }
         //== Skaber Navigation med alt indhold:
         let nr = 0,
@@ -254,7 +324,7 @@ function makeSite(data) {
             underUl.appendChild(li);
             if (nr == 0) {
                 li.classList.add("selected")
-                makeBegivenheder();
+                makeBestyrelsen();
             }
             addAndRemove(li);
             nr++;
@@ -449,6 +519,8 @@ function makeSite(data) {
         let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til ' + IDbannerOmklubben[0] + '">';
 
         createHTML("main", omklubben);
+        //== Laver Section som skal indeholde hovedindholdet i Main.
+        makeUnderNavMainSection();
         //== Laver Undernavigation med knapper og eventlisteners
         makeUnderNavigation(IDbannerOmklubben[3], IDbannerOmklubben[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
@@ -510,6 +582,21 @@ function makeSite(data) {
 
     }
     createSite(currentID);
+    //?? Virkede kun når function placeres her. Kan være rækkefølgen elementer bliver skabt.
+    let o = 1;
+            document.querySelector("#referatBtn").addEventListener("click", function () {
+                let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
+                console.log(boxList)
+                boxList.forEach(post => {
+                    post.style.display = "none";
+                })
+                //== Skal vise forskellige indhold ved hver click
+                for (let i = o; i < o + 1; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
+                    boxList[i].style.display = "block";
+                }
+                o += 1;
+                console.log(o)
+            })
 }
 
 

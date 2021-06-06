@@ -37,3 +37,17 @@ a {
 .currentPage a {
     color: var(--color-red);
 }
+.hideReferat {
+    display: none;
+}
+button {
+    width: 100px;
+    height: 20px;
+    background-color: #e72;
+}
+
+#referatBtn {
+    width: 100px;
+    height: 20px;
+    background-color: #e35;
+}
