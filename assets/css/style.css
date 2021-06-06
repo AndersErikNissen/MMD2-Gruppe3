@@ -141,7 +141,6 @@ main {
 .news {
     width: 100%;
     height: auto;
-    padding: 1vw 7vw;
 }
 
 .newsPosts, .eventPost, .afdelingFlex {
@@ -160,7 +159,6 @@ main {
 .events {
     width: 100%;
     height: auto;
-    padding: 7vw;
     background-color: #B2CEDE;
 }
 
@@ -170,10 +168,6 @@ main {
     height: 20vw;
     background-color: #ffffff;
     border-left: 9px solid #B12818;
-}
-
-.afdeling {
-    padding: 7vw;
 }
 
 .afdelingBox {
@@ -219,12 +213,10 @@ main {
     height: 15vw;
     margin: 0;
     background-color: #E3E3E3;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-right: 6vw;
-    
 }
 
 .skraaBox {
@@ -236,7 +228,7 @@ main {
 }
 
 .lysblaa {
-    background-color:  #B2CEDE;
+    background-color: #B2CEDE;
 }
 
 .contentBox {
@@ -254,18 +246,18 @@ main {
     height: 6vw;
     padding: 1vw;
     margin-bottom: 2vw;
-
 }
+
 /* klub politik */
 
 /* klubblad */
+
 .bladListe {
     display: block;
 }
 
-
-
 /* Historie */
+
 .historie {
     display: flex;
     justify-content: space-between;
@@ -276,12 +268,12 @@ main {
     height: fit-content;
 }
 
-.historieImg{
+.historieImg {
     width: 20vw;
     width: fit-content;
 }
 
-.historieImg div{
+.historieImg div {
     background-color: black;
     margin: 2vw 0;
     width: 30vw;
@@ -302,12 +294,52 @@ main {
 }
 
 /* Afdelinger */
+
 .afdeling p {
     margin-bottom: 5vw;
 }
 
+/* Ungdom */
+.introUngdom {
+
+}
+.infoBoxUngdom {
+    width: 86vw;
+    height: 15vw;
+    margin-bottom: 2vw;
+    background-color: #E3E3E3;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    align-items: center;
+}
+
+.infoBoxUngdom p {
+    width: 30vw;
+}
+
+.skraaBoxUngdom {
+    display: block;
+    width: 20vw;
+    height: 15vw;
+    padding: 3.5vw 3vw;
+    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
+}
+
+.blaa {
+    background-color: #648DAA;
+    color: white;
+}
+
+.imgUngdom {
+    background-color: black;
+    width: 20vw;
+    height: 15vw;
+}
+
 /* nyheder */
-.margin{
+
+.margin {
     margin-bottom: 2vw;
 }
 
@@ -318,6 +350,7 @@ main {
 .nyhed {
     display: flex;
     flex-direction: column;
+    padding: 3vw 17vw;
 }
 
 .imgNyhed {
@@ -331,9 +364,5 @@ main {
     border-bottom: 1px solid #D7D7D7;
 }
 
-.newsBoxLille {
-    display: inline-block;
-    width: 20vw;
-    height: 28vw;
-    background-color: #648DAA;
-}
+/* begivenheder */
+
