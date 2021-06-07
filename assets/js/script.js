@@ -66,6 +66,9 @@ function makeSite(data) {
         IDbegivenheder = [postData.acf.id.categories.navigationlist[2], postData.acf.id.tags.begivenheder].map(Number),
         IDnyheder = [postData.acf.id.categories.navigationlist[3], postData.acf.id.tags.nyheder].map(Number),
         IDblivmedlem = [postData.acf.id.categories.navigationlist[4], postData.acf.id.tags.blivmedlem].map(Number),
+        
+        IDungdom = [postData.acf.id.categories.underafdelinger[0], postData.acf.id.tags.aktiviteter_undersider[0]].map(Number),
+        IDsejlklub = [postData.acf.id.categories.underafdelinger[1], postData.acf.id.tags.aktiviteter_undersider[1]].map(Number),
 
         //Banner Data
         IDbannerOmklubben = postData.acf.bannerdata[0],
@@ -223,6 +226,13 @@ function makeSite(data) {
             }
         }
 
+        //Skabes til at vise indhold når man kommer ind på SNV Ungdom
+        function makeUngdonUndervisning() {
+            let main = '<h1>YAAYYYA</h1>'
+
+            createHTML("main", main)
+        }
+
         //== Skaber Navigation med alt indhold:
         let nr = 0,
             underUl = document.createElement("ul");
@@ -255,7 +265,13 @@ function makeSite(data) {
                 li.textContent = navListe[nr];
             if (i === 0) {
                 li.classList.add("selected");
-                makeBestyrelsen();
+                
+                if (window.location.href.indexOf(IDomklubben[0]) != -1) {
+                    makeBestyrelsen();
+                }
+                if (window.location.href.indexOf(IDungdom[0]) != -1) {
+                    // makeUngUndervisning();
+                }
             }
             underUl.appendChild(li);
             addAndRemove(li);
@@ -454,10 +470,9 @@ function makeSite(data) {
     function makeOmklubben (current) {
         let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben">';
 
-        
+        //Laver Section til UnderNav
         makeUnderNavSection();
         createHTML("#underNavContent", omklubben);
-        //== Laver Section som skal indeholde hovedindholdet i Main.
         //== Laver Undernavigation med knapper og eventlisteners
         makeUnderNavigation(IDbannerOmklubben[3], IDbannerOmklubben[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
@@ -499,6 +514,22 @@ function makeSite(data) {
         createHTML("main", afdelingHeader + main)
     }
 
+
+    function makeUngdom() {
+        let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
+            underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
+            underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
+            ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
+        },
+        omklubben = '<header id="heroLille"><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - Om Klubben">';
+        
+        //Laver Section til UnderNav
+        makeUnderNavSection();
+        createHTML("#underNavContent", omklubben);
+        //== Laver Undernavigation med knapper og eventlisteners
+        makeUnderNavigation(IDbannerUngdom[3], IDbannerUngdom[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
+    }
+
     function makeLayout (current) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
@@ -515,6 +546,9 @@ function makeSite(data) {
             case IDafdelinger[1]:
                     makeAfdelinger(currentSite);
                     break;
+            case IDungdom[1]:
+                    makeUngdom(currentSite);
+                    break;
             case IDbegivenheder[1]:
                     makeBegivenheder(currentSite);
                     break;
@@ -523,11 +557,13 @@ function makeSite(data) {
                     break;
             case IDblivmedlem[1]:
                     makeBlivmedlem(currentSite);
-                    break;
+                    break; 
             default: //F.eks hvis den ikke kan finde et tag, så bruger den default
                     makeForside(currentSite);
                     console.log("USING Template: Default")
         }
+        //Skaber ID som kan bruges i CSS
+        document.querySelector("body").id = "bodyTemplate_" + currentSite.id;
     }
      //========================== CREATE THE PRODUCT
     function createSite(current) {
@@ -623,14 +659,32 @@ function makeSite(data) {
                 document.querySelector("#referatBtnReverse").style.display = "none";
             }
         }
-        if (document.querySelector("#one").classList.contains("selected")) {
+    }
+    if (window.location.href.indexOf(IDomklubben[0]) != -1) {
+        if (document.querySelector("#one").classList.contains("selected") != -1) {
             referatFunc();
         }
     }
 
     //== UnderNavigation
     function addAndRemove (li) {
+        //ID til nemmere navigation #4
 
+        //== Funktioner til Afdelinger Undersider
+        // - Ungdom
+        function makeUngUndervisning () {
+
+            let postID = Number(postData.acf.id.categories.ungdom_undernav[0]),
+                findPost = data.find(post => post.id == postID),
+                krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="">' +  + '</a></div>',
+                main = '<section></section>';
+
+
+            createHTML("main", main)
+            console.log("makeUngUndervisning - CHECK", findPost)
+        }
+
+        //== Funktioner til Omklubben Undersider
         function makeHistorie() {
             let findPost = data.find(post => post.id == IDomklubbenUndersider[3]),
                 overskrift1 = findPost.acf.overskrifter[0],
@@ -698,19 +752,6 @@ function makeSite(data) {
             year2018 += '</article>';
             main += year2021 + year2020 + year2019 + year2018 + '</section>';
 
-          
-
-            function modDato() {
-                let mod = referat.modified, //Data på sidste gange der er sket ændringer.
-                    splitMod1 = mod.split("T");
-                    splitMod2 = splitMod1[0].split("-"),
-                    day = Number(splitMod2[2]),
-                    month = Number(splitMod2[1]),
-                    year = Number(splitMod2[0]),
-                    nonNumberMonth = numberToMonth(month),
-                    output = day + '. ' + nonNumberMonth + ' ' + year;
-                    return output;
-            }
             createHTML("main", main)
         }
         
@@ -799,31 +840,56 @@ function makeSite(data) {
             let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
             ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
             li.classList.add("selected"); // Tilføjer Active til den som er blevet klikket
-        
-        ulList.forEach(li => {
-        if (li.classList.contains("selected")) {
-            let selected = li.id;
-            switch(selected) {
-                case "one":
-                    makeBestyrelsen();
-                    break;
-                case "two":
-                    makePolitik();
-                    break;
-                case "three":
-                    makeKlubblad();
-                    break;
-                case "four":
-                    makeHistorie();
-                    break;
-                case "five":
-                    makeGalleri();
-                    break;
-                default:
-                    makeBestyrelsen();
+            
+            //Er til underNav - Ungdom
+            if (window.location.href.indexOf(IDungdom[0]) != -1) {
+                ulList.forEach(li => {
+                    if (li.classList.contains("selected")) {
+                        let selected = li.id;
+                        switch(selected) {
+                        case "one":
+                            makeUngUndervisning();
+                            break;
+                        case "two":
+                            console.log("TWO")
+                            break;
+                        case "three":
+                            console.log("THREE")
+                            break;
+                        default:
+                            
+                        }
+                    }
+                })
             }
-        }
-        })
-    })    
+        
+            //Er til underNav - Om Klubben
+            if(window.location.href.indexOf(IDomklubben[0]) != -1) {
+                ulList.forEach(li => {
+                    if (li.classList.contains("selected")) {
+                        let selected = li.id;
+                        switch(selected) {
+                        case "one":
+                            makeBestyrelsen();
+                            break;
+                        case "two":
+                            makePolitik();
+                            break;
+                        case "three":
+                            makeKlubblad();
+                            break;
+                        case "four":
+                            makeHistorie();
+                            break;
+                        // case "five":  // Er ikke lavet i denne version.
+                        //     makeGalleri();
+                        //     break;
+                        default:
+                            makeBestyrelsen();
+                        }
+                    }
+                })
+            }
+        })    
     };
 }
