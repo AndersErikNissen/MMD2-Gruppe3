@@ -171,7 +171,7 @@ function makeSite(data) {
                 tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
                 begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>',
                 medlemmer = '<section id="bestyrelseListe">';
-                console.log(findPost)
+
             for(let i = 2; i < 10; i++) { // Skal skabe 8, medlems kasser. Starter på  let i = 2 fordi der efter komme de ønskede data.
                 let medlemsInfo = findPost.acf[i], //Finder data til hver medlem.
                     billede = medlemsInfo.medlems_billede;
@@ -185,7 +185,6 @@ function makeSite(data) {
             //== Skaber Referater
             // - Find Referater
             const IDreferat = Number(postData.acf.id.categories.referater);
-
             let
             referatListe = data.filter(post => post.categories.includes(IDreferat)),
             referatBox = "",
@@ -212,8 +211,6 @@ function makeSite(data) {
                 referatOutput += referatBox;
                 
             })
-        
-            console.log(referatOutput)
             let referatBestyrelse = '<article>' + referatOutput + '</article>';
                 // referatGeneral = '<article>' + referatGeneralOutput + '</article>';
             referat = '<section id="referat"><div><h2><h2><p></p></button></div>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></section>';
@@ -523,12 +520,9 @@ function makeSite(data) {
     createSite(currentID);
 
     // Eventlisteneres
-    //== Hvis mere indhold 6 af gangen
-
     //== Om Klubben - Bestyrelsen - Referat
-    // Skab side 1 ud af X
-  
-    
+    // - Hvis mere indhold 6 af gangen
+    // - Skab side 1 ud af X
     if (window.location.href.indexOf(IDomklubben[0]) != -1) {
         function referatFunc () {
 
@@ -611,11 +605,92 @@ function makeSite(data) {
 
     //== UnderNavigation
     function addAndRemove (li) {
+
+        function makeHistorie() {
+            let findPost = data.find(post => post.id == IDomklubbenUndersider[3]),
+                findFiles = data.filter(post => post.categories.includes(Number(postData.acf.id.categories.template_klubblad)))
+        }
+
+        function makeKlubblad() {
+            let findPost = data.find(post => post.id == IDomklubbenUndersider[2]),
+                findFiles = data.filter(post => post.categories.includes(Number(postData.acf.id.categories.template_klubblad))),
+                beskrivelse = findPost.acf.beskrivelse_af_klubblad,
+                overskrift = findPost.acf.overskrifter[0],
+                main = '<section><h2>' + overskrift + '</h2><p>' + beskrivelse + '</p></section><section id="yearsBlad">',
+                //Skaber stedet hvor de forskellige filer kan placeres alt efter hvilket år de hører til. (Ikke særlig dymanisk bygget)
+                year2021 = '<article id="year2021"><h3>2021</h3>',
+                year2020 = '<article id="year2020"><h3>2020</h3>',
+                year2019 = '<article id="year2019"><h3>2019</h3>',
+                year2018 = '<article id="year2018"><h3>2018</h3>';
+            
+            // == Skaber elementer for hver Klubblad opslag der findes, og placere i den rette kasse i forhold til årstal. 
+            findFiles.forEach(file => {
+                let year,
+                    lookAtDate = file.acf.dato_til_filen,
+                    link = file.acf.link,
+                    split = lookAtDate.split("/");
+                year = Number(split[2]),
+                month = Number(split[1]),
+                day = Number(split[0]),
+                monthString = numberToMonth(month);
+                
+                switch (year) {
+                    case 2021:
+                        year2021 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        break;
+                    case 2020:
+                        year2020 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        break;
+                    case 2019:
+                        year2019 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        break;
+                    case 2018:
+                        year2018 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        break;
+                    default:
+                        console.log("Error: Kunne ikke matche årstal med vores system")
+                }    
+            })
+            //Lukker HTML elementerne.
+            year2021 += '</article>';
+            year2020 += '</article>';
+            year2019 += '</article>';
+            year2018 += '</article>';
+            main += year2021 + year2020 + year2019 + year2018 + '</section>';
+
+          
+
+            function modDato() {
+                let mod = referat.modified, //Data på sidste gange der er sket ændringer.
+                    splitMod1 = mod.split("T");
+                    splitMod2 = splitMod1[0].split("-"),
+                    day = Number(splitMod2[2]),
+                    month = Number(splitMod2[1]),
+                    year = Number(splitMod2[0]),
+                    nonNumberMonth = numberToMonth(month),
+                    output = day + '. ' + nonNumberMonth + ' ' + year;
+                    return output;
+            }
+            createHTML("main", main)
+        }
         
         function makePolitik() {
-            let main = '<h1>Fisk</h1>'
-           createHTML("main", main)
-            console.log("fisk")
+            let findPost = data.find(post => post.id == IDomklubbenUndersider[1]),
+                overskrift = findPost.acf.overskrifter[0],
+                undertitle = findPost.acf.overskrifter[1],
+                vedtækter = findPost.acf.liste_med_paragraffer,
+                main = '<section><h2>' + overskrift + '</h2><h3>' + undertitle + '</h3></section><section>',
+                downloadFil = '<a href="' + findPost.acf.fil + '" download="Vedtægt2012_SNV.dk"><button type="button>DOWNLOAD DOKUMENT</button></a>"';
+            for (let i = 0; i < vedtækter.length; i++) {
+                let ul = '<ul>§' + (i+1);
+                vedtækter[i].forEach(line => {
+                        ul += '<li>' + line + '</li>'
+                    })
+                ul += '</ul>';
+                main += '<article>' + ul + '</article>'
+            }
+            main += '<ul><li>' + findPost.acf.dato_og_underskrift[0] + '</li><li>' + findPost.acf.dato_og_underskrift[1] + '</li></ul></section><div id="download">' + downloadFil + '</div>';
+            createHTML("main", main)
         }
 
         function makeBestyrelsen() { //Den her function bliver gentage 1 gang til. Den her function har tilformål at starte OmKlubben på Bestyrelsen's side.
