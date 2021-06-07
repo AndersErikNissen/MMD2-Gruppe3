@@ -40,14 +40,11 @@ a {
 .hideReferat {
     display: none;
 }
-button {
-    width: 100px;
-    height: 20px;
-    background-color: #e72;
-}
 
-#referatBtn {
-    width: 100px;
-    height: 20px;
-    background-color: #e35;
+
+#referatBtn, #referatBtnReverse {
+    /* background-color: #e35; */
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
 }
