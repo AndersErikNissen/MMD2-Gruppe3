@@ -408,6 +408,7 @@ function makeSite(data) {
             news += '<article class="newsBox"><h3>' + overskrift + '</h3><p>' + tekstSub + ' ...</p><a href="?pageId=' + nyhedsList[i].id + '">SE MERE</a></article>';
         }
         news += '</div><a href="?pageId=' + IDnyheder[0] + '">SE NYHEDSOVERSIGT</a></section>';
+        
         //== Skaber Events
         events += '<section id="events"><h2>' + forside.acf.overskrifter[2] + '</h2><div id="eventPosts">';
         //== Sortering og HTML til hvert "card/kort"
@@ -428,6 +429,7 @@ function makeSite(data) {
             events += '<article class="eventBox"><h3>' + day + '. <span class="spanTable">' + numberToMonth(month) + '</span></h3><h4>' + title + '</h4><ul><li>Dato: ' + dato[0] + ' - ' + dato[1] + '</li><li>Tid: ' + tid[0] + ' - ' + tid[1] + '</li></ul><a href="?pageId=' + sortedList[i].id + '">SE MERE</a></article>'
         }
         events += '</div><a href="?pageId=' + IDbegivenheder[0] + '">SE FLERE</a></section>'
+       
         //== Skaber Afdelinger
         let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
                 underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
@@ -445,13 +447,12 @@ function makeSite(data) {
             afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a hrefSE MERE=""></a><img src="' + item[2] + '" alt=""></article>';
         })
         afdeling += '</div></section>';
-        console.log("Afdeling", afdeling)
 
         allHTML = hero + news + events + afdeling;
         createHTML("main", allHTML)
     }
     function makeOmklubben (current) {
-        let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til ' + IDbannerOmklubben[0] + '">';
+        let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben">';
 
         
         makeUnderNavSection();
@@ -461,10 +462,41 @@ function makeSite(data) {
         makeUnderNavigation(IDbannerOmklubben[3], IDbannerOmklubben[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
 
+    function makeAfdelinger(current) {
+        let ds = IDbannerAfdelinger,
+            overskrift = ds[0],
+            beskrivelse = ds[1],
+            billede = ds[2],
+            velkomstTekst = ds[5],
+            main = '<section><h2>' + overskrift + '</h2><p>' + velkomstTekst + '</p></section>',
+            krumme = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + overskrift + '</a></div>',
+            afdelingHeader = '<header id="heroLille"><h1>' + overskrift + '</h1><p>' + beskrivelse + '</p><img src="' + billede + '" alt="Billede til Header - Afdelinger">';
+            main += krumme;
+        
+        
+        //== (Dette kode er også blevet brugt på forsiden)
+        let
+        afdeling = '<section id="afdelingFlex">',
+        objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
+                underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
+                underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
+                ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
+        },
+        nrInArray = 0;
 
+        // Skaber de to kasser som linker videre
+        objAfdeling.underafdeling_UngSejl.forEach(item => {
+            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a><img src="' + item[2] + '" alt=""></article>';
+            nrInArray++;
+        })
+        // Skaber de to kasser til afdelinger som ikke er på domænet i denne version.
+        objAfdeling.underafdeling_KapJ70.forEach(item => {
+            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a hrefSE MERE=""></a><img src="' + item[2] + '" alt=""></article>';
+        }) 
+        afdeling += '</section>';
+        main += afdeling;
 
-    function makeAfdelinger (current) {
-        console.log("Afdelinger Template")
+        createHTML("main", afdelingHeader + main)
     }
 
     function makeLayout (current) {
@@ -491,13 +523,6 @@ function makeSite(data) {
                     break;
             case IDblivmedlem[1]:
                     makeBlivmedlem(currentSite);
-                    break;
-
-            case 41:
-                    makeBegivenhed(currentSite);
-                    break;
-            case 42:
-                    makeNyhed(currentSite);
                     break;
             default: //F.eks hvis den ikke kan finde et tag, så bruger den default
                     makeForside(currentSite);
@@ -608,7 +633,22 @@ function makeSite(data) {
 
         function makeHistorie() {
             let findPost = data.find(post => post.id == IDomklubbenUndersider[3]),
-                findFiles = data.filter(post => post.categories.includes(Number(postData.acf.id.categories.template_klubblad)))
+                overskrift1 = findPost.acf.overskrifter[0],
+                overskrift2 = findPost.acf.overskrifter[1],
+                tekst1 = findPost.acf.brodtekster[0],
+                tekst2 = findPost.acf.brodtekster[1],
+                billeder = findPost.acf.billeder,
+                findMedlemmer =  data.filter(post => post.categories.includes(Number(postData.acf.id.categories.template_aeresmedlem))),
+                main = '<article><h2>' + overskrift1 + '</h2><p>' + tekst1 + '</p></article><article><h2>' + overskrift2 + '</h2><p>' + tekst2 + '</p></article><div id="historieGalleri"><img src="' + billeder[0] + '" alt="Billede fra Historie Galleri"><img src="' + billeder[1] + '" alt="Billede fra Historie Galleri"><img src="' + billeder[2] + '" alt="Billede fra Historie Galleri"></div>',
+                medlemmer = '<section id="aeresMedlemmer">';
+            
+                //Skabe liste af elementer til hver medlem(post)
+            findMedlemmer.forEach(medlem => {
+                medlemmer += '<div><h3>' + medlem.acf.navn_pa_medlem + '</h3><p>' + medlem.acf.argang + ' - Udnævnt til Æresmedlem</p></div>'
+            })
+            medlemmer += '</section>';
+
+            createHTML("main", main + medlemmer)
         }
 
         function makeKlubblad() {
