@@ -21,18 +21,30 @@ header {
     grid-column: 1/13;
     grid-row: 1/2;
     margin: 0;
-    padding: 1vw 7vw;
     border: none;
     position: sticky;
     top: 0;
+    z-index: 1;
+}
+
+.login {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: fit-content;
+    padding: 0.5vw 7vw;
+    background-color: #E3E3E3;
+}
+
+.navigation {
+    padding: 0 7vw;
     background-color: white;
     display: flex;
     justify-content: space-between;
-    z-index: 1;
     box-shadow: 0 2px rgba(0, 0, 0, 0.123) ;
 }
 
-header nav ul li {
+.navigation nav ul li {
     display: inline-block;
     list-style: none;
     margin-left: 5vw;
@@ -128,6 +140,60 @@ main {
     margin: 1vw;
 }
 
+.infoBox {
+    width: 86vw;
+    height: 15vw;
+    margin: 0;
+    background-color: #E3E3E3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6vw;
+}
+
+.infoBox p {
+    width: 30vw;
+    line-height: 2vw;
+}
+
+.skraaBox {
+    display: block;
+    width: 20vw;
+    height: 15vw;
+    padding: 5vw 3vw;
+    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
+}
+.skraaBox ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+.skraaBox ul li {
+    line-height: 2vw;
+}
+
+.lysblaa {
+    background-color: #B2CEDE;
+}
+
+.contentBox {
+    display: block;
+    width: 86vw;
+    height: fit-content;
+    margin-top: -1px;
+    margin-bottom: 2vw;
+    padding: 3vw;
+}
+
+.foldUd {
+    display: block;
+    background-color: white;
+    border-left: 9px solid #B12818;
+    height: fit-content;
+    padding: 1vw;
+    margin-bottom: 2vw;
+}
+
 /* Forside */
 
 .hero {
@@ -137,7 +203,7 @@ main {
 
 .textBoxHero {
     width: 40vw;
-    height: 45vw;
+    height: 42vw;
     background-color: #1C3E56;
     border: none;
     clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%)
@@ -157,6 +223,7 @@ main {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-bottom: 2vw;
 }
 
 .newsBox {
@@ -218,59 +285,6 @@ main {
     display: block;
 }
 
-.infoBox {
-    width: 86vw;
-    height: 15vw;
-    margin: 0;
-    background-color: #E3E3E3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 6vw;
-}
-
-.infoBox p {
-    width: 30vw;
-    line-height: 2vw;
-}
-
-.skraaBox {
-    display: block;
-    width: 20vw;
-    height: 15vw;
-    padding: 5vw 3vw;
-    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
-}
-.skraaBox ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 0;
-}
-.skraaBox ul li {
-    line-height: 2vw;
-}
-
-.lysblaa {
-    background-color: #B2CEDE;
-}
-
-.contentBox {
-    display: block;
-    width: 86vw;
-    height: fit-content;
-    margin-top: -1px;
-    margin-bottom: 2vw;
-    padding: 3vw;
-}
-
-.foldUd {
-    display: block;
-    background-color: white;
-    border-left: 9px solid #B12818;
-    height: fit-content;
-    padding: 1vw;
-    margin-bottom: 2vw;
-}
 
 /* klub politik */
 
