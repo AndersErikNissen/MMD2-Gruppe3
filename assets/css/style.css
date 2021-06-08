@@ -153,7 +153,6 @@ main {
 
 .infoBox p {
     width: 30vw;
-    line-height: 2vw;
 }
 
 .skraaBox {
@@ -167,9 +166,6 @@ main {
     list-style: none;
     padding: 0;
     margin-top: 0;
-}
-.skraaBox ul li {
-    line-height: 2vw;
 }
 
 .lysblaa {
@@ -192,6 +188,14 @@ main {
     height: fit-content;
     padding: 1vw;
     margin-bottom: 2vw;
+}
+
+p {
+    line-height: 2vw;
+}
+
+ul li {
+    line-height: 2vw;
 }
 
 /* Forside */
@@ -223,7 +227,7 @@ main {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 2vw;
+    margin: 4vw 0;
 }
 
 .newsBox {
@@ -302,9 +306,15 @@ main {
 }
 
 .historieText {
-    width: 50vw;
+    width: 40vw;
     height: fit-content;
 }
+
+.historieText .dokumentBox {
+    margin-bottom: 6vw;
+    margin-top: 2vw;
+}
+
 
 .historieImg {
     width: 20vw;
@@ -349,7 +359,7 @@ main {
 .infoBoxUngdom {
     width: 86vw;
     height: 15vw;
-    margin-bottom: 2vw;
+    margin: 4vw 0;
     background-color: #E3E3E3;
     display: flex;
     justify-content: space-between;
@@ -358,7 +368,7 @@ main {
 }
 
 .infoBoxUngdom p {
-    width: 30vw;
+    width: 35vw;
 }
 
 .skraaBoxUngdom {
@@ -421,12 +431,12 @@ main {
     height: fit-content;
     padding-left: 1vw;
     border-left: 9px solid #B12818;
-    margin-bottom: 2vw;
+    margin: 3vw 0;
 }
 
 .infoBoxTilmeld {
     width: 60vw;
-    height: 7vw;
+    height: 8vw;
     margin-bottom: 2vw;
     background-color: #E3E3E3;
     display: flex;
@@ -442,7 +452,32 @@ main {
 .skraaBoxTilmeld {
     display: block;
     width: 10vw;
-    height: 7vw;
+    height: 8vw;
     padding: 1.5vw 2vw;
     clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
 }
+
+/* Mentor */
+
+.infoMentor {
+    display: flex;
+    justify-content: space-between;
+    margin: 2vw 0;
+}
+
+.skraaBoxMentor {
+    display: block;
+    width: 50vw;
+    height: 26vw;
+    padding-left: 22vw;
+    padding-top: 3.5vw;
+    clip-path: polygon(36% 0, 100% 0, 100% 100%, 0% 100%);
+}
+.skraaBoxText {
+    width: 22vw;
+}
+
+.infoMentorText {
+    width: 30vw;
+}
+
