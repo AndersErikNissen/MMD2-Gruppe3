@@ -167,7 +167,8 @@ function makeSite(data) {
     }
     //== Skal skabe undernavigation på bestemte sider
     function makeUnderNavigation (makeList, numberForLoop) {
-        //== Funktioner til at skabe indhold.
+
+        //== Funktioner til at skabe indhold når brugeren først ankommer til siden.
         function makeBestyrelsen() { //Den her function bliver gentage 1 gang til. Den her function har tilformål at starte OmKlubben på Bestyrelsen's side.
             let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
                 title = findPost.acf[10],
@@ -226,12 +227,43 @@ function makeSite(data) {
             }
         }
 
-        //Skabes til at vise indhold når man kommer ind på SNV Ungdom
-        function makeUngdonUndervisning() {
-            let main = '<h1>YAAYYYA</h1>'
+        //Til SNV UNGDOM - Undervisning
+        function makeUngUndervisning () {
+
+            let 
+            postID = Number(postData.acf.id.categories.ungdom_undernav[0]),
+            findPost = data.find(post => post.id == postID),
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="' + IDungdom[0] + '">' + IDbannerUngdom[0] + '</a></div>',
+            liste = findPost.acf.liste_ul,
+            billede = findPost.acf.billede,
+            //Data: Aldersgruppe 1
+            sec1 = findPost.acf.aldersgruppe_1,
+            sec1Title = sec1[0],
+            sec1Alder1 = sec1[1],
+            sec1Alder2 = sec1[2],
+            sec1Tekst = sec1[3],
+            sec1Img = sec1[4],
+            //Data: Aldersgruppe 2
+            sec2 = findPost.acf.aldersgruppe_2,
+            sec2Title = sec2[0],
+            sec2Alder1 = sec2[1],
+            sec2Alder2 = sec2[2],
+            sec2Tekst = sec2[3],
+            sec2Img = sec2[4],
+            liER = '',
+            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></<section>',
+            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></<section>';
+                
+            // Laver indhold til Ul
+            for(let i = 0; i < liste.length; i++) {
+                liER += '<li>' + liste[i] + '</li>';
+            }
+            //Samler alt indhold til Ungdom Undervisning
+            let main = krummer + '<section><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2;
 
             createHTML("main", main)
         }
+
 
         //== Skaber Navigation med alt indhold:
         let nr = 0,
@@ -270,7 +302,7 @@ function makeSite(data) {
                     makeBestyrelsen();
                 }
                 if (window.location.href.indexOf(IDungdom[0]) != -1) {
-                    // makeUngUndervisning();
+                    makeUngUndervisning();
                 }
             }
             underUl.appendChild(li);
@@ -468,7 +500,7 @@ function makeSite(data) {
         createHTML("main", allHTML)
     }
     function makeOmklubben (current) {
-        let omklubben = '<header id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben">';
+        let omklubben = '<article id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben"></article>';
 
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -516,12 +548,12 @@ function makeSite(data) {
 
 
     function makeUngdom() {
-        let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
-            underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
-            underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
-            ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
-        },
-        omklubben = '<header id="heroLille"><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - Om Klubben">';
+        // let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
+        //     underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
+        //     underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
+        //     ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
+        // },
+        omklubben = '<article id="heroLille"><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - Om Klubben"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -674,14 +706,38 @@ function makeSite(data) {
         // - Ungdom
         function makeUngUndervisning () {
 
-            let postID = Number(postData.acf.id.categories.ungdom_undernav[0]),
-                findPost = data.find(post => post.id == postID),
-                krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="">' +  + '</a></div>',
-                main = '<section></section>';
-
+            let 
+            postID = Number(postData.acf.id.categories.ungdom_undernav[0]),
+            findPost = data.find(post => post.id == postID),
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="' + IDungdom[0] + '">' + IDbannerUngdom[0] + '</a></div>',
+            liste = findPost.acf.liste_ul,
+            billede = findPost.acf.billede,
+            //Data: Aldersgruppe 1
+            sec1 = findPost.acf.aldersgruppe_1,
+            sec1Title = sec1[0],
+            sec1Alder1 = sec1[1],
+            sec1Alder2 = sec1[2],
+            sec1Tekst = sec1[3],
+            sec1Img = sec1[4],
+            //Data: Aldersgruppe 2
+            sec2 = findPost.acf.aldersgruppe_2,
+            sec2Title = sec2[0],
+            sec2Alder1 = sec2[1],
+            sec2Alder2 = sec2[2],
+            sec2Tekst = sec2[3],
+            sec2Img = sec2[4],
+            liER = '',
+            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></<section>',
+            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></<section>';
+                
+            // Laver indhold til Ul
+            for(let i = 0; i < liste.length; i++) {
+                liER += '<li>' + liste[i] + '</li>';
+            }
+            //Samler alt indhold til Ungdom Undervisning
+            let main = krummer + '<section><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2;
 
             createHTML("main", main)
-            console.log("makeUngUndervisning - CHECK", findPost)
         }
 
         //== Funktioner til Omklubben Undersider
@@ -693,7 +749,7 @@ function makeSite(data) {
                 tekst2 = findPost.acf.brodtekster[1],
                 billeder = findPost.acf.billeder,
                 findMedlemmer =  data.filter(post => post.categories.includes(Number(postData.acf.id.categories.template_aeresmedlem))),
-                main = '<article><h2>' + overskrift1 + '</h2><p>' + tekst1 + '</p></article><article><h2>' + overskrift2 + '</h2><p>' + tekst2 + '</p></article><div id="historieGalleri"><img src="' + billeder[0] + '" alt="Billede fra Historie Galleri"><img src="' + billeder[1] + '" alt="Billede fra Historie Galleri"><img src="' + billeder[2] + '" alt="Billede fra Historie Galleri"></div>',
+                main = '<article><h2>' + overskrift1 + '</h2><p>' + tekst1 + '</p><div id="historieBtn"><h4>SNV Igennem Historien <h4><a href="">ÅBEN</a></div></article><article><h2>' + overskrift2 + '</h2><p>' + tekst2 + '</p></article><div id="historieGalleri"><img src="' + billeder[0] + '" alt="Billede fra Historie Galleri"><img src="' + billeder[1] + '" alt="Billede fra Historie Galleri"></div>',
                 medlemmer = '<section id="aeresMedlemmer">';
             
                 //Skabe liste af elementer til hver medlem(post)
