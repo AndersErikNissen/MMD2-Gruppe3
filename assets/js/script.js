@@ -81,6 +81,9 @@ function makeSite(data) {
 
         //Underside Data
         IDomklubbenUndersider = postData.acf.id.categories.omklubbenundersider,
+        // Post Id , category til Template Stævne
+        IDungdomStaevne = [postData.acf.id.categories.ungdom_undernav[1], postData.acf.id.categories.template_staevne].map(Number),
+        IDungdomInfo = [postData.acf.id.categories.ungdom_undernav[2]].map(Number),
 
 
         IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
@@ -612,6 +615,18 @@ function makeSite(data) {
     }
     createSite(currentID);
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Eventlisteneres
     //== Om Klubben - Bestyrelsen - Referat
     // - Hvis mere indhold 6 af gangen
@@ -697,6 +712,27 @@ function makeSite(data) {
             referatFunc();
         }
     }
+    //Fjerner / Viser indhold
+    function showBlock(click, content) {
+        if (!content.classList.contains("showContent") != -1 && !content.classList.contains("hideContent") != -1) { //Hvis der er ingen class, add en class til content som "hide'er" indholdet
+            content.classList.add("hideContent");
+        }
+        click.addEventListener("click", function() {
+            
+            if (content.classList.contains("showContent")) {
+                content.classList.remove("showContent")
+                content.classList.add("hideContent")
+            } else {
+                content.classList.remove("hideContent")
+                content.classList.add("showContent")
+
+            }
+        })
+    }
+
+
+
+
 
     //== UnderNavigation
     function addAndRemove (li) {
@@ -704,6 +740,91 @@ function makeSite(data) {
 
         //== Funktioner til Afdelinger Undersider
         // - Ungdom
+        function makeUngInfoTilForaeldre() {
+            let
+            postID = IDungdomInfo[0],
+            findPost = data.find(post => post.id == postID);
+
+            console.log("Info til", findPost);
+        }
+
+        function makeUngStaevner() {
+            let
+            postID = IDungdomStaevne[0],
+            findPost = data.find(post => post.id == postID),
+            // Data til Intro på Stævner
+            introData = findPost.acf.intro,
+            introTitle = introData[0],
+            introUnder = introData[1],
+            introBeskriv = introData[2],
+            intro = '<article><h2>' + introTitle + '<h2><h3>' + introUnder + '</h3><p>' + introBeskriv + '</p></article>',
+            //Data til Stævne 1
+            sDataPost = data.filter(post=> post.categories.includes(IDungdomStaevne[1])),
+            staevne = '',
+            //OBS bruges til at vise hvis et event er udløbet.
+            OBS = '',
+            //Bruges til forEach loop til at se give id som matcher nummeret i loopet.
+            number = 1,
+            //Brødkrummer
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="' + IDungdom[0] + '">' + IDbannerUngdom[0] + '</a></div>';
+            
+            //Skaber alle stævner som kan findes.
+            sDataPost.forEach(post => {
+                let
+                sFindData = post.acf, // [0] fordi vi bruger filter og ikke find, så det er et array.
+                sDatoStart = sFindData.intro[1],
+                sSplit = sDatoStart.split("/"),
+                sData = {
+                    "day": Number(sSplit[0]),
+                    "month": Number(sSplit[1]),
+                    "year": Number(sSplit[2]),
+                    "title": sFindData.intro[0],
+                    "pTitle": sFindData.intro[2],
+                    "beskriv": sFindData.intro[3],
+                    "pInfo": sFindData.intro[4],
+                    "tilmeld": sFindData.tilmeld_link,
+                    "info1": sFindData.info_1,
+                    "info2": sFindData.info_2
+                };
+                //Skaber 2 lister med Links fra Info 1 / 2
+                let liste1 = '<article>',
+                    liste2 = '<article>';
+                sData.info1.forEach(list => {
+                    liste1 += '<div><h4>' + list[0] + '</h4><a href="' + list[1] + '">ÅBEN</a></div>'
+                })
+                sData.info2.forEach(list => {
+                    liste2 += '<div><h4>' + list[0] + '</h4><a href="' + list[1] + '">ÅBEN</a></div>'
+                })
+                liste1 += '</article>';
+                liste2 += '</article>';
+                
+                //Skaber hovedindhold
+                let staevneContent = '<section id="staevneContent_' + number +'"><article><h3>' + sData.pTitle + '</h3><p>' + sData.pInfo + '</p><a href="' + sData.tilmeld + '">Tilmelding</a></article>' + liste1 + liste2 +'</section>';
+                staevne += '<section id="staevne_' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '"></button></article>' + staevneContent + '</section>';
+                
+                // Skal "udløse" hvis årstallet er mindre end 2021, de nuværende år. Kunne også være relevant at kigge på dag/måned.
+                let date = new Date(),
+                    year = date.getFullYear();
+                if (sData.year < year) {
+                    OBS = '<span>OBS: Dette Event er udgået!</span>';
+                }
+                
+                number++; //number +1 til næste loop
+            })
+
+            //Skaber hoved indholdet
+            //Første Stævne (Ikke Dynamisk)
+            let main = krummer + '<section>' + intro + '<img src="' + findPost.acf.billede + '" alt="Billede til Stævner - Ungdom"></section>' + staevne;
+            
+            createHTML("main", main)
+            //Bruger ShowBlock på alle sektioner som skabes via sDataPost.
+            sDataPost.forEach(section => {
+                number--; //Fordi vi bruger number++ får at give navn til i det første forEach loop, så skal vi her have -1 for at id'et matcher.
+                showBlock(document.querySelector('#staevneBtn_' + number), document.querySelector('#staevneContent_' + number));
+            })
+            // showBlock(document.querySelector('#staevneBtn_1'), document.querySelector('#staevneContent_1'));
+            console.log(document.querySelector("#staevneBtn_1"))
+        }
         function makeUngUndervisning () {
 
             let 
@@ -907,13 +1028,13 @@ function makeSite(data) {
                             makeUngUndervisning();
                             break;
                         case "two":
-                            console.log("TWO")
+                            makeUngStaevner();
                             break;
                         case "three":
-                            console.log("THREE")
+                            makeUngInfoTilForaeldre();
                             break;
                         default:
-                            
+                            makeUngUndervisning();
                         }
                     }
                 })

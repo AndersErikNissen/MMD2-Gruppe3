@@ -48,3 +48,9 @@ a {
     font-weight: bold;
     border: none;
 }
+.showContent {
+    display: block;
+}
+.hideContent {
+    display: none;
+}
