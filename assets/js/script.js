@@ -549,22 +549,25 @@ function makeSite(data) {
         createHTML("main", afdelingHeader + main)
     }
 
-
     function makeUngdom() {
-        // let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
-        //     underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
-        //     underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
-        //     ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
-        // },
-        omklubben = '<article id="heroLille"><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - Om Klubben"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        let ungdom = '<article id="heroLille"><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - SNV Ungdom"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
-        createHTML("#underNavContent", omklubben);
+        createHTML("#underNavContent", ungdom);
         //== Laver Undernavigation med knapper og eventlisteners
         makeUnderNavigation(IDbannerUngdom[3], IDbannerUngdom[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
-
+    function makeSejlerskolen() {
+        let sejl = '<article id="heroLille"><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        
+        //Laver Section til UnderNav
+        makeUnderNavSection();
+        createHTML("#underNavContent", sejl);
+        //== Laver Undernavigation med knapper og eventlisteners
+        makeUnderNavigation(IDbannerSejlerskolen[3], IDbannerSejlerskolen[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
+    }
+    console.log(IDsejlklub[0])
     function makeLayout (current) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
@@ -583,6 +586,9 @@ function makeSite(data) {
                     break;
             case IDungdom[1]:
                     makeUngdom(currentSite);
+                    break;
+            case IDsejlklub[1]:
+                    makeSejlerskolen(currentSite);
                     break;
             case IDbegivenheder[1]:
                     makeBegivenheder(currentSite);
@@ -626,8 +632,10 @@ function makeSite(data) {
     
     
     
-    
-    // Eventlisteneres
+    //============================================================================
+    //=========================== Eventlisteneres ================================
+    //============================================================================
+
     //== Om Klubben - Bestyrelsen - Referat
     // - Hvis mere indhold 6 af gangen
     // - Skab side 1 ud af X
@@ -712,6 +720,8 @@ function makeSite(data) {
             referatFunc();
         }
     }
+
+
     //Fjerner / Viser indhold
     function showBlock(click, content) {
         if (!content.classList.contains("showContent") != -1 && !content.classList.contains("hideContent") != -1) { //Hvis der er ingen class, add en class til content som "hide'er" indholdet
@@ -733,19 +743,76 @@ function makeSite(data) {
 
 
 
+    //============================================================================
+    //=========================== UnderNavigation ================================
+    //============================================================================
 
-    //== UnderNavigation
     function addAndRemove (li) {
         //ID til nemmere navigation #4
 
         //== Funktioner til Afdelinger Undersider
+
+        // - Sejlerskolen
+        function makeSejlUndervisning() {
+            let
+            postID = IDsejlklub[0],
+            findPost = data.find(post => post.id == postID),
+            dataPost = findPost.acf,
+            dataArray = [findPost.acf.undervisning, findPost.acf.nye_elever, findPost.acf.erfarende_elever]
+            uData = {
+                "intro": {
+                    "iTitle1": dataArray[0].tekst_gruppe_1
+                }
+
+            },
+            nData = {
+
+            },
+            eData = {
+
+            },
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>';;
+
+
+
+            createHTML("main", krummer)
+            console.log(dataArray)
+        }
+
         // - Ungdom
         function makeUngInfoTilForaeldre() {
             let
             postID = IDungdomInfo[0],
-            findPost = data.find(post => post.id == postID);
+            findPost = data.find(post => post.id == postID),
+            introData = findPost.acf.intro,
+            iData = {
+                "title": introData[0],
+                "under": introData[1],
+                "beskriv": introData[2],
+                "sikkerhed": [introData[3][0], introData[3][1], introData[3][2], introData[3][3], introData[3][4]]
+            },
+            forData = findPost.acf.foraeldrerad,
+            fData = {
+                "title": forData[0],
+                "beskriv1": forData[1],
+                "beskriv2": forData[2],
+                "billede": forData[3]
+            },
+            //Skaber brødkrummer
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDungdom[0] + '">' + IDbannerUngdom[0] + '</a></div>';;
 
-            console.log("Info til", findPost);
+            //Skaber Ul med LI til Sikkerhed i Vandet
+            iUl = '<ul>';
+            for (let i = 0; i < 4; i++) {
+                iUl += '<li>' + iData.sikkerhed[i] + '</li>';
+            }
+            iUl += '</ul>';
+
+            //Skaber Forældreråd Boks
+            let raadBoks = '<section><article><h3>' + fData.title + '</h3><p>' + fData.beskriv1 + '</p><p>' + fData.beskriv2 + '</p></article><img src="' + fData.billede + '" alt="Billede til Forældreråd"</section>';
+            let intro = krummer + '<section><article><h2>' + iData.title + '</h2><h3>' + iData.under + '</h3><p>' + iData.beskriv + '</p></article><article><h2>' + iData.sikkerhed[0] + '</h2>' + iUl + '</article></section>' + raadBoks;
+
+            createHTML("main", intro)
         }
 
         function makeUngStaevner() {
@@ -766,7 +833,7 @@ function makeSite(data) {
             //Bruges til forEach loop til at se give id som matcher nummeret i loopet.
             number = 1,
             //Brødkrummer
-            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="' + IDungdom[0] + '">' + IDbannerUngdom[0] + '</a></div>';
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDungdom[0] + '">' + IDbannerUngdom[0] + '</a></div>';
             
             //Skaber alle stævner som kan findes.
             sDataPost.forEach(post => {
@@ -1018,6 +1085,28 @@ function makeSite(data) {
             ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
             li.classList.add("selected"); // Tilføjer Active til den som er blevet klikket
             
+            //Er til underNav - Sejlerskolen
+            if (window.location.href.indexOf(IDsejlklub[0]) != -1) {
+                ulList.forEach(li => {
+                    if (li.classList.contains("selected")) {
+                        let selected = li.id;
+                        switch(selected) {
+                        case "one":
+                            makeSejlUndervisning();
+                            break;
+                        case "two":
+                            makeSejlNye();
+                            break;
+                        case "three":
+                            makeSejlErfarende();
+                            break;
+                        default:
+                            makeSejlUndervisning();
+                        }
+                    }
+                })
+            }
+
             //Er til underNav - Ungdom
             if (window.location.href.indexOf(IDungdom[0]) != -1) {
                 ulList.forEach(li => {
