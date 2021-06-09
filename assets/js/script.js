@@ -599,6 +599,8 @@ function makeSite(data) {
         let footer = address + footerNav;
         createHTML("footer", footer);
     }
+
+
     //========================== ALLE TEMPLATES
     function makeForside (current) {
 
@@ -732,7 +734,7 @@ function makeSite(data) {
         makeUnderNavigation(IDbannerUngdom[3], IDbannerUngdom[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
     function makeSejlerskolen() {
-        let sejl = '<article id="heroLille"><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        let sejl = '<article id="heroLille"><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -740,7 +742,17 @@ function makeSite(data) {
         //== Laver Undernavigation med knapper og eventlisteners
         makeUnderNavigation(IDbannerSejlerskolen[3], IDbannerSejlerskolen[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
-    console.log(IDsejlklub[0])
+
+    function makeBlivmedlem(current) {
+        let medlem = '<article id="heroLille"><h1>' + IDbannerBlivmedlem[0] + '</h1><p>' + IDbannerBlivmedlem[1] + '</p><img src="' + IDbannerBlivmedlem[2] + '" alt="Billede til Header - Bliv Medlem"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        
+        //Laver Section til UnderNav
+        makeUnderNavSection();
+        createHTML("#underNavContent", medlem);
+        //== Laver Undernavigation med knapper og eventlisteners
+        makeUnderNavigation(IDbannerBlivmedlem[3], IDbannerBlivmedlem[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
+    }
+
     function makeLayout (current) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
@@ -1027,12 +1039,100 @@ function makeSite(data) {
 
         //== Funktioner til Afdelinger Undersider
 
+        // - Bliv Medlem
+        function makeContentus() {
+            let 
+            postID = IDblivmedlem[0],
+            findPost = data.find(post => post.id == postID),
+            dataArray = [findPost.acf.conventus, findPost.acf.tilmelding, findPost.acf.mentor],
+
+            //Array med Medlems Typer
+            profilArray = new Array();
+            dataArray[0][5].forEach(each => {
+                let pushIt = [each[0], each[1]]
+                profilArray.push(pushIt)
+            })
+            
+
+            let ds = {
+                "intro": {
+                    "title": dataArray[0][0],
+                    "under": dataArray[0][1],
+                    "konti": dataArray[0][2],
+                    "kBeskriv1": dataArray[0][3],
+                    "kBeskriv2": dataArray[0][4],
+                },
+
+                "profil": {
+                    "aMedlem": [dataArray[0][5][0][0], dataArray[0][5][0][1]],
+                    "bMedlem": [dataArray[0][5][1][0], dataArray[0][5][1][1]],
+                    "cMedlem": [dataArray[0][5][2][0], dataArray[0][5][2][1]],
+                    "array": profilArray
+                },
+                
+                "data": {
+                    "title": dataArray[0][6][0],
+                    "beskriv1": dataArray[0][6][1],
+                    "beskriv2": dataArray[0][6][2],
+                },
+
+                "sprg": {
+                    "title": dataArray[0][7][0],
+                    "beskriv": dataArray[0][7][1],
+                    "email": dataArray[0][7][2],
+                }
+            };
+
+
+            console.log(ds)
+        }
+
+        function makeMentor() {
+            let 
+            postID = IDblivmedlem[0],
+            findPost = data.find(post => post.id == postID),
+            dataArray = [findPost.acf.conventus, findPost.acf.tilmelding, findPost.acf.mentor],
+
+            //Mentor List
+            mentorArray = new Array();
+            for (let i = 1; i < 4; i++) {
+                let pushIt = dataArray[2][3][i];
+                mentorArray.push(pushIt)
+            }
+            //Gode Grunde List
+            let ggArray = new Array();
+            for (let i = 1; i < 6; i++) {
+                let pushIt = dataArray[2][4][i];
+                ggArray.push(pushIt)
+            }
+
+            let ds = {
+                "intro": {
+                    "title": dataArray[2][0],
+                    "under": dataArray[2][1],
+                    "beskriv": dataArray[2][2],
+                },
+
+                "mentor": {
+                    "title": dataArray[2][3][0],
+                    "array": mentorArray
+                },
+                
+                "gode": {
+                    "title": dataArray[2][4][0],
+                    "array": ggArray,
+                    "kontakt": [dataArray[2][4][6][0], dataArray[2][4][6][1]]
+                }
+            }
+            console.log(ds)
+        }
+
         // - Sejlerskolen
          function makeSejlNye() {
             let 
             postID = IDsejlklub[0],
             findPost = data.find(post => post.id == postID),
-            dataPost = findPost.acf,
+            //Laver en liste over stierne til de forskellige data
             dataArray = [findPost.acf.undervisning, findPost.acf.nye_elever, findPost.acf.erfarende_elever],
             //Data til UnderNavigation - Nye Elever
             nData = {
@@ -1056,18 +1156,16 @@ function makeSite(data) {
             })
             let
             krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>',
-            main = krummer + '<section><article><h2>' + nData.intro.title1 + '</h2><p>' + nData.intro.beskriv1 + '</p><h3>' + nData.intro.title2 + '</h3><p>' + nData.intro.beskriv2 + '</p></article><article><h2>' +  + '</h2><ul>' + liListe + '</ul></article></section><section><h3>' + nData.info.sprg[0] + '</h3><p>' + nData.info.sprg[1] + '</p><ul><li><a href="tel:+45' + nData.info.sprg[2] + '">' + nData.info.sprg[2] + '</a></li><li>E-mail: <a href="mailto:' + nData.info.sprg[3] + '">' + nData.info.sprg[3] + '</a></li></ul></section>';
+            main = krummer + '<section><article><h2>' + nData.intro.title1 + '</h2><p>' + nData.intro.beskriv1 + '</p><h3>' + nData.intro.title2 + '</h3><p>' + nData.intro.beskriv2 + '</p></article><article><h2>' + nData.info.ul  + '</h2><ul>' + liListe + '</ul></article></section><section><h3>' + nData.info.sprg[0] + '</h3><p>' + nData.info.sprg[1] + '</p><ul><li><a href="tel:+45' + nData.info.sprg[2] + '">' + nData.info.sprg[2] + '</a></li><li>E-mail: <a href="mailto:' + nData.info.sprg[3] + '">' + nData.info.sprg[3] + '</a></li></ul></section>';
         
 
             createHTML("main", main)
         }
-
-
+ 
         function makeSejlErfarende(){
             let
             postID = IDsejlklub[0],
             findPost = data.find(post => post.id == postID),
-            dataPost = findPost.acf,
             dataArray = [findPost.acf.undervisning, findPost.acf.nye_elever, findPost.acf.erfarende_elever],
             //Data til UnderNavigation - Erfarende Elever
             eData = {
@@ -1085,17 +1183,22 @@ function makeSite(data) {
                     //Indeholder Overskrift, Beskrivelse, Tlf og Email
                     "sprg": [dataArray[1].sporgsmal[0], dataArray[1].sporgsmal[1], dataArray[1].sporgsmal[2], dataArray[1].sporgsmal[3]]
                 }
-            };
+            },
+            liListe = '';
+            eData.info.liArray.forEach(each => {
+                liListe += '<li>' + each + '</li>'
+            })
+            let
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>',
+            main = krummer + '<section><article><h2>' + eData.intro.title + '</h2><p>' + eData.intro.beskriv1 + '</p><p>' + eData.intro.beskriv2 + '<ul><li>' + eData.intro.indhug + '</li></ul>' + eData.intro.fastlagt + '</p></article><article><h2>' + eData.info.ul  + '</h2><ul>' + liListe + '</ul></article></section><section><h3>' + eData.info.sprg[0] + '</h3><p>' + eData.info.sprg[1] + '</p><ul><li><a href="tel:+45' + eData.info.sprg[2] + '">' + eData.info.sprg[2] + '</a></li><li>E-mail: <a href="mailto:' + eData.info.sprg[3] + '">' + eData.info.sprg[3] + '</a></li></ul></section>';
 
-
-            createHTML("main", '<h1>Fisk2</h1>')
+            createHTML("main", main)
         };
 
         function makeSejlUndervisning() {
             let
             postID = IDsejlklub[0],
             findPost = data.find(post => post.id == postID),
-            dataPost = findPost.acf,
             dataArray = [findPost.acf.undervisning, findPost.acf.nye_elever, findPost.acf.erfarende_elever],
 
             // Arrays til de forskellige slags data
@@ -1579,6 +1682,31 @@ function makeSite(data) {
             ulList.forEach(list => list.classList.remove("selected"));//Fjerner active fra alle <li> elementer
             li.classList.add("selected"); // Tilføjer Active til den som er blevet klikket
             
+            //Er til underNav - Bliv Medlem
+            if (window.location.href.indexOf(IDblivmedlem[0]) != -1) {
+                ulList.forEach(li => {
+                    if (li.classList.contains("selected")) {
+                        let selected = li.id;
+                        switch(selected) {
+                        case "one":
+                            makeContentus();
+                            console.log("1 - CHECK")
+                            break;
+                        case "two":
+                            // makeTilmelding();
+                            console.log("2 - CHECK")
+                            break;
+                        case "three":
+                            makeMentor();
+    
+                            break;
+                        default:
+                            makeSejlUndervisning();
+                        }
+                    }
+                })
+            }
+
             //Er til underNav - Sejlerskolen
             if (window.location.href.indexOf(IDsejlklub[0]) != -1) {
                 ulList.forEach(li => {
