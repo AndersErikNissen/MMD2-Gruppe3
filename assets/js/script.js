@@ -758,24 +758,134 @@ function makeSite(data) {
             postID = IDsejlklub[0],
             findPost = data.find(post => post.id == postID),
             dataPost = findPost.acf,
-            dataArray = [findPost.acf.undervisning, findPost.acf.nye_elever, findPost.acf.erfarende_elever]
+            dataArray = [findPost.acf.undervisning, findPost.acf.nye_elever, findPost.acf.erfarende_elever],
+
+            // Arrays til de forskellige slags data
+                //Skaber array med indhold til alle både i mini-galleriet.
+                skibeArray = new Array ();
+                for (let i = 2; i < 6; i++) { // i = der hvor data i arrayet start(Der er data omkring 4 både)
+                    // Arrayet indeholder info omkring: Billede, Type af Båd, Model Type, Sejl Nr
+                    let nySkib = [dataArray[0].tekst_mini_galleri[i][0], dataArray[0].tekst_mini_galleri[i][1][0], dataArray[0].tekst_mini_galleri[i][1][1], dataArray[0].tekst_mini_galleri[i][1][2]];
+                    skibeArray.push(nySkib)
+                }
+                //Skaber array med alle brugbare Links
+                let linkArray = new Array(), // new skaber et ny blankt object. Array er pre-determined, men man kunnse også kalde den "link".
+                    links = dataArray[0].applink.link;
+                links.forEach(link => {
+                    //Array indeholder: Link Tekst, Link Beskrivelse, Link til den relevante Hjemmesiden
+                    let linkData = [link[0], link[1], link[2]]
+                    linkArray.push(linkData)
+                })
+                //Skaber array med alle brugbare Apps
+                let appArray = new Array(), // new skaber et ny blankt object. Array er pre-determined, men man kunnse også kalde den "link".
+                    apps = dataArray[0].applink.app;
+                apps.forEach(app => {
+                    //Array indeholder: Link Tekst, Link Beskrivelse, Billede til Appen
+                    let appData = [app[0], app[1], app[2]]
+                    appArray.push(appData)
+                })
+
+            //Laver objekter med alt information til alle undersider
+            let 
+            //Data til UnderNavigation - Undervisning
             uData = {
                 "intro": {
-                    "iTitle1": dataArray[0].tekst_gruppe_1
+                    "title1": dataArray[0].tekst_gruppe_1[1],
+                    "title2": dataArray[0].tekst_gruppe_1[3],
+                    "beskriv1": dataArray[0].tekst_gruppe_1[2],
+                    "beskriv2": dataArray[0].tekst_gruppe_1[4],
+                    //Ul
+                    "ulTitle": dataArray[0].tekst_liste_1[0],
+                    //Ul1
+                    "ul1": dataArray[0].tekst_liste_1[1],
+                    "li1Array": [dataArray[0].tekst_liste_1[2], dataArray[0].tekst_liste_1[3],dataArray[0].tekst_liste_1[4],dataArray[0].tekst_liste_1[5]],
+                    //Ul2
+                    "ul2": [dataArray[0].tekst_liste_1[6]]
+                },
+
+                "galleri": {
+                    "title": dataArray[0].tekst_mini_galleri[0],
+                    "beskriv": dataArray[0].tekst_mini_galleri[1],
+                    "skibe": skibeArray
+                },
+
+                "elever": {
+                    //Indeholder: Overskrift, Beskrivelse og Billede
+                    "nye": [dataArray[0].nye_elever[0], dataArray[0].nye_elever[1], dataArray[0].nye_elever[2]],
+                    "erfarende": [dataArray[0].erfarende_elever[0], dataArray[0].erfarende_elever[1], dataArray[0].erfarende_elever[2]],
+                },
+
+                "link": {
+                    "title": dataArray[0].applink.intros[0][0],
+                    "beskriv": dataArray[0].applink.intros[0][1],
+                    "links": linkArray
+                },
+
+                "app": {
+                    "title": dataArray[0].applink.intros[1][0],
+                    "beskriv": dataArray[0].applink.intros[1][1],
+                    "app": appArray
                 }
-
             },
+
+            //Skaber ul til Intro Section
+            liste1 = '<ul>';
+            uData.intro.li1Array.forEach(item => {
+                liste1 += '<li>' + item + '</li>'
+            })
+            liste1 += '</ul>';
+
+            //Skaber liste med billeder
+            let imgList = '';
+            uData.galleri.skibe.forEach(skib => {
+                imgList += '<article><img src="' + skib[0] + '" alt="Billede af bådmodellen: ' + skib[1] + '"><div><h4>' + skib[1] + '</h4><ul><li>' + skib[2] + '</li><li>' + skib[3] + '</li></ul></div></article>'
+            })
+
+            //Skaber og samler hovedindholdet
+            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p><h3>' + uData.intro.title2 + '</h3><p>' + uData.intro.beskriv2 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><h3>' + uData.intro.ul1 + '</h3>' + liste1 + '<h3>' + uData.intro.ul2 + '</h3></article></section>',
+                galleri = '<section id="galleriSejlUndervisning"><article><h2>' + uData.galleri.title + '</h2><p>' + uData.galleri.beskriv + '</p></article><section>' + imgList + '</section></section>',
+                nye = '<section id="nyeSejlUndervisning"><article><h2>' +  + '</h2><p>' +  + '</p></article></section>',
+                erfarende = '<section  id="erfarendeSejlUndervisning"><article><h2>' +  + '</h2><p>' +  + '</p></article></section>',
+            //Data til UnderNavigation - Nye Elever
             nData = {
+                "intro": {
+                    "title1": dataArray[1].intro[0],
+                    "title2": dataArray[1].intro[2],
+                    "beskriv1": dataArray[1].intro[1],
+                    "beskriv2": dataArray[1].intro[3],
+                },
 
+                "info": {
+                    "ul": dataArray[1].info_liste[0],
+                    "liArray": [dataArray[1].info_liste[1], dataArray[1].info_liste[2], dataArray[1].info_liste[3], dataArray[1].info_liste[4], dataArray[1].info_liste[5]],
+                    //Indeholder Overskrift, Beskrivelse, Tlf og Email
+                    "sprg": [dataArray[1].sporgsmal[0], dataArray[1].sporgsmal[1], dataArray[1].sporgsmal[2], dataArray[1].sporgsmal[3]]
+                }
             },
+            //Data til UnderNavigation - Erfarende Elever
             eData = {
+                "intro": {
+                    "title": dataArray[2].intro[0],
+                    "beskriv1": dataArray[2].intro[1],
+                    "beskriv2": dataArray[2].intro[2],
+                    "indhug": dataArray[2].intro[3],
+                    "fastlagt": dataArray[2].intro[4]
+                },
 
+                "info": {
+                    "ul": dataArray[1].info_liste[0],
+                    "liArray": [dataArray[2].info_liste[1], dataArray[2].info_liste[2], dataArray[2].info_liste[3], dataArray[2].info_liste[4]],
+                    //Indeholder Overskrift, Beskrivelse, Tlf og Email
+                    "sprg": [dataArray[1].sporgsmal[0], dataArray[1].sporgsmal[1], dataArray[1].sporgsmal[2], dataArray[1].sporgsmal[3]]
+                }
             },
-            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>';;
+            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>';
 
 
 
-            createHTML("main", krummer)
+
+
+            createHTML("main", krummer + intro)
             console.log(dataArray)
         }
 
