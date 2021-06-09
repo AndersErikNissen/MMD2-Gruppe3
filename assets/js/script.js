@@ -989,16 +989,16 @@ function makeSite(data) {
                 appBox3 = '<article><h3>Knob</h3><div>',
                 appBox4 = '<article><h3>Vejr og Vind</h3><div>';
                 for (let i = 0; i < 2; i++) {
-                    appBox1 += '<a href="' +  + '" class="appBox"><img src="" alt=""><h4></h4>' + uData.app.app[i] + '</a>';
+                    appBox1 += '<a href="' + uData.app.app[i][2] + '" class="appBox"><img src="' + uData.app.app[i][0] + '" alt="Billede til appen: ' + uData.app.app[i][1] + '"><h4>' + uData.app.app[i][1] + '</h4></a>';
                 }
                 for (let i = 2; i < 3; i++) {
-                    appBox2 += '<div class="appBox">' + uData.app.app[i] + '</div>';
+                    appBox2 += '<a href="' + uData.app.app[i][2] + '" class="appBox"><img src="' + uData.app.app[i][0] + '" alt="Billede til appen: ' + uData.app.app[i][1] + '"><h4>' + uData.app.app[i][1] + '</h4></a>';
                 }
                 for (let i = 3; i < 5; i++) {
-                    appBox3 += '<div class="appBox">' + uData.app.app[i] + '</div>';
+                    appBox3 += '<a href="' + uData.app.app[i][2] + '" class="appBox"><img src="' + uData.app.app[i][0] + '" alt="Billede til appen: ' + uData.app.app[i][1] + '"><h4>' + uData.app.app[i][1] + '</h4></a>';
                 }
                 for (let i = 5; i < 7; i++) {
-                    appBox4 += '<div class="appBox">' + uData.app.app[i] + '</div>';
+                    appBox4 += '<a href="' + uData.app.app[i][2] + '" class="appBox"><img src="' + uData.app.app[i][0] + '" alt="Billede til appen: ' + uData.app.app[i][1] + '"><h4>' + uData.app.app[i][1] + '</h4></a>';
                 }
 
                 appList += appBox1 + appBox2 + appBox4 + appBox3;
