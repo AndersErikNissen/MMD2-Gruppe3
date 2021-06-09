@@ -46,7 +46,7 @@ function afterToken() {
         console.log("Der opstod en fejl, være venlig at vende tilbage senere!")
     }
 }
-xhttp.open("GET", URLsite + 'posts?status=private&categories=' + categoryToLookFor + '&per_page=100', true) // GET fordi nu hvor vi har vores token, så vil vi gerne spørge om noget data vi kan arbejde med. 
+xhttp.open("GET", URLsite + 'posts?status=private&categories=' + categoryToLookFor + '&per_page=100', true) // GET fordi nu hvor vi har vores token, så vil vi gerne spørge om noget data vi kan arbejde med. per_page=100 bruges fordi normalt vil WordPress kun give 10 tilbage, og ved at sætte den til 100(Kunne også være 50), vil vi få alle posts som er relevante.
 xhttp.setRequestHeader("Authorization", "Bearer " + window.localStorage.getItem("token")); //For at kunne få data, skal bruge vores login, som her er en token som sendes sammed med vores GET-request.
 xhttp.send();
 }
@@ -198,7 +198,7 @@ function makeSite(data) {
             referatOutput = "";
             //Skaber kasse til hver referat
             referatListe.forEach(referat => {
-                //Skal finde ud af hvornår posten sidst er blevet ændret.
+                //Skal finde ud af hvornår post'en sidst er blevet ændret.
                 function modDato() {
                     let mod = referat.modified, //Data på sidste gange der er sket ændringer.
                         splitMod1 = mod.split("T");
@@ -218,12 +218,16 @@ function makeSite(data) {
                 referatOutput += referatBox;
                 
             })
-            let referatBestyrelse = '<article>' + referatOutput + '</article>';
-                // referatGeneral = '<article>' + referatGeneralOutput + '</article>';
-            referat = '<section id="referat"><div><h2><h2><p></p></button></div>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></section>';
+            //Skaber alt indholde til referater
+            let
+            rData = findPost.acf[12],
+            referatBestyrelse = '<article id="referatContainer">' + referatOutput;
+            referat = '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></article></section>';
             
             
-            createHTML("main", begivenheder + medlemmer + referat);        
+            createHTML("main", begivenheder + medlemmer + referat);
+            
+            //Sørger for at 6 referater bliver vist "onload"
             let referatBoxListe = document.querySelectorAll(".referatBox");
             for (let i = 0; i < 6; i++) {
                 referatBoxListe[i].classList.remove("hideReferat");
@@ -400,7 +404,7 @@ function makeSite(data) {
             }
         })
         sponsor += '</ul></section>';
-        addToHTML("main", sponsor);
+        addToHTML("#sponsorSection", sponsor);
     }
     function makeFooter () {
         let address = '<address><h2>KONTAKT</h2></address>',
@@ -718,6 +722,7 @@ function makeSite(data) {
     if (window.location.href.indexOf(IDomklubben[0]) != -1) {
         if (document.querySelector("#one").classList.contains("selected") != -1) {
             referatFunc();
+            showBlock(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatContainer"));
         }
     }
 
@@ -1134,7 +1139,7 @@ function makeSite(data) {
                 tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
                 begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>',
                 medlemmer = '<section id="bestyrelseListe">';
-                console.log(findPost)
+
             for(let i = 2; i < 10; i++) { // Skal skabe 8, medlems kasser. Starter på  let i = 2 fordi der efter komme de ønskede data.
                 let medlemsInfo = findPost.acf[i], //Finder data til hver medlem.
                     billede = medlemsInfo.medlems_billede;
@@ -1148,14 +1153,13 @@ function makeSite(data) {
             //== Skaber Referater
             // - Find Referater
             const IDreferat = Number(postData.acf.id.categories.referater);
-
             let
             referatListe = data.filter(post => post.categories.includes(IDreferat)),
             referatBox = "",
             referatOutput = "";
             //Skaber kasse til hver referat
             referatListe.forEach(referat => {
-                //Skal finde ud af hvornår posten sidst er blevet ændret.
+                //Skal finde ud af hvornår post'en sidst er blevet ændret.
                 function modDato() {
                     let mod = referat.modified, //Data på sidste gange der er sket ændringer.
                         splitMod1 = mod.split("T");
@@ -1175,20 +1179,25 @@ function makeSite(data) {
                 referatOutput += referatBox;
                 
             })
-        
-            console.log(referatOutput)
-            let referatBestyrelse = '<article>' + referatOutput + '</article>';
-                // referatGeneral = '<article>' + referatGeneralOutput + '</article>';
-            referat = '<section id="referat"><div><h2><h2><p></p></button></div>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></section>';
+            //Skaber alt indholde til referater
+            let
+            rData = findPost.acf[12],
+            referatBestyrelse = '<article id="referatContainer">' + referatOutput;
+            referat = '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></article></section>';
             
             
-            createHTML("main", begivenheder + medlemmer + referat);        
+            createHTML("main", begivenheder + medlemmer + referat);
+            
+            //Sørger for at 6 referater bliver vist "onload"
             let referatBoxListe = document.querySelectorAll(".referatBox");
             for (let i = 0; i < 6; i++) {
                 referatBoxListe[i].classList.remove("hideReferat");
             }
             referatFunc();
+            showBlock(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatContainer"));
         }
+
+        
         //== Eventlistener som kigger efter "selected"
         li.addEventListener("click", () => {
             let ulList = document.querySelectorAll(".underNav"); // Finder liste med elementer.
@@ -1269,3 +1278,70 @@ function makeSite(data) {
         })    
     };
 }
+
+
+
+//BACKUP (OLD CONTENT)
+
+// function makeBestyrelsen() { //Den her function bliver gentage 1 gang til. Den her function har tilformål at starte OmKlubben på Bestyrelsen's side.
+//     let findPost = data.find(post => post.id == IDomklubbenUndersider[0]),
+//         title = findPost.acf[10],
+//         tekst = findPost.acf[1], // Problemer med at lave et array i ACF. Duer ikke hvis man bruger 0 direkte inde i ACF, skal være i en under gruppe. 0 forsvinder og er ikke med i arrayet.
+//         begivenheder = '<h2>' + title + '</h2><p>' + tekst + '</p>',
+//         medlemmer = '<section id="bestyrelseListe">';
+//         console.log(findPost)
+//     for(let i = 2; i < 10; i++) { // Skal skabe 8, medlems kasser. Starter på  let i = 2 fordi der efter komme de ønskede data.
+//         let medlemsInfo = findPost.acf[i], //Finder data til hver medlem.
+//             billede = medlemsInfo.medlems_billede;
+//         if (billede == false) { //Hvis medlemmet ikke har et billede, bruges et dummy billede i stedet for.
+//             billede = findPost.acf[11];
+//         }
+//         medlemmer += '<article><img src="' + billede + '" alt="Billede af medlem ' + medlemsInfo.navn + '">';
+//         medlemmer += '<div><h3>' + medlemsInfo.navn + '</h3><h4>' + medlemsInfo.position + '</h4><ul><li>Tlf nr: ' + medlemsInfo.telefon + '</li><li>Email: ' + medlemsInfo.email + '</li></ul></div></article>';
+//     }
+//     medlemmer += '</section>';
+//     //== Skaber Referater
+//     // - Find Referater
+//     const IDreferat = Number(postData.acf.id.categories.referater);
+
+//     let
+//     referatListe = data.filter(post => post.categories.includes(IDreferat)),
+//     referatBox = "",
+//     referatOutput = "";
+//     //Skaber kasse til hver referat
+//     referatListe.forEach(referat => {
+//         //Skal finde ud af hvornår posten sidst er blevet ændret.
+//         function modDato() {
+//             let mod = referat.modified, //Data på sidste gange der er sket ændringer.
+//                 splitMod1 = mod.split("T");
+//                 splitMod2 = splitMod1[0].split("-"),
+//                 day = Number(splitMod2[2]),
+//                 month = Number(splitMod2[1]),
+//                 year = Number(splitMod2[0]),
+//                 nonNumberMonth = numberToMonth(month),
+//                 output = day + '. ' + nonNumberMonth + ' ' + year;
+//                 return output;
+//         }
+//         let overskrift = referat.acf.overskrift,
+//             dato = modDato(),
+//             link = referat.acf.link;
+
+//         referatBox = '<div class="referatBox hideReferat"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
+//         referatOutput += referatBox;
+        
+//     })
+
+//     console.log(referatOutput)
+//     let referatBestyrelse = '<article>' + referatOutput + '</article>';
+//         // referatGeneral = '<article>' + referatGeneralOutput + '</article>';
+//     referat = '<section id="referat"><div><h2><h2><p></p></button></div>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></section>';
+    
+    
+//     createHTML("main", begivenheder + medlemmer + referat);        
+//     let referatBoxListe = document.querySelectorAll(".referatBox");
+//     for (let i = 0; i < 6; i++) {
+//         referatBoxListe[i].classList.remove("hideReferat");
+//     }
+//     referatFunc();
+//     showBlock(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatContainer"));
+// }
