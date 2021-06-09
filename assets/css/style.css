@@ -54,3 +54,10 @@ a {
 .hideContent {
     display: none;
 }
+
+#clickReferat1 {
+    background-color: blueviolet;
+}
+#clickReferat2 {
+    background-color: blueviolet;
+}

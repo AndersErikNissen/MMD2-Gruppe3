@@ -222,7 +222,7 @@ function makeSite(data) {
             let
             rData = findPost.acf[12],
             referatBestyrelse = '<article id="referatContainer">' + referatOutput;
-            referat = '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></article></section>';
+            referat = '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse1">&#60;</button><button type="button" id="referatBtn1">&#62;</button></div></article></section>';
             
             
             createHTML("main", begivenheder + medlemmer + referat);
@@ -644,87 +644,193 @@ function makeSite(data) {
     // - Hvis mere indhold 6 af gangen
     // - Skab side 1 ud af X
     if (window.location.href.indexOf(IDomklubben[0]) != -1) {
-        function referatFunc () {
-
-            let loopNr = 6,
-                pageNr = 1,
-                total = document.querySelectorAll(".referatBox").length,
-                pageDivide = total / 6,
-                pageTotal = Math.ceil(pageDivide),
-                pageSpan = document.createElement("span");
+        // function referatFunc () {
+        //     let loopNr = 6,
+        //         pageNr = 1,
+        //         total = document.querySelectorAll(".referatBox").length,
+        //         pageDivide = total / 6,
+        //         pageTotal = Math.ceil(pageDivide),
+        //         pageSpan = document.createElement("span");
         
-            pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';
-            document.querySelector("#referatBtnReverse").after(pageSpan);
+        //     pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';
+        //     document.querySelector("#referatBtnReverse1").after(pageSpan);
            
-            //== Hvis mere indhold 6 af gangen
-            document.querySelector("#referatBtn").addEventListener("click", function () {
-                let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
-                console.log(boxList)
-                boxList.forEach(post => {
-                    post.style.display = "none";
-                })
+        //     //== Hvis mere indhold 6 af gangen
+        //     document.querySelector("#referatBtn1").addEventListener("click", function () {
+        //         let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
+        //         console.log(boxList)
+        //         boxList.forEach(post => {
+        //             post.style.display = "none";
+        //         })
+        //         if (loopNr == 0) { //Reseter hvis brugeren er gået frem og tilbage i listen.
+        //             loopNr += 6;
+        //         }
+        //         //== Skal vise forskellige indhold ved hver click
+        //         for (let i = loopNr; i < loopNr + 6; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
+        //             if (boxList[i]) {
+        //                 boxList[i].style.display = "block";
+        //             }
+        //         }
+        //         loopNr += 6;
+        //         pageNr += 1;
+        //         pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';//Ændre textContent når det bliver klikket.
+        //         if (document.querySelector("#referatBtnReverse1").style.display = "none") { //Tilføjer ReverseBtn når ikke er på side 1
+        //             document.querySelector("#referatBtnReverse1").style.display = "inline-block";
+        //         } 
+        //         if (pageNr == pageTotal) {
+        //             document.querySelector("#referatBtn1").style.display = "none";
+        //         }
+        //     })
         
-                if (loopNr == 0) { //Reseter hvis brugeren er gået frem og tilbage i listen.
-                    loopNr += 6;
-                }
-                //== Skal vise forskellige indhold ved hver click
-                for (let i = loopNr; i < loopNr + 6; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
-                    if (boxList[i]) {
-                        boxList[i].style.display = "block";
-                    }
-                }
-                loopNr += 6;
-                
-                pageNr += 1;
-                console.log(loopNr)
-                pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';//Ændre textContent når det bliver klikket.
+        //     //== Hvis mindre indhold 6 af gangen
+        //     document.querySelector("#referatBtnReverse1").addEventListener("click", function () {
+        //         let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
+        //         console.log(boxList)
+        //         boxList.forEach(post => {
+        //             post.style.display = "none";
+        //         })
+        //         loopNr -= 6;
+        //         if(loopNr == 6) { //Fordi loopNr starter på 6, skal den være minus 12 i stedet for 6, for at kunne tegne indholdet som det var fra begyndelsen.
+        //             loopNr -= 6;
+        //         }
+        //         //== Skal vise forskellige indhold ved hver click
+        //         for (let i = loopNr; i < loopNr + 6; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
+        //             if (boxList[i]) {
+        //                 boxList[i].style.display = "block";
+        //             }
+        //         }
+        //         console.log(loopNr)
+        //         pageNr -= 1;
+        //         pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';//Ændre textContent når det bliver klikket.
+        //         if (pageNr == 1) {//Fjerne tilbage knappen når på side 1
+        //             document.querySelector("#referatBtnReverse1").style.display = "none";
+        //         } 
+        //         if (document.querySelector("#referatBtn1").style.display = "none") { //Tilføjer Btn når den har været sat til display = none, altså når den har været på den maksimale side.
+        //             document.querySelector("#referatBtn1").style.display = "inline-block";
+        //         } 
+        //     })
+        //     if (pageNr === 1) {//Fjerne tilbage knappen når på side 1
+        //         document.querySelector("#referatBtnReverse1").style.display = "none";
+        //     }
+        // }
+
+
+
+
+
+        function referatFunc (click, clickReverse, list) {
         
-                if (document.querySelector("#referatBtnReverse").style.display = "none") { //Tilføjer ReverseBtn når ikke er på side 1
-                    document.querySelector("#referatBtnReverse").style.display = "inline-block";
-                } 
-                if (pageNr == pageTotal) {
-                    document.querySelector("#referatBtn").style.display = "none";
-                }
-            })
-        
-            //== Hvis mindre indhold 6 af gangen
-            document.querySelector("#referatBtnReverse").addEventListener("click", function () {
-                let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
-                console.log(boxList)
-                boxList.forEach(post => {
-                    post.style.display = "none";
-                })
-                loopNr -= 6;
-                if(loopNr == 6) { //Fordi loopNr starter på 6, skal den være minus 12 i stedet for 6, for at kunne tegne indholdet som det var fra begyndelsen.
-                    loopNr -= 6;
-                }
-                //== Skal vise forskellige indhold ved hver click
-                for (let i = loopNr; i < loopNr + 6; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
-                    if (boxList[i]) {
-                        boxList[i].style.display = "block";
-                    }
-                }
-                console.log(loopNr)
-                pageNr -= 1;
-                pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';//Ændre textContent når det bliver klikket.
-                if (pageNr == 1) {//Fjerne tilbage knappen når på side 1
-                    document.querySelector("#referatBtnReverse").style.display = "none";
-                } 
-                if (document.querySelector("#referatBtn").style.display = "none") { //Tilføjer Btn når den har været sat til display = none, altså når den har været på den maksimale side.
-                    document.querySelector("#referatBtn").style.display = "inline-block";
-                } 
-            })
-            if (pageNr === 1) {//Fjerne tilbage knappen når på side 1
-                document.querySelector("#referatBtnReverse").style.display = "none";
-            }
+            console.log("CLICK", click)
+            console.log("CLICK REVERSE", clickReverse)
+            console.log("CLICK", list)
+            
         }
+
+
+
+
+
+
+
+
+
+
+
+        // function referatFunc (click, clickReverse, list) {
+        //     let loopNr = 6,
+        //         pageNr = 1,
+        //         total = document.querySelectorAll(list).length,
+        //         pageDivide = total / 6,
+        //         pageTotal = Math.ceil(pageDivide),
+        //         pageSpan = document.createElement("span");
+        
+        //     pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';
+        //     document.querySelector(clickReverse).after(pageSpan);
+           
+        //     //== Hvis mere indhold 6 af gangen
+        //     document.querySelector(click).addEventListener("click", function () {
+        //         let boxList = document.querySelectorAll(list); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
+        //         console.log(boxList)
+        //         boxList.forEach(post => {
+        //             post.style.display = "none";
+        //         })
+        //         if (loopNr == 0) { //Reseter hvis brugeren er gået frem og tilbage i listen.
+        //             loopNr += 6;
+        //         }
+        //         //== Skal vise forskellige indhold ved hver click
+        //         for (let i = loopNr; i < loopNr + 6; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
+        //             if (boxList[i]) {
+        //                 boxList[i].style.display = "block";
+        //             }
+        //         }
+        //         loopNr += 6;
+        //         pageNr += 1;
+        //         pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';//Ændre textContent når det bliver klikket.
+        //         if (document.querySelector(clickReverse).style.display = "none") { //Tilføjer ReverseBtn når ikke er på side 1
+        //             document.querySelector(clickReverse).style.display = "inline-block";
+        //         } 
+        //         if (pageNr == pageTotal) {
+        //             document.querySelector(click).style.display = "none";
+        //         }
+        //     })
+        
+        //     //== Hvis mindre indhold 6 af gangen
+        //     document.querySelector(clickReverse).addEventListener("click", function () {
+        //         let boxList = document.querySelectorAll(list); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
+        //         console.log(boxList)
+        //         boxList.forEach(post => {
+        //             post.style.display = "none";
+        //         })
+        //         loopNr -= 6;
+        //         if(loopNr == 6) { //Fordi loopNr starter på 6, skal den være minus 12 i stedet for 6, for at kunne tegne indholdet som det var fra begyndelsen.
+        //             loopNr -= 6;
+        //         }
+        //         //== Skal vise forskellige indhold ved hver click
+        //         for (let i = loopNr; i < loopNr + 6; i++) { // Inspiration fra: https://www.markuptag.com/javascript-load-more-content-on-click-button/
+        //             if (boxList[i]) {
+        //                 boxList[i].style.display = "block";
+        //             }
+        //         }
+        //         console.log(loopNr)
+        //         pageNr -= 1;
+        //         pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';//Ændre textContent når det bliver klikket.
+        //         if (pageNr == 1) {//Fjerne tilbage knappen når på side 1
+        //             document.querySelector(clickReverse).style.display = "none";
+        //         } 
+        //         if (document.querySelector(click).style.display = "none") { //Tilføjer Btn når den har været sat til display = none, altså når den har været på den maksimale side.
+        //             document.querySelector(click).style.display = "inline-block";
+        //         } 
+        //     })
+        //     if (pageNr === 1) {//Fjerne tilbage knappen når på side 1
+        //         document.querySelector(clickReverse).style.display = "none";
+        //     }
+        // }
     }
+
+
+
+
+    //Tilføjer functioner til start indhold på UnderNavigationer
     if (window.location.href.indexOf(IDomklubben[0]) != -1) {
         if (document.querySelector("#one").classList.contains("selected") != -1) {
             referatFunc();
             showBlock(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatContainer"));
         }
     }
+
+    if (window.location.href.indexOf(IDsejlklub[0]) != -1) {
+        if (document.querySelector("#one").classList.contains("selected") != -1) {
+            //2 functioner som skal navigere videre, ved at clicke på et element i UnderNav
+            document.querySelector("#nyeClick").addEventListener("click", function () {
+                document.querySelector("#two").click();
+            })
+            document.querySelector("#erfarendeClick").addEventListener("click", function () {
+                document.querySelector("#three").click();
+            })
+        }
+    }
+    
+
 
 
     //Fjerner / Viser indhold
@@ -845,12 +951,17 @@ function makeSite(data) {
             uData.galleri.skibe.forEach(skib => {
                 imgList += '<article><img src="' + skib[0] + '" alt="Billede af bådmodellen: ' + skib[1] + '"><div><h4>' + skib[1] + '</h4><ul><li>' + skib[2] + '</li><li>' + skib[3] + '</li></ul></div></article>'
             })
-
+            
             //Skaber og samler hovedindholdet
             let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p><h3>' + uData.intro.title2 + '</h3><p>' + uData.intro.beskriv2 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><h3>' + uData.intro.ul1 + '</h3>' + liste1 + '<h3>' + uData.intro.ul2 + '</h3></article></section>',
                 galleri = '<section id="galleriSejlUndervisning"><article><h2>' + uData.galleri.title + '</h2><p>' + uData.galleri.beskriv + '</p></article><section>' + imgList + '</section></section>',
-                nye = '<section id="nyeSejlUndervisning"><article><h2>' +  + '</h2><p>' +  + '</p></article></section>',
-                erfarende = '<section  id="erfarendeSejlUndervisning"><article><h2>' +  + '</h2><p>' +  + '</p></article></section>',
+                nye = '<section id="nyeSejlUndervisning"><h2>' + uData.elever.nye[0] + '</h2><article><p>' + uData.elever.nye[1] + '</p><button type=button id="nyeClick">LÆS MERE</button></article><img src="' + uData.elever.nye[2] + '" alt="Billede til ' + uData.elever.nye[0] + '"></section>',
+                erfarende = '<section id="erfarendeSejlUndervisning"><h2>' + uData.elever.erfarende[0] + '</h2><article><p>' + uData.elever.erfarende[1] + '</p><button type=button id="erfarendeClick">LÆS MERE</button></article><img src="' + uData.elever.erfarende[2] + '" alt="Billede til ' + uData.elever.erfarende[0] + '"></section>',
+                linksArea = '',
+                appsArea = '',
+                krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>';
+                main = krummer + intro + galleri + nye + erfarende + linkArray + appsArea,
+                
             //Data til UnderNavigation - Nye Elever
             nData = {
                 "intro": {
@@ -883,15 +994,28 @@ function makeSite(data) {
                     //Indeholder Overskrift, Beskrivelse, Tlf og Email
                     "sprg": [dataArray[1].sporgsmal[0], dataArray[1].sporgsmal[1], dataArray[1].sporgsmal[2], dataArray[1].sporgsmal[3]]
                 }
-            },
-            krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>';
+            };
+            
 
 
 
 
 
-            createHTML("main", krummer + intro)
-            console.log(dataArray)
+            createHTML("main", krummer + intro + nye + erfarende)
+            //2 functioner som skal navigere videre, ved at clicke på et element i UnderNav
+            document.querySelector("#nyeClick").addEventListener("click", function () {
+                document.querySelector("#two").click();
+                //Skal tage brugeren til toppen af skærmen. Inspiration fra: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_scroll_to_top
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; // document.documentElement rammer root, det kunne være <html>
+            })
+            document.querySelector("#erfarendeClick").addEventListener("click", function () {
+                document.querySelector("#three").click();
+                //Skal tage brugeren til toppen af skærmen. Inspiration fra: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_scroll_to_top
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0; // document.documentElement rammer root, det kunne være <html>
+            })
+
         }
 
         // - Ungdom
@@ -1152,49 +1276,80 @@ function makeSite(data) {
             medlemmer += '</section>';
             //== Skaber Referater
             // - Find Referater
-            const IDreferat = Number(postData.acf.id.categories.referater);
+            const IDreferat = Number(postData.acf.id.categories.referater),
+            IDreferatGF =  Number(postData.acf.id.categories.referater_GF);
             let
             referatListe = data.filter(post => post.categories.includes(IDreferat)),
+            GFliste = data.filter(post => post.categories.includes(IDreferatGF)),
+            GFbox = '',
+            GFoutput = '',            
             referatBox = "",
-            referatOutput = "";
+            referatOutput = '';
+
+            //Opsætter dato udfra sidste ændret dato
+            function modDato(item) {
+                let mod = item.modified, //Data på sidste gange der er sket ændringer.
+                    splitMod1 = mod.split("T");
+                    splitMod2 = splitMod1[0].split("-"),
+                    day = Number(splitMod2[2]),
+                    month = Number(splitMod2[1]),
+                    year = Number(splitMod2[0]),
+                    nonNumberMonth = numberToMonth(month),
+                    output = day + '. ' + nonNumberMonth + ' ' + year;
+                    return output;
+            }
+
             //Skaber kasse til hver referat
             referatListe.forEach(referat => {
-                //Skal finde ud af hvornår post'en sidst er blevet ændret.
-                function modDato() {
-                    let mod = referat.modified, //Data på sidste gange der er sket ændringer.
-                        splitMod1 = mod.split("T");
-                        splitMod2 = splitMod1[0].split("-"),
-                        day = Number(splitMod2[2]),
-                        month = Number(splitMod2[1]),
-                        year = Number(splitMod2[0]),
-                        nonNumberMonth = numberToMonth(month),
-                        output = day + '. ' + nonNumberMonth + ' ' + year;
-                        return output;
-                }
                 let overskrift = referat.acf.overskrift,
-                    dato = modDato(),
+                    dato = modDato(referat),
                     link = referat.acf.link;
-
                 referatBox = '<div class="referatBox hideReferat"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
                 referatOutput += referatBox;
                 
             })
+
+            GFliste.forEach(referat => {
+                let overskrift = referat.acf.overskrift,
+                    dato = modDato(referat),
+                    link = referat.acf.link;
+
+                GFbox = '<div class="GFbox hideReferat"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
+                GFoutput += GFbox;
+            })
+
             //Skaber alt indholde til referater
             let
             rData = findPost.acf[12],
-            referatBestyrelse = '<article id="referatContainer">' + referatOutput;
-            referat = '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>' + referatBestyrelse + '<div id="btnDiv"><button type="button" id="referatBtnReverse">&#60;</button><button type="button" id="referatBtn">&#62;</button></div></article></section>';
+            gData = findPost.acf[13],
+            referatBestyrelse = '<article id="referatContent">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1">&#60;</button><button type="button" id="referatBtn1">&#62;</button></div></article></section>',
+            GFbestyrelse = '<article id="GFcontent">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#60;</button><button type="button" id="referatBtn2">&#62;</button></div></article></section>',
             
+            //#1
+            referat =  '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>';
+            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#10095;</span></article>' + referatBestyrelse,
+            referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#10095;</span></article>' + GFbestyrelse + '</section>';
             
+            //Laver HTML
             createHTML("main", begivenheder + medlemmer + referat);
             
             //Sørger for at 6 referater bliver vist "onload"
-            let referatBoxListe = document.querySelectorAll(".referatBox");
+            let referatBoxListe = document.querySelectorAll(".referatBox"),
+                GFboxListe = document.querySelectorAll(".GFbox");
+
             for (let i = 0; i < 6; i++) {
                 referatBoxListe[i].classList.remove("hideReferat");
             }
-            referatFunc();
+            for (let i = 0; i < 1; i++) {
+                GFboxListe[i].classList.remove("hideReferat");
+            }
+            
+
+            //Bruger Event functioner
+            referatFunc(document.querySelector("#referatBtn1"), document.querySelector("#referatBtnReverse1"), document.querySelectorAll(".referatBox"));
             showBlock(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatContainer"));
+            showBlock(document.querySelector("#clickReferat1"), document.querySelector("#referatContent"));
+            showBlock(document.querySelector("#clickReferat2"), document.querySelector("#GFcontent"));
         }
 
         
@@ -1214,10 +1369,12 @@ function makeSite(data) {
                             makeSejlUndervisning();
                             break;
                         case "two":
-                            makeSejlNye();
+                            // makeSejlNye();
+                            console.log("CLICK TWO")
                             break;
                         case "three":
-                            makeSejlErfarende();
+                            // makeSejlErfarende();
+                            console.log("CLICK THREE")
                             break;
                         default:
                             makeSejlUndervisning();
