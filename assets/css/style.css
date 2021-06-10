@@ -1,20 +1,40 @@
 /*--HTML by **********
 UCN MMDA0920 */
 
+
 /* fælles for flere sider */
 
 @charset "uft-8";
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600&display=swap');
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+}
+
+h1, h2 {
+    font-family: 'Archivo Narrow', sans-serif;
+}
+h1 {font-size: 40px;}
+h2{ font-size: 26px;}
+
+h3, h4 {
+    font-family: 'Manrope', sans-serif;
+}
+h3{font-size: 23px;}
+h4{font-size: 16px;}
+
+p, ul li, a {
+    line-height: 2vw;
+    font-family: 'Quattrocento Sans', sans-serif;
+    font-size: 16px;
 }
 
 header {
@@ -162,6 +182,11 @@ main {
     padding: 5vw 3vw;
     clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
 }
+
+.skraaBox.stævne {
+    padding-top: 3vw;
+}
+
 .skraaBox ul {
     list-style: none;
     padding: 0;
@@ -190,14 +215,6 @@ main {
     margin-bottom: 2vw;
 }
 
-p {
-    line-height: 2vw;
-}
-
-ul li {
-    line-height: 2vw;
-}
-
 .infoStor {
     display: flex;
     justify-content: space-between;
@@ -208,13 +225,14 @@ ul li {
 .skraaBoxStor {
     display: block;
     width: 50vw;
-    height: 26vw;
-    padding-left: 22vw;
-    padding-top: 3.5vw;
+    height: 31vw;
+    padding-left: 20vw;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
     clip-path: polygon(36% 0, 100% 0, 100% 100%, 0% 100%);
 }
 .skraaBoxText {
-    width: 22vw;
+    width: 27vw;
 }
 .skraaBoxStor ul {
     padding-left: 1.2vw;
@@ -222,6 +240,14 @@ ul li {
 
 .infoStorBoxText {
     width: 30vw;
+    height: 31vw;
+}
+
+.infoStorBoxText h2 {
+    margin-top: 0;
+}
+.infoStorBoxText h3 {
+    margin-top: 3vw;
 }
 
 /* Forside */
@@ -249,7 +275,7 @@ ul li {
     height: auto;
 }
 
-.newsPosts, .eventPost, .afdelingFlex {
+.newsPosts, .eventPost, .afdelingFlex, .linksPost {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -263,7 +289,7 @@ ul li {
     background-color: #648DAA;
 }
 
-.events {
+.blaaBox {
     width: 100%;
     height: auto;
     background-color: #B2CEDE;
@@ -384,7 +410,7 @@ ul li {
 }
 
 
-.infoBoxUngdom {
+.infoBoxAfdeling {
     width: 86vw;
     height: 15vw;
     margin: 4vw 0;
@@ -395,11 +421,11 @@ ul li {
     align-items: center;
 }
 
-.infoBoxUngdom p {
+.infoBoxAfdeling p {
     width: 35vw;
 }
 
-.skraaBoxUngdom {
+.skraaBoxAfdeling {
     display: block;
     width: 20vw;
     height: 15vw;
@@ -429,7 +455,7 @@ ul li {
 }
 
 .contentBoxStævne section {
-    width: 20vw;
+    width: 21vw;
 }
 
 .dokumentBoxStævne {
@@ -473,10 +499,23 @@ ul li {
 }
 
 .baadBox {
-    width: 20vw;
-    height: 20vw;
+    width: 18vw;
+    height: 18vw;
     border-left: 9px solid #B12818;
     background-color: black;
+}
+.baadBoxText {
+    display: flex;
+    justify-content: space-between;
+    width: 18vw;
+}
+
+.linkBox {
+    display: inline-block;
+    width: 42vw;
+    height: 30vw;
+    background-color: #ffffff;
+    border-left: 9px solid #B12818;
 }
 
 
