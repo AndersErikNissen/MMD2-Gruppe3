@@ -86,7 +86,7 @@ function makeSite(data) {
         IDungdomInfo = [postData.acf.id.categories.ungdom_undernav[2]].map(Number),
 
         //Template ID
-        IDeventtemplate = Number(postData.acf.id.categories.begivenhed)
+        IDeventtemplate = Number(postData.acf.id.categories.begivenhed),
         IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
 
         logo = postData.acf.billeder[0],
@@ -146,7 +146,7 @@ function makeSite(data) {
         }
         return month;
     }
-    function sortNew (list) {
+    function sortNew (list) { //Sort returner de nye array alt efter hvilke vilkår man har sat.
         list.sort((first, second) => {// .sort sammenligner values, og den skal arbejde med de datoer vi har fra vores ACF-data.
             let date_1 = first.acf.dato[0],
                 date_2 = second.acf.dato[0];
@@ -828,6 +828,24 @@ function makeSite(data) {
         makeUnderNavigation(IDbannerBlivmedlem[3], IDbannerBlivmedlem[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
 
+    function makeBegivenheder () {
+        let 
+        header = '<article id="heroLille"><h1>' + IDbannerBegivenhed[0] + '</h1><p>' + IDbannerBegivenhed[1] + '</p><img src="' + IDbannerBegivenhed[2] + '" alt="Billede til Header - Begivenheder"></article>',
+        begivenhedsListe = data.filter(post => post.categories.includes(IDeventtemplate));
+        sortNew(begivenhedsListe)
+
+        //Create Elements
+        let
+        eventBoxs = document.createElement()
+
+        if (mobil.matches || tablet.matches) {
+            
+            
+            console.log("Template - Mobil / Tablet")
+        }
+        console.log(begivenhedsListe)
+    }
+
     function makeLayout (current) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
@@ -1140,7 +1158,8 @@ function makeSite(data) {
 
                 "info": {
                     "container": [dataArray[1].container_info[0], dataArray[1].container_info[1], dataArray[1].container_info[2], dataArray[1].container_info[3]],
-                    "array1": [dataArray[1].info_1, dataArray[1].info_2, dataArray[1].info_3, dataArray[1].info_4]
+                    "array1": [dataArray[1].info_1, dataArray[1].info_2, dataArray[1].info_3, dataArray[1].info_4],
+                    "array2": [dataArray[1].info_5, dataArray[1].info_6, dataArray[1].info_7, dataArray[1].info_8]
                 }
             },
             container = document.createElement("section"),
@@ -1186,7 +1205,7 @@ function makeSite(data) {
                 section.appendChild(showHide);
                 container.appendChild(section);
                 
-                if (nr === 1 || nr === 2) {
+                if (nr === 1) {
                     ds.info.array1.forEach(item => {
                         let 
                         ramme = document.createElement("section"),
@@ -1194,17 +1213,23 @@ function makeSite(data) {
                         content = document.createElement("article"),
                         ul1 = document.createElement("ul"),
                         ul2 = document.createElement("ul"),
+                        ulArticle = document.createElement("article"),
                         h4_1 = document.createElement("h4"),
                         h4_2 = document.createElement("h4"),
                         tilmeldBtn = document.createElement("a"),
-                        pil = document.createElement("span");
+                        pil = document.createElement("span")
+                        dato = new Date(),
+                        year = dato.getFullYear();
 
                         //Click Box
-                        h4_1.textContent = item[0];
+                        h4_1.innerHTML = '<strong>' + year + '</strong>' + item[0];
                         pil.innerHTML = "&#10094;";
                         clickBox.append(h4_1, pil)
 
                         //Content 
+                        h4_2.textContent = item[0];
+                        tilmeldBtn.textContent = "Tilmeld";
+                        tilmeldBtn.href = ""
                         item[7].forEach(each => {
                             if(each != "") {//Checker efter tomt data, som ikke behøver et Li element
                                 let li = document.createElement("li");
@@ -1225,7 +1250,7 @@ function makeSite(data) {
                                     indhold.innerHTML = "<i>Sæson: </i>" + item[i][0] + ' - ' + item[i][1];
                                     break;
                                 case 4: 
-                                    indhold.innerHTML = "<i>Pris: </i>" + item[i];
+                                    indhold.innerHTML = "<i>Pris: </i>" + item[i] + 'kr.';
                                     break;
                                 case 5: 
                                     indhold.innerHTML = "<i>Træner: </i>" + item[i];
@@ -1236,7 +1261,8 @@ function makeSite(data) {
                             }
                             ul1.appendChild(indhold)
                         }
-                        content.append(ul1, ul2)
+                        ulArticle.append(ul1, ul2, tilmeldBtn)
+                        content.append(h4_2, ulArticle)
 
                         ramme.append(clickBox, content);
                         showHide.appendChild(ramme);
@@ -1245,6 +1271,80 @@ function makeSite(data) {
                         showBlock(clickBox, content)
                     })
                 }
+
+                if (nr === 2) {
+                    ds.info.array2.forEach(item => {
+                        let 
+                        ramme = document.createElement("section"),
+                        clickBox = document.createElement("article"),
+                        content = document.createElement("article"),
+                        ul1 = document.createElement("ul"),
+                        ul2 = document.createElement("ul"),
+                        ulArticle = document.createElement("article"),
+                        h4_1 = document.createElement("h4"),
+                        h4_2 = document.createElement("h4"),
+                        tilmeldBtn = document.createElement("a"),
+                        pil = document.createElement("span")
+                        dato = new Date(),
+                        year = dato.getFullYear();
+
+                        //Click Box
+                        h4_1.innerHTML = '<strong>' + year + '</strong>' + item[0];
+                        pil.innerHTML = "&#10094;";
+                        clickBox.append(h4_1, pil)
+
+                        //Content 
+                        h4_2.textContent = item[0];
+                        tilmeldBtn.textContent = "Tilmeld";
+                        tilmeldBtn.href = item[8];
+                        tilmeldBtn.target = "_blank"
+                        item[7].forEach(each => {
+                            if(each != "") {//Checker efter tomt data, som ikke behøver et Li element
+                                let li = document.createElement("li");
+                                li.textContent = each;
+                                ul2.appendChild(li);
+                            }
+                        })
+                        for (let i = 1; i < 7; i++) {
+                            //Skal hoppe videre i loopet hvis item[i] er tom.
+                            if(item[i] == "") {
+                                continue;
+                            }
+                            let indhold = document.createElement("li");
+                            switch (i) {
+                                case 1:
+                                    indhold.innerHTML = "<i>Dage: </i>" + item[i]
+                                    break;
+                                case 2:
+                                    indhold.innerHTML = "<i>Tid: </i>" + item[i][0] + ' - ' + item[i][1];
+                                    break;
+                                case 3: 
+                                    indhold.innerHTML = "<i>Sæson: </i>" + item[i][0] + ' - ' + item[i][1];
+                                    break;
+                                case 4: 
+                                    indhold.innerHTML = "<i>Pris: </i>" + item[i] + 'kr.';
+                                    break;
+                                case 5: 
+                                    indhold.innerHTML = "<i>Træner: </i>" + item[i];
+                                    break;
+                                case 6: 
+                                    indhold.innerHTML = "<i>Sted: </i>" + item[i];
+                                    break;
+                            }
+                            ul1.appendChild(indhold)
+                           
+                        }
+                        ulArticle.append(ul1, ul2, tilmeldBtn)
+                        content.append(h4_2, ulArticle)
+
+                        ramme.append(clickBox, content);
+                        showHide.appendChild(ramme);
+
+
+                        showBlock(clickBox, content)
+                    })
+                }
+
                 if (nr === 1 || nr === 2) {
                     showBlock(btn, showHide)
                 }
