@@ -19,21 +19,17 @@ body {
     grid-template-columns: repeat(12, 1fr);
 }
 
-h1, h2 {
+h1, h2, h3, h4 {
     font-family: 'Archivo Narrow', sans-serif;
 }
 h1 {font-size: 40px;}
 h2{ font-size: 26px;}
-
-h3, h4 {
-    font-family: 'Manrope', sans-serif;
-}
 h3{font-size: 23px;}
 h4{font-size: 16px;}
 
 p, ul li, a {
     line-height: 2vw;
-    font-family: 'Quattrocento Sans', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 16px;
 }
 
@@ -44,7 +40,7 @@ header {
     border: none;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 3;
 }
 
 .login {
@@ -52,22 +48,27 @@ header {
     justify-content: flex-end;
     width: 100%;
     height: fit-content;
-    padding: 0.5vw 7vw;
+    padding: 0 7vw;
     background-color: #E3E3E3;
 }
 
 .navigation {
     padding: 0 7vw;
+    height: fit-content;
     background-color: white;
     display: flex;
     justify-content: space-between;
     box-shadow: 0 2px rgba(0, 0, 0, 0.123) ;
 }
 
+.navigation nav ul {
+    margin: 0.5vw 0;
+}
+
 .navigation nav ul li {
     display: inline-block;
     list-style: none;
-    margin-left: 5vw;
+    margin-left: 4vw;
 }
 
 a {
@@ -82,8 +83,10 @@ a {
 .button {
     background-color: #5684B8;
     border-radius: 2px;
-    border: #5684B8 solid 12px;
+    padding: 0 1vw;
+    border: #5684B8 solid 8px;
     width: fit-content;
+    margin: 0;
 }
 
 .button a {
@@ -119,7 +122,7 @@ a {
 
 .secondNav ul {
     margin: 0;
-    padding: 1vw 0;
+    padding: 0;
 }
 
 .secondNav ul li {
@@ -552,7 +555,7 @@ main {
 .button.aktivButton{ 
     /* begge classes sættes på uden mellemrum, så det kun gælder for elementer med begge classes */
     background-color: #B12818;
-    border: #B12818 solid 12px;
+    border: #B12818 solid 8px;
 }
 
 .infoTilmeld {
