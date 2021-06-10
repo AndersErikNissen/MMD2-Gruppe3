@@ -1088,7 +1088,7 @@ function makeSite(data) {
                 h3 = document.createElement("h3"),
                 p = document.createElement("p"),
                 btn = document.createElement("button"),
-                arrow = document.createElement("span");
+                arrow = '<span>&#10094;</span>';
 
                 section.id = "tilmeldBox" + nr;
                 h2.textContent = item[0];
@@ -1097,9 +1097,7 @@ function makeSite(data) {
                 //ShowHide knap
                 btn.type = "button";
                 btn.id = "showBtn" + nr;
-                arrow.textContent = "&#10094;";
-                btn.appendChild(arrow);
-                btn.textContent = "MERE INFORMATION";
+                btn.innerHTML = "MERE INFORMATION" + arrow;
                     
                 //Ligger alle elementer sammen
                 article.append(h2, h3, p, btn);
@@ -1108,11 +1106,14 @@ function makeSite(data) {
                 //Giver ny number til id'et hver gang
                 // btn.addEventListener("click", showBlock(section, docu))
                 btn.addEventListener("click", function() {
-                    let btn1 = document.querySelector("#tilmeldBox1").childNodes;
+                    
+                    
+                    // let btn1 = document.querySelector("#tilmeldBox1").childNodes;
                         
-                        btn1.forEach(btn => {
-                            btn.style.display = "none";
-                        })
+                    //     btn1.forEach(btn => {
+                    //         btn.style.display = "none";
+
+                    //     })
                 })
                 if (nr === 1) {
                     ds.info.array1.forEach(item => {
@@ -1124,10 +1125,51 @@ function makeSite(data) {
                         ul2 = document.createElement("ul"),
                         h4_1 = document.createElement("h4"),
                         h4_2 = document.createElement("h4"),
-                        tilmeldBtn = document.createElement("a");
+                        tilmeldBtn = document.createElement("a"),
+                        pil = document.createElement("span");
 
+                        //Click Box
+                        h4_1.textContent = item[0];
+                        pil.innerHTML = "&#10094;";
+                        clickBox.append(h4_1, pil)
 
-                        clickBox
+                        //Content 
+                        item[7].forEach(each => {
+                            if(each != "") {//Checker efter tomt data, som ikke behøver et Li element
+                                let li = document.createElement("li");
+                                li.textContent = each;
+                                ul2.appendChild(li);
+                            }
+                        })
+                        for (let i = 1; i < 7; i++) {
+                            let indhold;
+                            switch (i) {
+                                case 1:
+                                    indhold = "<i>Dage: </i>" + item[i]
+                                    break;
+                                case 2:
+                                    indhold = "<i>Tid: </i>" + item[i][0] + ' - ' + item[i][1];
+                                    break;
+                                case 3: 
+                                    indhold = "<i>Sæson: </i>" + item[i][0] + ' - ' + item[i][1];
+                                    break;
+                                case 4: 
+                                    indhold = "<i>Pris: </i>" + item[i];
+                                    break;
+                                case 5: 
+                                    indhold = "<i>Træner: </i>" + item[i];
+                                    break;
+                                case 6: 
+                                    indhold = "<i>Sted: </i>" + item[i];
+                                    break;
+                            }
+                            
+                            
+                            let li = indhold;
+                            ul1.appendChild(li)
+                        }
+                        content.append(ul1, ul2)
+                        console.log(ul1)
 
 
 
