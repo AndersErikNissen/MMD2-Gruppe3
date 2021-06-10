@@ -1081,9 +1081,17 @@ function makeSite(data) {
                     "beskriv": dataArray[0][7][1],
                     "email": dataArray[0][7][2],
                 }
-            };
+            },
+            intro = '<section><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
+            profil = '<section><section></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+            profil += '<article><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+            profil += '<article><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
+            let outro = '<section><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
+            outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
 
+            let main = intro + profil + outro;
 
+            createHTML("main", main)
             console.log(ds)
         }
 
@@ -1123,8 +1131,27 @@ function makeSite(data) {
                     "array": ggArray,
                     "kontakt": [dataArray[2][4][6][0], dataArray[2][4][6][1]]
                 }
-            }
-            console.log(ds)
+            };
+
+            //MentorArray til Li elementer
+            let mentorList = '<ul>';
+            ds.mentor.array.forEach(li => {
+                mentorList += '<li>' + li + '</li>';
+            })
+            mentorList += '</ul>';
+            //GodeGrundeArray til Li elementer
+            let ggList = '<ul>';
+            ds.gode.array.forEach(li => {
+                ggList += '<li>' + li + '</li>';
+            })
+            ggList+= '</ul>';
+
+            let intro = '<section><article><h2>' + ds.intro.title + '</h2><h3>' + ds.intro.under + '</h3><p>' + ds.intro.beskriv + '</p></article><article><h3>' + ds.mentor.title + '</h3>' + mentorList + '</article></section>',
+                gg = '<section><h3>' + ds.gode.title + '</h3>' + ggList + '<p>' + ds.gode.kontakt + '</p></section>',
+                main = intro + gg;
+
+
+            createHTML("main", main)
         }
 
         // - Sejlerskolen
