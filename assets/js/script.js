@@ -1066,14 +1066,97 @@ function makeSite(data) {
                     "container": [dataArray[1].container_info[0], dataArray[1].container_info[1], dataArray[1].container_info[2], dataArray[1].container_info[3]],
                     "array1": [dataArray[1].info_1, dataArray[1].info_2, dataArray[1].info_3, dataArray[1].info_4]
                 }
-            };
+            },
+            container = document.createElement("section"),
+            nr = 1,
+            main = document.querySelector("main")
+            ungdom = '<article id="tilUngContent"><h3>Tilmelding til ' + ds.info.container[0][0] + '</h3>';
+            
+            //Ligger container ind i Main
+            container.id = "tilmeldContainer";
+
+            document.querySelector("main").innerHTML = ""; //Reset Main's HTML, ellers ville appendChild bare ligge så under alt det tidligere indhold.
+            document.querySelector("main").appendChild(container);
+            
+            
+            //Skaber først de yderste kasser
+            ds.info.container.forEach(item => {
+                let 
+                section = document.createElement("section"),
+                article = document.createElement("article"),
+                h2 = document.createElement("h2"),
+                h3 = document.createElement("h3"),
+                p = document.createElement("p"),
+                btn = document.createElement("button"),
+                arrow = document.createElement("span");
+
+                section.id = "tilmeldBox" + nr;
+                h2.textContent = item[0];
+                h3.textContent = item[1];
+                p.textContent = item[2];
+                //ShowHide knap
+                btn.type = "button";
+                btn.id = "showBtn" + nr;
+                arrow.textContent = "&#10094;";
+                btn.appendChild(arrow);
+                btn.textContent = "MERE INFORMATION";
+                    
+                //Ligger alle elementer sammen
+                article.append(h2, h3, p, btn);
+                section.appendChild(article);
+                container.appendChild(section);
+                //Giver ny number til id'et hver gang
+                // btn.addEventListener("click", showBlock(section, docu))
+                btn.addEventListener("click", function() {
+                    let btn1 = document.querySelector("#tilmeldBox1").childNodes;
+                        
+                        btn1.forEach(btn => {
+                            btn.style.display = "none";
+                        })
+                })
+                if (nr === 1) {
+                    ds.info.array1.forEach(item => {
+                        let 
+                        ramme = document.createElement("section"),
+                        clickBox = document.createElement("article"),
+                        content = document.createElement("article"),
+                        ul1 = document.createElement("ul"),
+                        ul2 = document.createElement("ul"),
+                        h4_1 = document.createElement("h4"),
+                        h4_2 = document.createElement("h4"),
+                        tilmeldBtn = document.createElement("a");
 
 
+                        clickBox
+
+
+
+
+                        ramme.append(clickBox, content);
+                        section.appendChild(ramme);
+
+
+                        // showBlock(clickBox, content) //??
+
+
+
+
+                        
+                    })
+                }
+                    
+
+
+
+
+
+                nr++;
+            })
 
 
             let 
-            number = 1,
-            tilmelding = '<section id="staevne_' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '"></button></article>' + staevneContent + '</section>';
+            number = 1;
+            // tilmelding = '<section id="tilUng' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '"></button></article>' + staevneContent + '</section>';
                 
             
 
@@ -1540,8 +1623,6 @@ function makeSite(data) {
                 number--; //Fordi vi bruger number++ får at give navn til i det første forEach loop, så skal vi her have -1 for at id'et matcher.
                 showBlock(document.querySelector('#staevneBtn_' + number), document.querySelector('#staevneContent_' + number));
             })
-            // showBlock(document.querySelector('#staevneBtn_1'), document.querySelector('#staevneContent_1'));
-            console.log(document.querySelector("#staevneBtn_1"))
         }
         function makeUngUndervisning () {
 
