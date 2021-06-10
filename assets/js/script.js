@@ -1040,6 +1040,68 @@ function makeSite(data) {
         //== Funktioner til Afdelinger Undersider
 
         // - Bliv Medlem
+
+        function makeTilmelding () {
+            let 
+            postID = IDblivmedlem[0],
+            findPost = data.find(post => post.id == postID),
+            dataArray = [findPost.acf.conventus, findPost.acf.tilmelding, findPost.acf.mentor],
+            ds = {
+                "intro": {
+                    "title": dataArray[1].velkomst_blog[0],
+                    "under1": dataArray[1].velkomst_blog[1],
+                    "beskriv1": dataArray[1].velkomst_blog[2],
+                    "under2": dataArray[1].velkomst_blog[3],
+                    "beskriv2": dataArray[1].velkomst_blog[4],
+                    "data": [dataArray[1].velkomst_blog[5][0], dataArray[1].velkomst_blog[5][1]]
+                },
+
+                "step": {
+                    "title": dataArray[1].info_step[0],
+                    "one": [dataArray[1].info_step[1][0], dataArray[1].info_step[1][1]],
+                    "two": dataArray[1].info_step[1][1]
+                },
+
+                "info": {
+                    "container": [dataArray[1].container_info[0], dataArray[1].container_info[1], dataArray[1].container_info[2], dataArray[1].container_info[3]],
+                    "array1": [dataArray[1].info_1, dataArray[1].info_2, dataArray[1].info_3, dataArray[1].info_4]
+                }
+            };
+
+
+
+
+            let 
+            number = 1,
+            tilmelding = '<section id="staevne_' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '"></button></article>' + staevneContent + '</section>';
+                
+            
+
+
+            
+            
+            
+            
+            console.log(ds.info.array1[0])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
         function makeContentus() {
             let 
             postID = IDblivmedlem[0],
@@ -1717,11 +1779,9 @@ function makeSite(data) {
                         switch(selected) {
                         case "one":
                             makeContentus();
-                            console.log("1 - CHECK")
                             break;
                         case "two":
-                            // makeTilmelding();
-                            console.log("2 - CHECK")
+                            makeTilmelding();
                             break;
                         case "three":
                             makeMentor();
