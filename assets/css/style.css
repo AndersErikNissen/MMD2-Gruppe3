@@ -62,8 +62,12 @@ a {
     background-color: blueviolet;
 }
 
-span {
+#bodyTemplate_1261 span {
     transform: rotate(-90deg);
     /* Normalt ville span være et inline element */
     display: inline-block;
+}
+i {
+    font-weight: bold;
+    font-style: normal;
 }

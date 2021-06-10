@@ -85,8 +85,10 @@ function makeSite(data) {
         IDungdomStaevne = [postData.acf.id.categories.ungdom_undernav[1], postData.acf.id.categories.template_staevne].map(Number),
         IDungdomInfo = [postData.acf.id.categories.ungdom_undernav[2]].map(Number),
 
-
+        //Template ID
+        IDeventtemplate = Number(postData.acf.id.categories.begivenhed)
         IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
+
         logo = postData.acf.billeder[0],
 
         // - Mobil og Tablet, bruges til at kigge hvilke elementer som skal skabes/ikke skabes. F.eks. til en HamburgerMenu. 
@@ -94,7 +96,6 @@ function makeSite(data) {
         tablet = window.matchMedia("(min-width: 481px) and (max-width: 1024px)");
 
         
-        console.log("data", postData)
     //== FUNKTIONER
     function createHTML (placement, element) { // Skal tilføje indhold til et sted i DOM'en, men skulle det "område/element" have indhold vil det blive erstattet.
         document.querySelector(placement).innerHTML = element;
@@ -102,6 +103,7 @@ function makeSite(data) {
     function addToHTML (placement, element) {// Derfor er der også en function som tilføjer til eksiterende data i et område. 
         document.querySelector(placement).innerHTML += element;
     }
+
     // Switchen: Skal skrive forkortelsen for måneden i stedet for tallet.
     function numberToMonth (month) {
         switch (month) {
@@ -435,7 +437,61 @@ function makeSite(data) {
             
             createHTML("main", main)
         }
-
+        //*******************
+            //Til Bliv Medlem - Conventus
+            function makeConventus() {
+                let 
+                postID = IDblivmedlem[0],
+                findPost = data.find(post => post.id == postID),
+                dataArray = [findPost.acf.conventus, findPost.acf.tilmelding, findPost.acf.mentor],
+    
+                //Array med Medlems Typer
+                profilArray = new Array();
+                dataArray[0][5].forEach(each => {
+                    let pushIt = [each[0], each[1]]
+                    profilArray.push(pushIt)
+                })
+                
+    
+                let ds = {
+                    "intro": {
+                        "title": dataArray[0][0],
+                        "under": dataArray[0][1],
+                        "konti": dataArray[0][2],
+                        "kBeskriv1": dataArray[0][3],
+                        "kBeskriv2": dataArray[0][4],
+                    },
+    
+                    "profil": {
+                        "aMedlem": [dataArray[0][5][0][0], dataArray[0][5][0][1]],
+                        "bMedlem": [dataArray[0][5][1][0], dataArray[0][5][1][1]],
+                        "cMedlem": [dataArray[0][5][2][0], dataArray[0][5][2][1]],
+                        "array": profilArray
+                    },
+                    
+                    "data": {
+                        "title": dataArray[0][6][0],
+                        "beskriv1": dataArray[0][6][1],
+                        "beskriv2": dataArray[0][6][2],
+                    },
+    
+                    "sprg": {
+                        "title": dataArray[0][7][0],
+                        "beskriv": dataArray[0][7][1],
+                        "email": dataArray[0][7][2],
+                    }
+                },
+                intro = '<section><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
+                profil = '<section><section></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+                profil += '<article><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+                profil += '<article><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
+                let outro = '<section><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
+                outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
+    
+                let main = intro + profil + outro;
+    
+                createHTML("main", main)
+            }
 
         //== Skaber Navigation med alt indhold:
         let nr = 0,
@@ -479,6 +535,10 @@ function makeSite(data) {
                 if (window.location.href.indexOf(IDsejlklub[0]) != -1) {
                     makeSejlUndervisning();
                 }
+                if (window.location.href.indexOf(IDblivmedlem[0]) != -1) {
+                    makeConventus();
+                }
+
 
             }
             underUl.appendChild(li);
@@ -576,9 +636,24 @@ function makeSite(data) {
         addToHTML("#sponsorSection", sponsor);
     }
     function makeFooter () {
-        let address = '<address><h2>KONTAKT</h2></address>',
+        let 
+        splitEmail = postData.acf.footer[0][1].split(": "),
+        email = [splitEmail[0], splitEmail[1]],
+
+        //Data til footeren
+        fD = {
+            "title": postData.acf.footer[0][0],
+            "email": email,
+            "adresse": postData.acf.footer[0][2],
+            //Indeholder Link og Billede til facebook. Logoet kommer fra: https://fontawesome.com/v5.15/icons/facebook?style=brands, lavet fra SVG om til PNG, for at kunne ligge på WordPress.
+            "fb": [postData.acf.footer[1][0], postData.acf.footer[1][1]]
+        },
+
+        //Indhold til Address
+        address = '<address><h2>' + fD.title + '</h2><ul><li>' + fD.email[0] + '<a href="mailto:' + fD.email[1] + '">' + fD.email[1] + '</a>' + '</li><li>' + fD.adresse + '</li></ul></address>',
         footerNav = '<nav><ul>',
         navigationlist = postData.acf.id.categories.navigationlist,
+
         //== Finder data omkring Forsiden.
         forside = data.find(post => post.id == IDforside[2]), //Leder alle vores posts(som matcher SNV.dk ID'et) som kan findes i vores liste af ID'er. Vi kunne også have kigget efter posts som matcher vores SNV.dk - Navigation ID, men vi har mest kontrol på denne måde.
         forsideTitleSplit = forside.title.rendered.split("Private: "),
@@ -596,7 +671,7 @@ function makeSite(data) {
         })
         footerNav += '</ul></nav>'
 
-        let footer = address + footerNav;
+        let footer = address + footerNav + '<a href="' + fD.fb[0] + '" target="_blank"><img src="' + fD.fb[1] + '" alt="Logo til Facebook"></a>';
         createHTML("footer", footer);
     }
 
@@ -638,7 +713,7 @@ function makeSite(data) {
         //== Skaber Events
         events += '<section id="events"><h2>' + forside.acf.overskrifter[2] + '</h2><div id="eventPosts">';
         //== Sortering og HTML til hvert "card/kort"
-        let eventList = data.filter(post => post.categories.includes(66)),
+        let eventList = data.filter(post => post.categories.includes(IDeventtemplate)),
             sortedList = sortNew(eventList);
         for (let i = 0; i < 2; i++) {
             //== Lav måned om til bogstaver fra tal.
@@ -1058,7 +1133,8 @@ function makeSite(data) {
 
                 "step": {
                     "title": dataArray[1].info_step[0],
-                    "one": [dataArray[1].info_step[1][0], dataArray[1].info_step[1][1]],
+                    //Indeholde: Første del af text, sidste del af tekst og Link
+                    "one": dataArray[1].info_step[1],
                     "two": dataArray[1].info_step[1][1]
                 },
 
@@ -1068,14 +1144,17 @@ function makeSite(data) {
                 }
             },
             container = document.createElement("section"),
-            nr = 1,
-            main = document.querySelector("main")
-            ungdom = '<article id="tilUngContent"><h3>Tilmelding til ' + ds.info.container[0][0] + '</h3>';
+            intro = '<section><h2>' + ds.intro.title + '</h2><article><h3>' + ds.intro.under1 + '</h3><p>' + ds.intro.beskriv1 + '</p></article><article><h3>' + ds.intro.under2 + '</h3><p>' + ds.intro.beskriv2 + '<a href="' + ds.intro.data[0] + '">' + ds.intro.data[0] + '</a></p></article></section>',
+            step = '<section id="tilStep"><article><div class="blueShapeStep"><h3>1.</h3></div><p>' + ds.step.one[0][0] + ' (<a href="' + ds.step.one[0][2] + '">LÆS MERE</a>). ' + ds.step.one[0][0] + '</p><a href="' + ds.step.one[0][2] + '">Tilmeld</a></article>';
+            step += '<article><div class="blueShapeStep"><h3>2.</h3></div><p>' + ds.step.two + '</p></article></section>';
             
-            //Ligger container ind i Main
-            container.id = "tilmeldContainer";
-
-            document.querySelector("main").innerHTML = ""; //Reset Main's HTML, ellers ville appendChild bare ligge så under alt det tidligere indhold.
+            //Bruges til at kunne styre forskellige ting i et forEach loop
+            let nr = 1;
+           
+            console.log(ds.step.one)
+            //Starter det nye indhold i main, som appendChild skal ligge sig efter
+            createHTML("main", intro + step)
+            //Skaber appendChild(Container)
             document.querySelector("main").appendChild(container);
             
             
@@ -1083,6 +1162,7 @@ function makeSite(data) {
             ds.info.container.forEach(item => {
                 let 
                 section = document.createElement("section"),
+                showHide = document.createElement("section"),
                 article = document.createElement("article"),
                 h2 = document.createElement("h2"),
                 h3 = document.createElement("h3"),
@@ -1090,6 +1170,7 @@ function makeSite(data) {
                 btn = document.createElement("button"),
                 arrow = '<span>&#10094;</span>';
 
+                //Tilføjer værdier
                 section.id = "tilmeldBox" + nr;
                 h2.textContent = item[0];
                 h3.textContent = item[1];
@@ -1102,20 +1183,10 @@ function makeSite(data) {
                 //Ligger alle elementer sammen
                 article.append(h2, h3, p, btn);
                 section.appendChild(article);
+                section.appendChild(showHide);
                 container.appendChild(section);
-                //Giver ny number til id'et hver gang
-                // btn.addEventListener("click", showBlock(section, docu))
-                btn.addEventListener("click", function() {
-                    
-                    
-                    // let btn1 = document.querySelector("#tilmeldBox1").childNodes;
-                        
-                    //     btn1.forEach(btn => {
-                    //         btn.style.display = "none";
-
-                    //     })
-                })
-                if (nr === 1) {
+                
+                if (nr === 1 || nr === 2) {
                     ds.info.array1.forEach(item => {
                         let 
                         ramme = document.createElement("section"),
@@ -1142,92 +1213,46 @@ function makeSite(data) {
                             }
                         })
                         for (let i = 1; i < 7; i++) {
-                            let indhold;
+                            let indhold = document.createElement("li");
                             switch (i) {
                                 case 1:
-                                    indhold = "<i>Dage: </i>" + item[i]
+                                    indhold.innerHTML = "<i>Dage: </i>" + item[i]
                                     break;
                                 case 2:
-                                    indhold = "<i>Tid: </i>" + item[i][0] + ' - ' + item[i][1];
+                                    indhold.innerHTML = "<i>Tid: </i>" + item[i][0] + ' - ' + item[i][1];
                                     break;
                                 case 3: 
-                                    indhold = "<i>Sæson: </i>" + item[i][0] + ' - ' + item[i][1];
+                                    indhold.innerHTML = "<i>Sæson: </i>" + item[i][0] + ' - ' + item[i][1];
                                     break;
                                 case 4: 
-                                    indhold = "<i>Pris: </i>" + item[i];
+                                    indhold.innerHTML = "<i>Pris: </i>" + item[i];
                                     break;
                                 case 5: 
-                                    indhold = "<i>Træner: </i>" + item[i];
+                                    indhold.innerHTML = "<i>Træner: </i>" + item[i];
                                     break;
                                 case 6: 
-                                    indhold = "<i>Sted: </i>" + item[i];
+                                    indhold.innerHTML = "<i>Sted: </i>" + item[i];
                                     break;
                             }
-                            
-                            
-                            let li = indhold;
-                            ul1.appendChild(li)
+                            ul1.appendChild(indhold)
                         }
                         content.append(ul1, ul2)
-                        console.log(ul1)
-
-
-
 
                         ramme.append(clickBox, content);
-                        section.appendChild(ramme);
+                        showHide.appendChild(ramme);
 
 
-                        // showBlock(clickBox, content) //??
-
-
-
-
-                        
+                        showBlock(clickBox, content)
                     })
                 }
-                    
-
-
-
-
-
+                if (nr === 1 || nr === 2) {
+                    showBlock(btn, showHide)
+                }
                 nr++;
             })
-
-
-            let 
-            number = 1;
-            // tilmelding = '<section id="tilUng' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '"></button></article>' + staevneContent + '</section>';
-                
-            
-
-
-            
-            
-            
-            
-            console.log(ds.info.array1[0])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
-        function makeContentus() {
+        function makeConventus() {
             let 
             postID = IDblivmedlem[0],
             findPost = data.find(post => post.id == postID),
@@ -1901,7 +1926,7 @@ function makeSite(data) {
                         let selected = li.id;
                         switch(selected) {
                         case "one":
-                            makeContentus();
+                            makeConventus();
                             break;
                         case "two":
                             makeTilmelding();
