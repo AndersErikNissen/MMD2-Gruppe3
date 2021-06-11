@@ -831,21 +831,146 @@ function makeSite(data) {
     function makeBegivenheder () {
         let 
         header = '<article id="heroLille"><h1>' + IDbannerBegivenhed[0] + '</h1><p>' + IDbannerBegivenhed[1] + '</p><img src="' + IDbannerBegivenhed[2] + '" alt="Billede til Header - Begivenheder"></article>',
-        begivenhedsListe = data.filter(post => post.categories.includes(IDeventtemplate));
+        begivenhedsListe = data.filter(post => post.categories.includes(IDeventtemplate)),
+        nrInArray = 1;
         sortNew(begivenhedsListe)
+        makeUnderNavSection();
+        createHTML("#underNavContent", header);
 
         //Create Elements
-        let
-        eventBoxs = document.createElement()
+        let 
+        top = document.createElement("section"),
+        topH2 = document.createElement("h2"),
+        eventWindows = document.createElement("section");
+        eventWindows.id = "eventWindows";
+        
+        topH2.textContent = "Begivenheder";
+        top.appendChild(topH2);
+        document.querySelector("main").appendChild(top)
 
-        if (mobil.matches || tablet.matches) {
+        let 
+        display = document.createElement("section");
+        display.id = "display";
+
+        begivenhedsListe.forEach(list => {
+            //Create Elements
+            let
+            eventBox = document.createElement("section"),
+            eventArticle = document.createElement("article"),
+            displayContent = document.createElement("article"),
+            datoStor = document.createElement("h3"),
+            datoStorBox = document.createElement("div"),
+            title = document.createElement("h4"),
+            ul = document.createElement("ul"),
+            datoLille = document.createElement("li"),
+            tid = document.createElement("li"),
+            seMere = document.createElement("button"),
+            tekstContent = document.createElement("article");
+
+            list.acf.beskrivelser.forEach(beskriv => {
+                if (beskriv != "") {
+                    let p = document.createElement("p");
+                    p.innerText = beskriv;
+                    tekstContent.appendChild(p);
+                }
+            })
+
+            //Lav dato
+            let datoData1 = list.acf.dato[0].split("/"),
+                day1 = datoData1[0],
+                month1 = Number(datoData1[1]),
+                datoData2 = list.acf.dato[1].split("/"),
+                day2 = datoData2[0],
+                month2 = Number(datoData2[1]),
+                datoList = day1 + '. ' + numberToMonth(month1) + ' - ' + day2 + '. ' + numberToMonth(month2);
+            //Lav tid
+            let tidSplit1 = list.acf.tid[0].split(":"),
+                tid1 = tidSplit1[0] + '.' + tidSplit1[1];
+
+            //EventBox 
+            datoStor.innerText = day1 + '. ' + numberToMonth(month1);
+            datoLille.innerText = datoList;
+            title.innerText = list.acf.overskrift;
+            tid.innerText = tid1;
+            seMere.innerText = "SE MERE";
+            seMere.id = "seMereBtn_" + nrInArray;
+            eventBox.classList.add("eventBox");
+
+            //EventBox - Append
+            ul.append(datoLille, tid, seMere);
+            eventArticle.append(title, ul);
             
+            //Display Content
+            let 
+            header = document.createElement("section"),
+            headerDato = document.createElement("h3"),
+            headerTitle = document.createElement("h3"),
+            infoList = document.createElement("ul"),
+            infoDato = document.createElement("li"),
+            infoTid = document.createElement("li"),
+            infoSted = document.createElement("li");
             
-            console.log("Template - Mobil / Tablet")
+            headerDato.innerText = day1 + '. ' + numberToMonth(month1);
+            headerTitle.innerText = list.acf.overskrift;
+            infoDato.innerHTML = '<strong>Dato: </strong>' + datoList;
+            infoTid.innerHTML = '<strong>Tid: </strong>' + tid1;
+            infoSted.innerHTML = '<strong>Sted: </strong>' + list.acf.sted;
+
+            //Append 
+            header.append(headerDato, headerTitle)
+            infoList.append(infoDato, infoTid, infoSted)
+            displayContent.append(header, infoList, tekstContent)
+
+            datoStorBox.appendChild(datoStor);
+            eventBox.append(datoStorBox, eventArticle)
+
+            //Tilføjer til Listen af Events
+            eventWindows.appendChild(eventBox)
+
+            //Bestemmer hvordan indhold skal vises og laves alt efter skærmbredden.
+            //Desktop
+            if (!mobil.matches && !tablet.matches) {
+                seMere.addEventListener("click", () => {
+                    display.innerHTML = "";//Reset HTML
+                    display.classList.add("showing");//Bruges til at kigge på om der bliver vist indhold i display.
+                    display.appendChild(displayContent)
+                })
+            }
+            //Mobil / Tablet
+            if (mobil.matches|| tablet.matches) {
+                let mobilDisplay = document.createElement("section");
+
+                mobilDisplay.appendChild(displayContent);
+                eventBox.appendChild(mobilDisplay);
+
+                showBlock(seMere, mobilDisplay);
+                
+
+                console.log("Event Template - Mobil / Tablet")
+            }
+            nrInArray++;
+        })
+        //Desktop
+        if (!mobil.matches && !tablet.matches) {
+            let ramme = document.createElement("section");
+            ramme.id = "eventRamme";
+            ramme.append(eventWindows, display)
+            document.querySelector("main").append(ramme);
+            //Hvis ingen er selected, så skal der klikkes på det første seMereBtn-element i eventWindows listen
+            if (!document.querySelector("#display").classList.contains("showing") != -1) {
+                document.querySelector("#seMereBtn_1").click();
+            }
         }
-        console.log(begivenhedsListe)
-    }
+        //Mobil / Tablet
+        if (mobil.matches|| tablet.matches) { 
+            let ramme = document.createElement("section");
+            ramme.id = "eventRamme";
+            ramme.appendChild(eventWindows)
 
+            document.querySelector("main").append(ramme)
+        }
+    }
+    
     function makeLayout (current) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
