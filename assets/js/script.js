@@ -87,7 +87,7 @@ function makeSite(data) {
 
         //Template ID
         IDeventtemplate = Number(postData.acf.id.categories.begivenhed),
-        IDnyhedtemplate = Number(postData.acf.id.categories.nyhedtemplate),
+        IDnyhedtemplate = [postData.acf.id.categories.nyhedtemplate, postData.acf.id.tags.template_nyheder].map(Number),
 
         logo = postData.acf.billeder[0],
 
@@ -97,6 +97,74 @@ function makeSite(data) {
 
         
     //== FUNKTIONER
+
+    //Skaber Hero SlideShow på forsiden
+    let item = 0;
+    function createHeroSlide () {
+        let
+        forsideID = data.find(post => post.id == IDforside[2]), heroes = forsideID.acf.hero, nr = 0,
+        imgArea = document.createElement("section"), btnArea = document.createElement("section");
+        
+        
+        heroes.forEach(hero => {
+            let div = document.createElement("div"), heroImg = document.createElement("img");
+            div.classList.add("divHero");
+            heroImg.classList.add("imgHero");
+            heroImg.id = "hero_" + nr;
+            div.id = "divHero" + nr;
+            heroImg.src = hero;
+            
+            //Bruges til at ændre i på click, alt efter hvor i loopet knappen er blevet lavet.
+            let divNr = 0;
+                divNr += nr;
+                
+                btnArea.appendChild(div);
+                imgArea.appendChild(heroImg);
+                
+            div.addEventListener("click", ()=> {
+                imgArea.childNodes.forEach(post => post.classList.remove("activeHero"));
+                btnArea.childNodes.forEach(post => post.classList.remove("activeDiv"));
+
+                div.classList.add("activeDiv");
+                heroImg.classList.add("activeHero");
+
+                item = divNr + 1;//+1 for at den ikke viser det samme 2 gange
+                if (divNr + 1 > 3) {
+                    item = 0;
+                }
+            })
+            nr++;
+        })
+        
+        document.querySelector("#slideShow").append(imgArea, btnArea);
+
+        if (!imgArea.childNodes.forEach(item => item.classList.contains("activeHero")) != -1) {
+            document.querySelector("#divHero0").click() //Skal starte på med at vise 0 "onload"
+        }
+        
+        loop(imgArea, btnArea);
+    }
+    
+    function loop (area, btnArea) {
+        setTimeout(() => {//Inspiration fra: https://stackoverflow.com/questions/22154129/how-to-make-setinterval-behave-more-in-sync-or-how-to-use-settimeout-instea.
+            //Skulle bruge et Loop som havde en timeout til at vise hver Billede.
+            
+            area.childNodes.forEach(post => post.classList.remove("activeHero"));
+            btnArea.childNodes.forEach(post => post.classList.remove("activeDiv"));
+
+            area.childNodes[item].classList.add("activeHero");
+            btnArea.childNodes[item].classList.add("activeDiv");
+
+            loop(area, btnArea);
+            item++;
+            if(item > 3) {
+                item = 0;//RESTS LOOP
+            }
+        }, 5000)
+    }
+
+
+
     function createHTML (placement, element) { // Skal tilføje indhold til et sted i DOM'en, men skulle det "område/element" have indhold vil det blive erstattet.
         document.querySelector(placement).innerHTML = element;
     }
@@ -681,21 +749,11 @@ function makeSite(data) {
 
         let forside = data.find(post => post.id == IDforside[2]), 
             allHTML, hero = "", news = "", events = "", afdeling = '<section id="afdeling"><h2>' + forside.acf.overskrifter[3] + '</h2>', sponsor = "";
-        const nyhedsList = data.filter(post => post.categories.includes(IDnyhedtemplate));
+        const nyhedsList = data.filter(post => post.categories.includes(IDnyhedtemplate[0]));
         
         //== Skaber Hero Banner
-        let forsideh1 = forside.acf.overskrifter[0],
-            forsideTekst = forside.acf.brodtekst,
-            forsideImgs = forside.acf.hero,
-            heroUl = '<ul>',
-            nr = 1;
-
-            forsideImgs.forEach(img => {
-                heroUl += '<li class="heroSlide"><img id="hero' + nr + '" src="' + img + '" alt="Hero' + nr + '"></li>'
-                nr++; // Bruges til at give et nummer til hver billede(Id og alt tekst)
-            })
-            hero += '<section id="heroSlideShow"><h1>' + forsideh1 + '</h1><p>' + forsideTekst + '</p>' + heroUl + '<div id="heroSlideShowCover"></div></section>'
-        
+        createHeroSlide();
+          
         //== Skaber Nyhedsindlæg
         news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2><div id="newsPost">';
         for (let i = 0; i < 3; i++) { //Kan bruge nyhedsList.length, men vi vil gerne kun have vidst 3 på forsiden så vi bruger i < 3, som giver os et loop på 3(Selvom en starter på 0). 
@@ -750,7 +808,7 @@ function makeSite(data) {
         afdeling += '</div></section>';
 
         allHTML = hero + news + events + afdeling;
-        createHTML("main", allHTML)
+        addToHTML("main", allHTML)
     }
     function makeOmklubben (current) {
         let omklubben = '<article id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben"></article>';
@@ -971,9 +1029,87 @@ function makeSite(data) {
         }
     }
     
+    function makeNyheder (current) {//#3
+        let
+        header = '<article id="heroLille"><h1>' + IDbannerNyheder[0] + '</h1><p>' + IDbannerNyheder[1] + '</p><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Begivenheder"></article>',
+        krummer = '<div class="krumme"><a href="?pageId=' + IDnyheder[0] + '">' + IDbannerNyheder[0] + '</a></div>',
+        //<span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a>
+        top = '<section><h2>' + IDbannerNyheder[0] + '</h2></section>',
+        nyhedsListe = data.filter(post => post.categories.includes(IDnyhedtemplate[0]));
+
+        createHTML("main", top)
+        nyhedsListe.forEach(post => {
+            //Create Elements
+            let card = document.createElement("section"), img = document.createElement("img"), pContent = document.createElement("article"),  h2 = document.createElement("h2"), seMere = document.createElement("a");
+            
+            //Opsæt Data
+            img.src = post.acf.billede_galleri[0]
+            img.alt = "Billede til nyheden" + post.acf.overskrift;
+            
+            h2.textContent = post.acf.overskrift;
+            
+            post.acf.brodtekst_box.forEach(item => {
+                if(item != "") {
+                    let p = document.createElement("p");
+                    p.textContent = item;
+                    pContent.append(p);
+                }
+            })
+            
+            seMere.href = "?pageId=" + post.id;
+            seMere.textContent = "SE MERE"
+
+            //Append
+            card.append(img, h2, pContent, seMere)
+            document.querySelector("main").appendChild(card)
+        })
+
+    }
+
+    function makeTemplateNyhed(current) {
+        let
+        postID = data.find(post => post.id == current.id),
+        header = '<article id="heroLille"><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Begivenheder"></article>',
+        krummerContent = '<a href="?pageId=' + IDnyheder[0] + '">' + IDbannerNyheder[0] + '</a><span> &#62; </span><a href="?pageId=' + current.id + '">' + current.acf.overskrift + '</a>';
+        
+        //Create Elements
+        let 
+        top = document.createElement("section"), ramme = document.createElement("section"), intro = document.createElement("section"), img = document.createElement("img"), 
+        h1 = document.createElement("h1"), h2 = document.createElement("h2"), krummer = document.createElement("nav"), pContent = document.createElement("article"),
+        snack = document.createElement("p"), author = document.createElement("article");
+
+        //Assign Data
+        krummer.classList.add("krumme");
+        krummer.innerHTML = krummerContent;
+        h2.textContent = IDbannerNyheder[0];
+        top.append(krummer, h2)
+
+        img.src = current.acf.billede_galleri[0]
+        img.alt = "Billede til nyheden" + current.acf.overskrift;
+        h1.textContent = current.acf.overskrift;
+        snack.textContent = current.acf.underoverskrifter[0];
+        //Date Split
+        let datoData = current.acf.author[0].split("/"), day = datoData[1], month = numberToMonth(Number(datoData[1])), year = datoData[2];
+
+        author.textContent = day + '. ' + month + ' af ' + current.acf.author[1];
+        intro.append(img, h1, snack, author)
+
+        current.acf.brodtekst_box.forEach(item => {
+            if(item != "") {
+                let p = document.createElement("p");
+                p.textContent = item;
+                pContent.append(p);
+            }
+        })
+        ramme.append(intro, pContent)
+        document.querySelector("main").append(top ,ramme)
+    }
+
+
     function makeLayout (current) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
+
         const currentTag = currentSite.tags[0]; //Vi tilføjer [0] fordi vi kigger i et array, som har et tal.
         makeTitle(currentSite);
 
@@ -999,6 +1135,9 @@ function makeSite(data) {
             case IDnyheder[1]:
                     makeNyheder(currentSite);
                     break;
+            case IDnyhedtemplate[1]:
+                makeTemplateNyhed(currentSite);
+                break;
             case IDblivmedlem[1]:
                     makeBlivmedlem(currentSite);
                     break; 

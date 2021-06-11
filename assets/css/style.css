@@ -71,3 +71,29 @@ i {
     font-weight: bold;
     font-style: normal;
 }
+
+.divHero {
+    background-color: #e42;
+    width: 100px;
+    height: 10px;
+    margin: 30px;
+}
+
+
+.imgHero {
+    background-color: coral;
+    
+    display: none;
+}
+.imgHero:nth-child(2) {
+    background-color: #1C3E56;
+}
+.imgHero:first-of-type {
+    background-color: pink;
+}
+.imgHero:last-of-type {
+    background-color: #4ee;
+}
+.activeHero {
+    display: block;
+}
