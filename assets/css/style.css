@@ -1,10 +1,31 @@
 /*--HTML by Gruppe 3 (Anders, Anna, Caroline, Nadia)
 UCN MMDA0920 */
 
-
-/* fælles for flere sider */
-
 @charset "uft-8";
+
+:root {
+    /* Farver */
+    --color-red: #B22918;
+    --color-darkblue: #1C3E56;
+    --color-blue-btn: #5684B8;
+    --color-darkblue-box: #648DAA;
+    --color-lightblue-box: #B2CEDE;
+    --color-white: #E3E3E3;
+
+
+    /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
+    --sponsor-width: 80vw;
+    --sponsor-height: 20vh;
+    --sponsor-lier: 6;
+    /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
+    --sponsor-display: 5;
+    /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
+    --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
+    --sponsor-timing: calc(var(--sponsor-display) * 4s) /* Giver 4s til hver element*/
+
+    /* Font */
+    --font-main: 18px;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@700&display=swap');
@@ -18,6 +39,7 @@ body {
     padding: 0;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    font-size: var(--font-main);
 }
 
 h1, h2, h3, h4 {
@@ -629,28 +651,7 @@ main {
     border-left: 9px solid #B12818;
 }
 
-=======
-* {box-sizing: border-box;}
-:root {
-    /* Farver */
-    --color-red: #B22918;
-    --color-darkblue: #1C3E56;
-    --color-blue-btn: #5684B8;
-    --color-darkblue-box: #648DAA;
-    --color-lightblue-box: #B2CEDE;
-    --color-white: #E3E3E3;
 
-
-    /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
-    --sponsor-width: 80vw;
-    --sponsor-height: 20vh;
-    --sponsor-lier: 6;
-    /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
-    --sponsor-display: 5;
-    /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
-    --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
-    --sponsor-timing: calc(var(--sponsor-display) * 4s) /* Giver 4s til hver element*/
-}
 
 li {
     list-style: none;
