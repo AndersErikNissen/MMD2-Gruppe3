@@ -165,7 +165,9 @@ function makeSite(data) {
             })
             nr++;
         })
-        
+        let sectionSlide = document.createElement("section");
+        sectionSlide.id = "slideShow"
+        document.querySelector("#header").after(sectionSlide);
         document.querySelector("#slideShow").append(imgArea, btnArea, tekstArea);
 
         if (!imgArea.childNodes.forEach(item => item.classList.contains("activeHero")) != -1) {
@@ -646,9 +648,11 @@ function makeSite(data) {
             nrID++;
         }
         //== Skaber de sidste elementer til at skabe Undernavigationen.
-        let underNavigation = document.createElement("section");
-        underNavigation.id = "underNavigation";
-        document.querySelector("header").after(underNavigation);
+
+        // let underNavigation = document.createElement("section");
+        // underNavigation.id = "underNavigation";
+        // document.querySelector("header").after(underNavigation);
+
         document.querySelector("#underNavContent").appendChild(underUl);
     }
 
@@ -696,7 +700,7 @@ function makeSite(data) {
                 currentPage = 'class="currentPage"';
             }
             //== Skaber HTML elementer med information fra hver Post som matcher ID'et.
-            navigation += '<li id="nav-' + siteTitleNoSpace +'" ' + currentPage +'><a href="?pageId=' + site.id +'">' + siteTitle +'</a></li>';
+            navigation += '<li id="nav_' + siteTitleNoSpace +'" ' + currentPage +'><a href="?pageId=' + site.id +'">' + siteTitle +'</a></li>';
         })
         navigation += '</ul>';
 
@@ -778,9 +782,16 @@ function makeSite(data) {
         } 
         if (!mobil.matches && !tablet.matches) {
             console.log("Layout: Desktop Version")
+            let loginContainer = document.createElement("section"), loginH4 = document.createElement("h4");
+            // Login
+            loginH4.textContent = "Medlemslogin";
+            loginContainer.id = "login";
+            loginContainer.appendChild(loginH4)
+
             allNav += '<div><a href="?pageId=' + IDforside[2] + '"><img src="' + logo +'" alt=""></a></div>';
             allNav += navigation + '</nav>';
-            createHTML("header", allNav);
+            document.querySelector("#header").appendChild(loginContainer)
+            addToHTML("#header", allNav);
         }
     }
     function makeSponsor () {

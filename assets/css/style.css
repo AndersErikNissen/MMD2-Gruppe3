@@ -21,7 +21,7 @@ UCN MMDA0920 */
     --sponsor-display: 5;
     /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
     --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
-    --sponsor-timing: calc(var(--sponsor-display) * 4s) /* Giver 4s til hver element*/
+    --sponsor-timing: calc(var(--sponsor-display) * 4s); /* Giver 4s til hver element*/
 
     /* Font */
     --font-main: 18px;
@@ -44,75 +44,111 @@ body {
 
 h1, h2, h3, h4 {
     font-family: 'Archivo Narrow', sans-serif;
+    margin: 0;
+    padding: 0;
 }
-h1 {font-size: 40px;}
-h2{ font-size: 26px;}
-h3{font-size: 23px;}
-h4{font-size: 16px;}
+h1 {font-size: 2rem}
+h2{ font-size: 1.5rem}
+h3{font-size: 1.2rem}
+h4{font-size: 1rem}
 
 p, ul li, a {
-    line-height: 2vw;
+    line-height: calc(var(--font-main) * 1.4);
     font-family: 'Manrope', sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
+/* ============== */
+/* Standard Setup */
+/* ============== */
+a {text-decoration: none;}
 header {
     grid-column: 1/13;
     grid-row: 1/2;
-    margin: 0;
-    border: none;
+
     position: sticky;
     top: 0;
+    left: 0;
     z-index: 3;
+
+    background-color: white;
+}
+main {
+    grid-column: 1/13;
+    grid-row: 3/4;
+}
+#sponsorSection {
+    grid-column: 1/13;
+    grid-row: 4/5;
+}
+footer {
+    grid-column: 1/13;
+    grid-row: 5/6;
 }
 
-.login {
-    display: flex;
-    justify-content: flex-end;
+/* Header - Navigation */
+/* Login til Global Navigation */
+#login {
+    display: inline-block;
+    padding: .3rem 0;
     width: 100%;
     height: fit-content;
-    padding: 0 7vw;
-    background-color: #E3E3E3;
+    background-color: var(--color-white);
 }
-
-.navigation {
-    padding: 0 7vw;
+#login h4 {
+    font-weight: normal;
+    float: right;
+    margin-right: 1rem;
+}
+/* Rest of Header */
+#header img {width: auto; height: 77    px;}
+#header ul li a {font-size: 1.2rem;}
+#header ul {display: flex; justify-content: space-between; align-items: center;}
+#header li {
+    display: inline-block;
+    padding: .4rem .8rem;
+    margin-right: 4rem;
+}
+#header li:hover {
+    transform: scale(1.01);
+  
+}
+#header li.currentPage {
+    font-weight: bold;
+}
+#nav_BlivMedlem {
+    display: inline-block;
+    background-color: var(--color-blue-btn);
+    border-radius: 3px;
+    margin-right: 0;
+}
+#nav_BlivMedlem a {
+    display: inline-block;
+    color: white;
+}
+#nav_BlivMedlem.currentPage {
+    background-color: var(--color-red);
+}
+#header nav {
+    display: flex;
+    padding: 0 5vw;
     height: fit-content;
     background-color: white;
-    display: flex;
     justify-content: space-between;
-    box-shadow: 0 2px rgba(0, 0, 0, 0.123) ;
+    box-shadow: 0 5px 5px rgba(000, 000, 000, .126);
 }
 
-.navigation nav ul {
-    margin: 0.5vw 0;
-}
 
-.navigation nav ul li {
-    display: inline-block;
-    list-style: none;
-    margin-left: 4vw;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-.aktiv {
-    color: #B12818;
-}
-
-.button {
+button[type=button] {
     background-color: #5684B8;
     border-radius: 2px;
     padding: 0 1vw;
     border: #5684B8 solid 8px;
     width: fit-content;
     margin: 0;
+    color: white;
 }
-
-.button a {
+button[type=button] a {
     color: white;
 }
 
@@ -120,10 +156,76 @@ a {
     margin-left: 4vw;
 }
 
-.heroLille {
+#underNavContent{
     grid-column: 1/13;
     grid-row: 2/3;
 }
+.secondNav {
+    display: flex;
+    justify-content: space-evenly;
+    /* grid-column: 1/13;
+    grid-row: 3/4; */
+    margin: 0 7vw;
+    padding: 1vw 0;
+    border-bottom: solid #888888 1px;
+}
+.secondNav ul {
+    margin: 0;
+    padding: 0;
+}
+.secondNav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0 5vw;
+    border-left: solid #888888 1px;
+}
+
+
+
+/* ================================================ */
+/* =================== FORSIDE ==================== */
+/* ================================================ */
+
+/* Hero SlideShow */
+#slideShow section:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#slideShow img {
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+}
+.divHero {
+    width: 100%;
+    height: 10px;
+    background-color: var(--color-white);
+    margin: 0 2px;
+}
+.divHero.activeDiv {
+    background-color: var(--color-red);
+}
+.divHero:nth-child(1) {margin-left: 0;} .divHero:nth-child(4) {margin-right: 0;}
+.imgHero {
+    background-color: coral;
+    
+    display: none;
+}
+#heroTekstArea {
+    position: absolute;
+    z-index: 2;
+    top: 50vh;
+    left: 10vw;
+}
+#heroTekstArea h1, p {
+    color: white;
+}
+.activeHero {
+    display: block;
+}
+
 
 .textBoxHeroLille {
     width: 100%;
@@ -133,28 +235,6 @@ a {
     clip-path: polygon(100% 0, 21% 0, 38% 100%, 100% 100%);
 }
 
-.secondNav {
-    display: flex;
-    justify-content: space-evenly;
-    grid-column: 1/13;
-    grid-row: 3/4;
-    margin: 0 7vw;
-    padding: 1vw 0;
-    border-bottom: solid #888888 1px;
-}
-
-.secondNav ul {
-    margin: 0;
-    padding: 0;
-}
-
-.secondNav ul li {
-    display: inline-block;
-    list-style: none;
-    margin: 0;
-    padding: 0 5vw;
-    border-left: solid #888888 1px;
-}
 
 .secondNav ul li:first-of-type {
     border: none;
@@ -164,10 +244,7 @@ a {
     padding: 1vw 7vw;
 }
 
-main {
-    grid-column: 1/13;
-    grid-row: 4/5;
-}
+
 
 .dokumentBox {
     display: flex;
@@ -277,10 +354,21 @@ main {
 }
 
 /* Forside */
-
-.hero {
+#slideShow {
     grid-column: 1/13;
     grid-row: 2/3;
+}
+#bodyTemplate_1236 main {
+    grid-column: 1/13;
+    grid-row: 3/4;
+}
+#bodyTemplate_1236 #sponsorSection {
+    grid-column: 1/13;
+    grid-row: 4/5;
+}
+#bodyTemplate_1236 footer {
+    grid-column: 1/13;
+    grid-row: 5/6;
 }
 
 .textBoxHero {
@@ -291,10 +379,6 @@ main {
     clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%)
 }
 
-#forside {
-    grid-column: 1/13;
-    grid-row: 3/4;
-}
 
 .news {
     width: 100%;
@@ -667,10 +751,7 @@ li {
 #heroSlideShow li {
     display: inline-block;
 }
-header img {
-    height: 150px;
-    width: auto;
-}
+
 a {
     color: black;
 }
@@ -712,32 +793,7 @@ i {
     font-style: normal;
 }
 
-.divHero {
-    background-color: #e42;
-    width: 100px;
-    height: 10px;
-    margin: 30px;
-}
 
-
-.imgHero {
-    background-color: coral;
-    
-    display: none;
-}
-/* Til pynt... (SLET) */
-.imgHero:nth-child(2) {
-    background-color: #1C3E56;
-}
-.imgHero:first-of-type {
-    background-color: pink;
-}
-.imgHero:last-of-type {
-    background-color: #4ee;
-}
-.activeHero {
-    display: block;
-}
 
 /* ======================== */
 /* ====== BurgerMenu ====== */
