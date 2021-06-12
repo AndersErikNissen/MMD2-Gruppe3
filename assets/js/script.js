@@ -127,10 +127,15 @@ function makeSite(data) {
     let item = 0;
     function createHeroSlide () {
         let
-        forsideID = data.find(post => post.id == IDforside[2]), heroes = forsideID.acf.hero, nr = 0,
-        imgArea = document.createElement("section"), btnArea = document.createElement("section");
+        forsideID = data.find(post => post.id == IDforside[2]), heroes = forsideID.acf.hero, nr = 0, tekstArea = document.createElement("section"), pTekstArea = document.createElement("p"),
+        h1 = document.createElement("h1"), imgArea = document.createElement("section"), btnArea = document.createElement("section");
         
-        
+        //Tekst Area
+        h1.textContent = forsideID.acf.overskrifter[0];
+        pTekstArea.textContent = forsideID.acf.brodtekst;
+        tekstArea.id = "heroTekstArea";
+        tekstArea.append(h1, pTekstArea);
+
         heroes.forEach(hero => {
             let div = document.createElement("div"), heroImg = document.createElement("img");
             div.classList.add("divHero");
@@ -161,7 +166,7 @@ function makeSite(data) {
             nr++;
         })
         
-        document.querySelector("#slideShow").append(imgArea, btnArea);
+        document.querySelector("#slideShow").append(imgArea, btnArea, tekstArea);
 
         if (!imgArea.childNodes.forEach(item => item.classList.contains("activeHero")) != -1) {
             document.querySelector("#divHero0").click() //Skal starte på med at vise 0 "onload"
@@ -709,7 +714,7 @@ function makeSite(data) {
             logoImg.src = logo;
             logoImg.alt = "Logo tilhørende SNV.dk - Tekst og det ikoniske rødeflag med 3 stjerner";
             logoDiv.appendChild(logoImg);
-            
+
             
             
             allNav += '<div id="burgerBtnContainer"><div class="burger"></div><div class="burger"></div><div class="burger"></div></div>' // Skaber HamburgerMenu
