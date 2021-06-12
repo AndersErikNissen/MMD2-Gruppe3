@@ -1,7 +1,635 @@
 /*--HTML by Gruppe 3 (Anders, Anna, Caroline, Nadia)
 UCN MMDA0920 */
 
+
+/* fælles for flere sider */
+
 @charset "uft-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600&display=swap');
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Archivo Narrow', sans-serif;
+}
+h1 {font-size: 40px;}
+h2{ font-size: 26px;}
+h3{font-size: 23px;}
+h4{font-size: 16px;}
+
+p, ul li, a {
+    line-height: 2vw;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+}
+
+header {
+    grid-column: 1/13;
+    grid-row: 1/2;
+    margin: 0;
+    border: none;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+.login {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: fit-content;
+    padding: 0 7vw;
+    background-color: #E3E3E3;
+}
+
+.navigation {
+    padding: 0 7vw;
+    height: fit-content;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.123) ;
+}
+
+.navigation nav ul {
+    margin: 0.5vw 0;
+}
+
+.navigation nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin-left: 4vw;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.aktiv {
+    color: #B12818;
+}
+
+.button {
+    background-color: #5684B8;
+    border-radius: 2px;
+    padding: 0 1vw;
+    border: #5684B8 solid 8px;
+    width: fit-content;
+    margin: 0;
+}
+
+.button a {
+    color: white;
+}
+
+#medlem {
+    margin-left: 4vw;
+}
+
+.heroLille {
+    grid-column: 1/13;
+    grid-row: 2/3;
+}
+
+.textBoxHeroLille {
+    width: 100%;
+    height: 20vw;
+    background-color: #1C3E56;
+    border: none;
+    clip-path: polygon(100% 0, 21% 0, 38% 100%, 100% 100%);
+}
+
+.secondNav {
+    display: flex;
+    justify-content: space-evenly;
+    grid-column: 1/13;
+    grid-row: 3/4;
+    margin: 0 7vw;
+    padding: 1vw 0;
+    border-bottom: solid #888888 1px;
+}
+
+.secondNav ul {
+    margin: 0;
+    padding: 0;
+}
+
+.secondNav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0 5vw;
+    border-left: solid #888888 1px;
+}
+
+.secondNav ul li:first-of-type {
+    border: none;
+}
+
+.padding {
+    padding: 1vw 7vw;
+}
+
+main {
+    grid-column: 1/13;
+    grid-row: 4/5;
+}
+
+.dokumentBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35vw;
+    height: 4vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+    border-right: solid 1px black;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
+
+.dokumentBox p {
+    margin: 1vw;
+}
+
+.infoBox {
+    width: 86vw;
+    height: 15vw;
+    margin: 0;
+    background-color: #E3E3E3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 3vw;
+}
+
+.infoBox p {
+    width: 30vw;
+}
+
+.skraaBox {
+    display: block;
+    width: 20vw;
+    height: 15vw;
+    padding: 5vw 3vw;
+    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
+}
+
+.skraaBox.stævne {
+    padding-top: 3vw;
+}
+
+.skraaBox ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+
+.lysblaa {
+    background-color: #B2CEDE;
+}
+
+.contentBox {
+    display: block;
+    width: 86vw;
+    height: fit-content;
+    margin-top: -1px;
+    margin-bottom: 2vw;
+    padding: 3vw;
+}
+
+.foldUd {
+    display: block;
+    background-color: white;
+    border-left: 9px solid #B12818;
+    height: fit-content;
+    padding: 1vw;
+    margin-bottom: 2vw;
+}
+
+.infoStor {
+    display: flex;
+    justify-content: space-between;
+    margin: 2vw 0;
+    width: 100%;
+}
+
+.skraaBoxStor {
+    display: block;
+    width: 50vw;
+    height: 31vw;
+    padding-left: 20vw;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    clip-path: polygon(36% 0, 100% 0, 100% 100%, 0% 100%);
+}
+.skraaBoxText {
+    width: 27vw;
+}
+.skraaBoxStor ul {
+    padding-left: 1.2vw;
+}
+
+.infoStorBoxText {
+    width: 30vw;
+    height: 31vw;
+}
+
+.infoStorBoxText h2 {
+    margin-top: 0;
+}
+.infoStorBoxText h3 {
+    margin-top: 3vw;
+}
+
+/* Forside */
+
+.hero {
+    grid-column: 1/13;
+    grid-row: 2/3;
+}
+
+.textBoxHero {
+    width: 40vw;
+    height: 42vw;
+    background-color: #1C3E56;
+    border: none;
+    clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%)
+}
+
+#forside {
+    grid-column: 1/13;
+    grid-row: 3/4;
+}
+
+.news {
+    width: 100%;
+    height: auto;
+}
+
+.newsPosts, .eventPost, .afdelingFlex, .linksPost {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 4vw 0;
+}
+
+.newsBox {
+    display: inline-block;
+    width: 27vw;
+    height: 35vw;
+    background-color: #648DAA;
+}
+
+.blaaBox {
+    width: 100%;
+    height: fit-content;
+    background-color: #B2CEDE;
+}
+
+.eventBox {
+    display: inline-block;
+    width: 42vw;
+    height: 20vw;
+    background-color: #ffffff;
+    border-left: 9px solid #B12818;
+}
+
+.afdelingBox {
+    width: 42vw;
+    height: 20vw;
+    margin-bottom: 2vw;
+    background-color: black;
+}
+
+.textAfdeling {
+    width: 42vw;
+    height: 20vw;
+    background-color: #1C3E56;
+    border: none;
+    clip-path: polygon(0 0, 75% 0, 25% 100%, 0% 100%);
+}
+
+/* Om klubben */
+
+/* betyrelsen */
+
+.bestyrelseListe {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.bestyrelseBox {
+    display: block;
+    width: 42vw;
+    height: 15vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+}
+
+.kontakt {
+    height: 15vw;
+    display: block;
+}
+
+
+/* klub politik */
+
+/* klubblad */
+
+.dokumentListe{
+    display: block;
+    margin-bottom: 2vw;
+}
+
+/* Historie */
+
+.historie {
+    display: flex;
+    justify-content: space-between;
+}
+
+.historieText {
+    width: 40vw;
+    height: fit-content;
+}
+
+.historieText .dokumentBox {
+    margin-bottom: 6vw;
+    margin-top: 2vw;
+}
+
+
+.historieImg {
+    width: 20vw;
+    width: fit-content;
+}
+
+.historieImg div {
+    background-color: black;
+    margin: 2vw 0;
+    width: 30vw;
+    height: 20vw;
+}
+
+.aeresmedlem {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.aeresmedlemBox {
+    width: 20vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+    padding: 1vw;
+}
+
+/* Afdelinger */
+
+.afdeling p {
+    margin-bottom: 5vw;
+}
+
+/* Ungdom */
+
+.introUngdom ul li {
+    line-height: 2vw;
+}
+.introUngdom p {
+    margin-bottom: 2vw;
+}
+
+
+.infoBoxAfdeling {
+    width: 86vw;
+    height: 15vw;
+    margin: 4vw 0;
+    background-color: #E3E3E3;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    align-items: center;
+}
+
+.infoBoxAfdeling p {
+    width: 35vw;
+}
+
+.skraaBoxAfdeling {
+    display: block;
+    width: 20vw;
+    height: 15vw;
+    padding: 3.5vw 3vw;
+    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
+}
+
+.blaa {
+    background-color: #648DAA;
+    color: white;
+}
+
+.imgUngdom {
+    background-color: black;
+    width: 20vw;
+    height: 15vw;
+}
+
+.contentBoxStævne {
+    display: flex;
+    justify-content: space-between;
+    width: 86vw;
+    height: fit-content;
+    margin-top: -1px;
+    margin-bottom: 2vw;
+    padding: 3vw;
+}
+
+.contentBoxStævne section {
+    width: 21vw;
+}
+
+.dokumentBoxStævne {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20vw;
+    height: 4vw;
+    margin-bottom: 2vw;
+    background-color: #ffffff;
+    border-left: 9px solid #B12818;
+    border-right: solid 1px black;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
+
+.dokumentBoxStævne p {
+    margin: 1vw;
+}
+
+.foraeldreinfo {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content: space-between;
+    border-left: 9px solid #B12818;
+    background-color: #F5F5F5;
+    padding: 1vw;
+    margin: 3vw 0;
+}
+
+.foraeldreinfoText {
+    width: 60vw;
+}
+
+/* sejlerskole */
+.baadliste {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.baadBox {
+    width: 18vw;
+    height: 18vw;
+    border-left: 9px solid #B12818;
+    background-color: black;
+}
+.baadBoxText {
+    display: flex;
+    justify-content: space-between;
+    width: 18vw;
+}
+
+.linkBox {
+    display: inline-block;
+    width: 42vw;
+    height: 30vw;
+    background-color: #ffffff;
+    border-left: 9px solid #B12818;
+}
+
+
+/* nyheder */
+
+.margin {
+    margin-bottom: 2vw;
+}
+
+#nyhedsside {
+    padding: 3vw 17vw;
+}
+
+.nyhed {
+    display: flex;
+    flex-direction: column;
+    padding: 3vw 17vw;
+}
+
+.imgNyhed {
+    background-color: black;
+    height: 30vw;
+}
+
+.forfatter {
+    padding: 1vw 1vw;
+    border-top: 1px solid #D7D7D7;
+    border-bottom: 1px solid #D7D7D7;
+}
+
+/* begivenheder */
+
+/* bliv medlemsside */
+.button.aktivButton{ 
+    /* begge classes sættes på uden mellemrum, så det kun gælder for elementer med begge classes */
+    background-color: #B12818;
+    border: #B12818 solid 8px;
+}
+
+.infoTilmeld {
+    width: 50vw;
+    height: fit-content;
+    padding-left: 1vw;
+    border-left: 9px solid #B12818;
+    margin: 3vw 0;
+}
+
+.infoBoxTilmeld {
+    width: 60vw;
+    height: 8vw;
+    margin-bottom: 2vw;
+    background-color: #E3E3E3;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.infoBoxTilmeld p {
+    width: 30vw;
+    margin: 0 4vw;
+}
+
+.skraaBoxTilmeld {
+    display: block;
+    width: 10vw;
+    height: 8vw;
+    padding: 1.5vw 2vw;
+    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
+}
+
+/* Mentor */
+
+/* Begivenheder */
+.marginEvent {
+    margin: 2vw 0;
+}
+
+#begivenheder {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.eventPostLille{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.eventBoxLille{
+    display: inline-block;
+    width: 30vw;
+    height: 12vw;
+    background-color: #ffffff;
+    border-left: 9px solid #B12818;
+}
+
+.eventBoxLille:first-child{
+    margin-top: 0;
+}
+
+.eventBoxStor {
+    display: inline-block;
+    width: 52vw;
+    height: 39vw;
+    background-color: #ffffff;
+    border-left: 9px solid #B12818;
+}
+
+=======
 * {box-sizing: border-box;}
 :root {
     /* Farver */
@@ -11,6 +639,7 @@ UCN MMDA0920 */
     --color-darkblue-box: #648DAA;
     --color-lightblue-box: #B2CEDE;
     --color-white: #E3E3E3;
+
 
     /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
     --sponsor-width: 80vw;
