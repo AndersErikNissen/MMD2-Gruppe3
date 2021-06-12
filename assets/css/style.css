@@ -113,31 +113,98 @@ i {
 /* ====== BurgerMenu ====== */
 /* ======================== */
 .burger {
-    width: 100px;
-    height: 10px;
+    width: 40px;
+    height: 4px;
+    margin: 5px;
     background-color: var(--color-darkblue);
     border-radius: 5px;
 }
-
 #curtain {
     z-index: 9;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     width: 0;
     height: 100vh;
-    background-color: var(--color-red);
+    background-color: var(--color-white);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#burgerNav {
+    font-size: 2rem;
+    opacity: 0;
+    display: none;
+}
+#burgerNav li {
+    margin: 1rem;
+}
+#burgerNav li a {
+    color: var(--color-darkblue);
 }
 #burgerBtn {
     z-index: 10;
 
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: fixed;
+    top: 10px;
+    right: 11px;
 }
-/* - Animation */
-.hideCurtain {
 
+/* BurgerIcon animationen er taget fra (Og ændret til at passe til dette produkts indhold) et tidligere project af:  Gruppe 3 - mmda0920 - Sem2Tem3 (Anders, Caroline, Ida-Sofie, Simone): https://mmd.ucn.dk/class/mmda0920/1086088/Sem2/Tem3/Rubrics/Englerod-Gruppe3/*/
+/* Animation In */
+#topLayer.burgerBtnStart {
+    animation: div1In 0.7s ease forwards;
+}
+#midLayer.burgerBtnStart {
+    animation: div2In 0.7s ease forwards;
+}
+#botLayer.burgerBtnStart {
+    animation: div3In 0.7s ease forwards;
+}
+@keyframes div1In {
+    0% {transform: translateY(0);}
+    20% {transform: translateY(16px);}
+    100% {transform: translateY(10px) rotateZ(-45deg);}
+}
+@keyframes div2In {
+    0% {transform: translateY(0);}
+    20% {transform: translateY(8px);}
+    100% {transform: translateY(1px) rotateZ(45deg);}
+}
+@keyframes div3In {
+    50% {width: 30px;}
+    51% {width: 0; opacity: 0;}
+    100% {width: 0; opacity: 0;}
+}
+/* Animation Out */
+#topLayer.burgerBtnEnd {
+    animation: div1Out 0.7s ease forwards;
+}
+#midLayer.burgerBtnEnd {
+    animation: div2Out 0.7s ease forwards;
+}
+#botLayer.burgerBtnEnd {
+    animation: div3Out 0.7s ease forwards;
+}
+@keyframes div1Out {
+    0% {transform: translateY(10px) rotateZ(-45deg);}
+    80% {transform: translateY(16px);}
+    100% {transform: translateY(0);}
+}
+@keyframes div2Out {
+    0% {transform: translateY(1px) rotateZ(45deg);}
+    80% {transform: translateY(8px);}
+    100% {transform: translateY(0);}
+}
+@keyframes div3Out {
+    0% {width: 0; opacity: 0;}
+    79% {width: 0; opacity: 0;}
+    80% {width: 30px;}
+}
+
+/* - Animation  til Curtain */
+.hideCurtain {
     animation: hideCurtain 1s ease-in-out forwards;
 }
 @keyframes hideCurtain {
@@ -145,13 +212,25 @@ i {
     to {width: 0;}
 }
 .showCurtain {
-    display: block;
-
     animation: showCurtain 1s ease-in-out forwards;
 }
 @keyframes showCurtain {
     from {width: 0;}
     to {width: 100vw;}
+}
+#burgerNav.showNav {
+    animation: showNav 1s ease-in-out forwards;
+}
+@keyframes showNav {
+    60% {opacity: 0;}
+    100% {opacity: 1;}
+}
+#burgerNav.hideNav {
+    animation: hideNav 1s ease-in-out forwards;
+}
+@keyframes hideNav {
+    0% {opacity: 1;}
+    60% {opacity: 0;}
 }
 
 

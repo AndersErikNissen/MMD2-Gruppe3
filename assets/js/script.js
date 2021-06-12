@@ -395,10 +395,15 @@ function makeSite(data) {
             for(let i = 0; i < liste.length; i++) {
                 liER += '<li>' + liste[i] + '</li>';
             }
+
+            let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
+            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
+      
+
             //Samler alt indhold til Ungdom Undervisning
             let main = krummer + '<section><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2;
 
-            createHTML("main", main)
+            createHTML("main", main + sprgFooter)
         }
 
         //**************************************
@@ -716,26 +721,50 @@ function makeSite(data) {
             
             //Curtain
             nav.innerHTML = navigation;
+            nav.id = "burgerNav"
             curtain.id = "curtain";
             curtain.appendChild(nav)
             document.querySelector("#header").append(logoDiv, btn, curtain);
 
             btn.addEventListener("click", ()=> {
                 //Inspiration : https://stackoverflow.com/questions/46983030/how-to-check-classname-in-a-switch-statement-when-an-element-has-multiple-classe
-                let cc = curtain.classList;
+                let cc = curtain.classList,
+                    allLayers = document.querySelectorAll(".burger");
+
                 switch(true) {
                     case cc.contains("hideCurtain"):
                         curtain.classList.remove("hideCurtain")
                         curtain.classList.add("showCurtain")
+
+                        allLayers.forEach(layer => {layer.classList.remove("burgerBtnEnd")})
+                        allLayers.forEach(layer => {layer.classList.add("burgerBtnStart")})
+
+                        nav.classList.remove("hideNav");
+                        nav.classList.add("showNav");
+                        //Bruger display = block i JS, fordi man kan ikke ændre på det med Keyframes.
+                        nav.style.display = "block";
                         break;
                     case cc.contains("showCurtain"):
                         curtain.classList.remove("showCurtain")
                         curtain.classList.add("hideCurtain")
+
+                        allLayers.forEach(layer => {layer.classList.remove("burgerBtnStart")})
+                        allLayers.forEach(layer => {layer.classList.add("burgerBtnEnd")})
+
+                        nav.classList.remove("showNav");
+                        nav.classList.add("hideNav");
+                        nav.style.display = "none";
                         break;
                     default:
                         curtain.classList.add("showCurtain")
 
+                        allLayers.forEach(layer => {layer.classList.add("burgerBtnStart")})
+
+                        nav.classList.remove("hideNav");
+                        nav.classList.add("showNav");
+                        nav.style.display = "block";
                 }
+               
             })
             
 
@@ -2049,11 +2078,15 @@ function makeSite(data) {
             }
             iUl += '</ul>';
 
+            let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
+            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
+      
+
             //Skaber Forældreråd Boks
             let raadBoks = '<section><article><h3>' + fData.title + '</h3><p>' + fData.beskriv1 + '</p><p>' + fData.beskriv2 + '</p></article><img src="' + fData.billede + '" alt="Billede til Forældreråd"</section>';
             let intro = krummer + '<section><article><h2>' + iData.title + '</h2><h3>' + iData.under + '</h3><p>' + iData.beskriv + '</p></article><article><h2>' + iData.sikkerhed[0] + '</h2>' + iUl + '</article></section>' + raadBoks;
 
-            createHTML("main", intro)
+            createHTML("main", intro + sprgFooter)
         }
 
         function makeUngStaevner() {
@@ -2093,20 +2126,20 @@ function makeSite(data) {
                     "tilmeld": sFindData.tilmeld_link,
                     "info1": sFindData.info_1,
                     "info2": sFindData.info_2,
-                    "info1-title": sFindData.info_1[5],
-                    "info1-beskriv": sFindData.info_1[6],
-                    "info2-title": sFindData.info_2[5],
-                    "info2-beskriv": sFindData.info_2[6]
+                    "info1_title": sFindData.info_1[5],
+                    "info1_beskriv": sFindData.info_1[6],
+                    "info2_title": sFindData.info_2[5],
+                    "info2_beskriv": sFindData.info_2[6]
                 };
                 //Skaber 2 lister med Links fra Info 1 / 2
-                let liste1 = '<article><section><h3>' + sData["info1-title"] + '</h3><p>' + sData["info1-beskriv"]  + '</p></section>',
-                    liste2 = '<article><section><h3>' + sData["info2-title"]  + '</h3><p>' + sData["info2-title"]  + '</p></section>';
-                sData.info1.forEach(list => {
-                    liste1 += '<div><h4>' + list[0] + '</h4><a href="' + list[1] + '">ÅBEN</a></div>'
-                })
-                sData.info2.forEach(list => {
-                    liste2 += '<div><h4>' + list[0] + '</h4><a href="' + list[1] + '">ÅBEN</a></div>'
-                })
+                let liste1 = '<article><section><h3>' + sData.info1_title + '</h3><p>' + sData.info1_beskriv + '</p></section>',
+                    liste2 = '<article><section><h3>' + sData.info2_title  + '</h3><p>' + sData.info2_beskriv + '</p></section>';
+                for (let i = 0; i < 5; i++) {
+                    liste1 += '<div><h4>' + sData.info1[i][0] + '</h4><a href="' + sData.info1[i][1] + '">ÅBEN</a></div>'
+                }
+                for (let i = 0; i < 5; i++) {
+                    liste2 += '<div><h4>' + sData.info2[i][0] + '</h4><a href="' + sData.info2[i][1] + '">ÅBEN</a></div>'
+                }
                 liste1 += '</article>';
                 liste2 += '</article>';
                 
@@ -2125,8 +2158,11 @@ function makeSite(data) {
             })
 
             //Skaber hoved indholdet
+            let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
+            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
+      
             //Første Stævne (Ikke Dynamisk)
-            let main = krummer + '<section>' + intro + '<img src="' + findPost.acf.billede + '" alt="Billede til Stævner - Ungdom"></section>' + staevne;
+            let main = krummer + '<section>' + intro + '<img src="' + findPost.acf.billede + '" alt="Billede til Stævner - Ungdom"></section>' + staevne + sprgFooter;
             
             createHTML("main", main)
             //Bruger ShowBlock på alle sektioner som skabes via sDataPost.
@@ -2165,8 +2201,13 @@ function makeSite(data) {
             for(let i = 0; i < liste.length; i++) {
                 liER += '<li>' + liste[i] + '</li>';
             }
+
+        let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
+            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
+      
+
             //Samler alt indhold til Ungdom Undervisning
-            let main = krummer + '<section><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2;
+            let main = krummer + '<section><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2 + sprgFooter;
 
             createHTML("main", main)
         }
