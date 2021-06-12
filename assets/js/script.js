@@ -407,7 +407,6 @@ function makeSite(data) {
             let
             postID = IDsejlklub[0],
             findPost = data.find(post => post.id == postID),
-            dataPost = findPost.acf,
             dataArray = [findPost.acf.undervisning, findPost.acf.nye_elever, findPost.acf.erfarende_elever],
 
             // Arrays til de forskellige slags data
@@ -444,13 +443,13 @@ function makeSite(data) {
                     "title2": dataArray[0].tekst_gruppe_1[3],
                     "beskriv1": dataArray[0].tekst_gruppe_1[2],
                     "beskriv2": dataArray[0].tekst_gruppe_1[4],
-                    //Ul
+                    //Dulighedstitle
                     "ulTitle": dataArray[0].tekst_liste_1[0],
                     //Ul1
-                    "ul1": dataArray[0].tekst_liste_1[1],
-                    "li1Array": [dataArray[0].tekst_liste_1[2], dataArray[0].tekst_liste_1[3],dataArray[0].tekst_liste_1[4],dataArray[0].tekst_liste_1[5]],
-                    //Ul2
-                    "ul2": [dataArray[0].tekst_liste_1[6]]
+                    // "ul1": dataArray[0].tekst_liste_1[1],
+                    // "li1Array": [dataArray[0].tekst_liste_1[2], dataArray[0].tekst_liste_1[3],dataArray[0].tekst_liste_1[4],dataArray[0].tekst_liste_1[5]],
+                    // //Ul2
+                    // "ul2": [dataArray[0].tekst_liste_1[6]]
                 },
 
                 "galleri": {
@@ -478,21 +477,14 @@ function makeSite(data) {
                 }
             },
 
-            //Skaber ul til Intro Section
-            liste1 = '<ul>';
-            uData.intro.li1Array.forEach(item => {
-                liste1 += '<li>' + item + '</li>'
-            })
-            liste1 += '</ul>';
-
             //Skaber liste med billeder
-            let imgList = '';
+                imgList = '';
             uData.galleri.skibe.forEach(skib => {
                 imgList += '<article><img src="' + skib[0] + '" alt="Billede af bådmodellen: ' + skib[1] + '"><div><h4>' + skib[1] + '</h4><ul><li>' + skib[2] + '</li><li>' + skib[3] + '</li></ul></div></article>'
             });
 
             //Skaber og samler hovedindholdet
-            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p><h3>' + uData.intro.title2 + '</h3><p>' + uData.intro.beskriv2 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><h3>' + uData.intro.ul1 + '</h3>' + liste1 + '<h3>' + uData.intro.ul2 + '</h3></article></section>',
+            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><p>' + uData.intro.beskriv2 + '</p></article></section>',
                 galleri = '<section id="galleriSejlUndervisning"><article><h2>' + uData.galleri.title + '</h2><p>' + uData.galleri.beskriv + '</p></article><section>' + imgList + '</section></section>',
                 nye = '<section id="nyeSejlUndervisning"><h2>' + uData.elever.nye[0] + '</h2><article><p>' + uData.elever.nye[1] + '</p><button type=button id="nyeClick">LÆS MERE</button></article><img src="' + uData.elever.nye[2] + '" alt="Billede til ' + uData.elever.nye[0] + '"></section>',
                 erfarende = '<section id="erfarendeSejlUndervisning"><h2>' + uData.elever.erfarende[0] + '</h2><article><p>' + uData.elever.erfarende[1] + '</p><button type=button id="erfarendeClick">LÆS MERE</button></article><img src="' + uData.elever.erfarende[2] + '" alt="Billede til ' + uData.elever.erfarende[0] + '"></section>',
@@ -524,11 +516,11 @@ function makeSite(data) {
                 for (let i = 5; i < 7; i++) {
                     appBox4 += '<a href="' + uData.app.app[i][2] + '" class="appBox"><img src="' + uData.app.app[i][0] + '" alt="Billede til appen: ' + uData.app.app[i][1] + '"><h4>' + uData.app.app[i][1] + '</h4></a>';
                 }
-
                 appList += appBox1 + appBox2 + appBox4 + appBox3;
-  
+                
+                //Samler indhold
                 let appArea = '<article id="appArea"><article><h2>' + uData.app.title + '</h2><p>' + uData.app.beskriv + '</p></article>' + appList + '</article>',
-                krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>';
+                krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>',
                 main = krummer + intro + galleri + nye + erfarende + '<section class="blueBox">' + linkArea + appArea + '</section>';
 
     
@@ -561,6 +553,8 @@ function makeSite(data) {
                     },
     
                     "profil": {
+                        "title": dataArray[0][5][3],
+                        "obs": dataArray[0][5][4],
                         "aMedlem": [dataArray[0][5][0][0], dataArray[0][5][0][1]],
                         "bMedlem": [dataArray[0][5][1][0], dataArray[0][5][1][1]],
                         "cMedlem": [dataArray[0][5][2][0], dataArray[0][5][2][1]],
@@ -580,11 +574,13 @@ function makeSite(data) {
                     }
                 },
                 intro = '<section><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
-                profil = '<section><section></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+                profil = '<section><section><h2>' + ds.profil.title + '</h2><p>' + ds.profil.obs + '</p></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
                 profil += '<article><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
                 profil += '<article><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
+    
                 let outro = '<section><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
                 outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
+                
     
                 let main = intro + profil + outro;
     
@@ -702,24 +698,45 @@ function makeSite(data) {
         //== Mobil/Tablet and Desktop Mediaqueries
         if (mobil.matches || tablet.matches) { //Matches går ind og kigger på vores MediaQueryString og ser om den "matcher", altså om den er rigtig i forhold til window.innerWidth.
             let
-            btn = document.createAttribute("div"), topLayer = document.createElement("div"), midLayer = document.createElement("div"), botLayer = document.createElement("div"),
-            curtain = document.createElement("section"), nav = document.createElement("nav"), logoDiv = document.createElement("div"), logoImg = document.createElement("img");
+            btn = document.createElement("section"), topLayer = document.createElement("div"), midLayer = document.createElement("div"), botLayer = document.createElement("div"),
+            curtain = document.createElement("section"), nav = document.createElement("nav"), logoDiv = document.createElement("div"), logoA = document.createElement("a"), logoImg = document.createElement("img");
 
             //Button
             btn.id = "burgerBtn";
             topLayer.classList.add("burger"); midLayer.classList.add("burger"); botLayer.classList.add("burger");
             topLayer.id = "topLayer"; midLayer.id = "midLayer"; botLayer.id = "botLayer";
+            btn.append(topLayer, midLayer, botLayer)
 
             // Logo
             logoImg.src = logo;
             logoImg.alt = "Logo tilhørende SNV.dk - Tekst og det ikoniske rødeflag med 3 stjerner";
-            logoDiv.appendChild(logoImg);
+            logoA.href = '?pageId=' + IDforside[2];
+            logoA.appendChild(logoImg);
+            logoDiv.appendChild(logoA);
+            
+            //Curtain
+            nav.innerHTML = navigation;
+            curtain.id = "curtain";
+            curtain.appendChild(nav)
+            document.querySelector("#header").append(logoDiv, btn, curtain);
 
-            
-            
-            allNav += '<div id="burgerBtnContainer"><div class="burger"></div><div class="burger"></div><div class="burger"></div></div>' // Skaber HamburgerMenu
-            allNav += '<section id="curtainContainer"><article id="curtain">' + navigation + '</article></section>'; // Skaber Curtain som indeholder hele den Globale Navigation
-            allNav += '<div><a href=?pageId="' + IDforside[2] + '"><img src="' + logo +'" alt=""></a></div></nav>';
+            btn.addEventListener("click", ()=> {
+                //Inspiration : https://stackoverflow.com/questions/46983030/how-to-check-classname-in-a-switch-statement-when-an-element-has-multiple-classe
+                let cc = curtain.classList;
+                switch(true) {
+                    case cc.contains("hideCurtain"):
+                        curtain.classList.remove("hideCurtain")
+                        curtain.classList.add("showCurtain")
+                        break;
+                    case cc.contains("showCurtain"):
+                        curtain.classList.remove("showCurtain")
+                        curtain.classList.add("hideCurtain")
+                        break;
+                    default:
+                        curtain.classList.add("showCurtain")
+
+                }
+            })
             
 
 
@@ -853,15 +870,16 @@ function makeSite(data) {
        
         //== Skaber Afdelinger
         let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
-                underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
-                underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
-                ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
-            },
-            nrInArray = 0;
-            afdeling += '<div id="afdelingFlex">';
+            underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
+            underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
+            ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
+        },
+        ekstraText = [postData.acf.bannerdata[1][6], postData.acf.bannerdata[1][7]],
+        nrInArray = 0;
+        afdeling += '<div id="afdelingFlex">';
 
         objAfdeling.underafdeling_UngSejl.forEach(item => {
-            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a><img src="' + item[2] + '" alt=""></article>';
+            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + ekstraText[nrInArray] + '</p><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a><img src="' + item[2] + '" alt=""></article>';
             nrInArray++;
         })
         objAfdeling.underafdeling_KapJ70.forEach(item => {
@@ -1702,6 +1720,8 @@ function makeSite(data) {
                 },
 
                 "profil": {
+                    "title": dataArray[0][5][3],
+                    "obs": dataArray[0][5][4],
                     "aMedlem": [dataArray[0][5][0][0], dataArray[0][5][0][1]],
                     "bMedlem": [dataArray[0][5][1][0], dataArray[0][5][1][1]],
                     "cMedlem": [dataArray[0][5][2][0], dataArray[0][5][2][1]],
@@ -1721,16 +1741,17 @@ function makeSite(data) {
                 }
             },
             intro = '<section><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
-            profil = '<section><section></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+            profil = '<section><section><h2>' + ds.profil.title + '</h2><p>' + ds.profil.obs + '</p></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
             profil += '<article><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
             profil += '<article><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
+
             let outro = '<section><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
             outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
+            
 
             let main = intro + profil + outro;
 
             createHTML("main", main)
-            console.log(ds)
         }
 
         function makeMentor() {
@@ -1900,13 +1921,13 @@ function makeSite(data) {
                     "title2": dataArray[0].tekst_gruppe_1[3],
                     "beskriv1": dataArray[0].tekst_gruppe_1[2],
                     "beskriv2": dataArray[0].tekst_gruppe_1[4],
-                    //Ul
+                    //Dulighedstitle
                     "ulTitle": dataArray[0].tekst_liste_1[0],
                     //Ul1
-                    "ul1": dataArray[0].tekst_liste_1[1],
-                    "li1Array": [dataArray[0].tekst_liste_1[2], dataArray[0].tekst_liste_1[3],dataArray[0].tekst_liste_1[4],dataArray[0].tekst_liste_1[5]],
-                    //Ul2
-                    "ul2": [dataArray[0].tekst_liste_1[6]]
+                    // "ul1": dataArray[0].tekst_liste_1[1],
+                    // "li1Array": [dataArray[0].tekst_liste_1[2], dataArray[0].tekst_liste_1[3],dataArray[0].tekst_liste_1[4],dataArray[0].tekst_liste_1[5]],
+                    // //Ul2
+                    // "ul2": [dataArray[0].tekst_liste_1[6]]
                 },
 
                 "galleri": {
@@ -1934,21 +1955,14 @@ function makeSite(data) {
                 }
             },
 
-            //Skaber ul til Intro Section
-            liste1 = '<ul>';
-            uData.intro.li1Array.forEach(item => {
-                liste1 += '<li>' + item + '</li>'
-            })
-            liste1 += '</ul>';
-
             //Skaber liste med billeder
-            let imgList = '';
+                imgList = '';
             uData.galleri.skibe.forEach(skib => {
                 imgList += '<article><img src="' + skib[0] + '" alt="Billede af bådmodellen: ' + skib[1] + '"><div><h4>' + skib[1] + '</h4><ul><li>' + skib[2] + '</li><li>' + skib[3] + '</li></ul></div></article>'
             });
 
             //Skaber og samler hovedindholdet
-            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p><h3>' + uData.intro.title2 + '</h3><p>' + uData.intro.beskriv2 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><h3>' + uData.intro.ul1 + '</h3>' + liste1 + '<h3>' + uData.intro.ul2 + '</h3></article></section>',
+            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><p>' + uData.intro.beskriv2 + '</p></article></section>',
                 galleri = '<section id="galleriSejlUndervisning"><article><h2>' + uData.galleri.title + '</h2><p>' + uData.galleri.beskriv + '</p></article><section>' + imgList + '</section></section>',
                 nye = '<section id="nyeSejlUndervisning"><h2>' + uData.elever.nye[0] + '</h2><article><p>' + uData.elever.nye[1] + '</p><button type=button id="nyeClick">LÆS MERE</button></article><img src="' + uData.elever.nye[2] + '" alt="Billede til ' + uData.elever.nye[0] + '"></section>',
                 erfarende = '<section id="erfarendeSejlUndervisning"><h2>' + uData.elever.erfarende[0] + '</h2><article><p>' + uData.elever.erfarende[1] + '</p><button type=button id="erfarendeClick">LÆS MERE</button></article><img src="' + uData.elever.erfarende[2] + '" alt="Billede til ' + uData.elever.erfarende[0] + '"></section>',
@@ -2078,11 +2092,15 @@ function makeSite(data) {
                     "pInfo": sFindData.intro[4],
                     "tilmeld": sFindData.tilmeld_link,
                     "info1": sFindData.info_1,
-                    "info2": sFindData.info_2
+                    "info2": sFindData.info_2,
+                    "info1-title": sFindData.info_1[5],
+                    "info1-beskriv": sFindData.info_1[6],
+                    "info2-title": sFindData.info_2[5],
+                    "info2-beskriv": sFindData.info_2[6]
                 };
                 //Skaber 2 lister med Links fra Info 1 / 2
-                let liste1 = '<article>',
-                    liste2 = '<article>';
+                let liste1 = '<article><section><h3>' + sData["info1-title"] + '</h3><p>' + sData["info1-beskriv"]  + '</p></section>',
+                    liste2 = '<article><section><h3>' + sData["info2-title"]  + '</h3><p>' + sData["info2-title"]  + '</p></section>';
                 sData.info1.forEach(list => {
                     liste1 += '<div><h4>' + list[0] + '</h4><a href="' + list[1] + '">ÅBEN</a></div>'
                 })
@@ -2094,7 +2112,7 @@ function makeSite(data) {
                 
                 //Skaber hovedindhold
                 let staevneContent = '<section id="staevneContent_' + number +'"><article><h3>' + sData.pTitle + '</h3><p>' + sData.pInfo + '</p><a href="' + sData.tilmeld + '">Tilmelding</a></article>' + liste1 + liste2 +'</section>';
-                staevne += '<section id="staevne_' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '"></button></article>' + staevneContent + '</section>';
+                staevne += '<section id="staevne_' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '">MERE INFORMATION</button></article>' + staevneContent + '</section>';
                 
                 // Skal "udløse" hvis årstallet er mindre end 2021, de nuværende år. Kunne også være relevant at kigge på dag/måned.
                 let date = new Date(),

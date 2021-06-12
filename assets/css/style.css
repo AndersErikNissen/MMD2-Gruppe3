@@ -109,18 +109,58 @@ i {
     display: block;
 }
 
-/* BurgerMenu */
+/* ======================== */
+/* ====== BurgerMenu ====== */
+/* ======================== */
 .burger {
     width: 100px;
     height: 10px;
     background-color: var(--color-darkblue);
+    border-radius: 5px;
 }
 
-/* ========================= */
-/* ================= Sponsor */
-/* ========================= */
+#curtain {
+    z-index: 9;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100vh;
+    background-color: var(--color-red);
+}
+#burgerBtn {
+    z-index: 10;
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+/* - Animation */
+.hideCurtain {
+
+    animation: hideCurtain 1s ease-in-out forwards;
+}
+@keyframes hideCurtain {
+    from {width: 100vw;}
+    to {width: 0;}
+}
+.showCurtain {
+    display: block;
+
+    animation: showCurtain 1s ease-in-out forwards;
+}
+@keyframes showCurtain {
+    from {width: 0;}
+    to {width: 100vw;}
+}
 
 
+
+
+
+/* ========================= */
+/* ======== Sponsor ======== */
+/* ========================= */
 /* Sponsor SlideShowet er stærkt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
 /* Arbejde */
 #sponsorContainer {
@@ -217,3 +257,5 @@ i {
     79.5% {transform: scale(1.4);}
     100% {transform: scale(1);}
 }
+
+/* Burger Menu */
