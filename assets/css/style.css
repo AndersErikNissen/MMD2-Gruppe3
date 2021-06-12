@@ -216,11 +216,12 @@ button[type=button] a {
 #heroTekstArea {
     position: absolute;
     z-index: 2;
-    top: 50vh;
+    top: 45vh;
     left: 10vw;
 }
 #heroTekstArea h1, p {
     color: white;
+    width: 20vw;
 }
 .activeHero {
     display: block;
