@@ -11,6 +11,16 @@ UCN MMDA0920 */
     --color-darkblue-box: #648DAA;
     --color-lightblue-box: #B2CEDE;
     --color-white: #E3E3E3;
+
+    /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
+    --sponsor-width: 80vw;
+    --sponsor-height: 20vh;
+    --sponsor-lier: 6;
+    /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
+    --sponsor-display: 5;
+    /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
+    --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
+    --sponsor-timing: calc(var(--sponsor-display) * 4s) /* Giver 4s til hver element*/
 }
 
 li {
@@ -85,6 +95,7 @@ i {
     
     display: none;
 }
+/* Til pynt... (SLET) */
 .imgHero:nth-child(2) {
     background-color: #1C3E56;
 }
@@ -96,4 +107,113 @@ i {
 }
 .activeHero {
     display: block;
+}
+
+/* BurgerMenu */
+.burger {
+    width: 100px;
+    height: 10px;
+    background-color: var(--color-darkblue);
+}
+
+/* ========================= */
+/* ================= Sponsor */
+/* ========================= */
+
+
+/* Sponsor SlideShowet er stærkt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
+/* Arbejde */
+#sponsorContainer {
+    overflow: hidden;
+    width: var(--sponsor-width);
+    height: var(--sponsor-height);
+    background-color: #e72;
+    position: relative;
+}
+#sponsorUl:hover {
+    animation-play-state: paused;
+}
+#sponsorUl {
+    list-style: none;
+    height: 100%;
+    display: flex;
+    /*  */
+    animation: sliding var(--sponsor-timing) linear infinite;
+}
+@keyframes sliding {
+    from {transform: translateX(0);}
+    to {transform: translateX(calc(-1 * var(--sponsor-li-width) * var(--sponsor-lier)));}
+}
+
+#sponsorUl li {
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0; /* Gør at hver LI beholder sin originalle størrelse */
+    width: calc(var(--sponsor-li-width));
+    max-height: 100%;
+}
+
+#sponsorUl li img {
+    width: auto;
+    height: calc(var(--sponsor-height) * .80);
+
+}
+
+
+/* Loading Screen  */
+#loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#loadingH2 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 80px;
+    height: 100px;
+    color: var(--color-red);
+}
+#loadingDotBox {
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 17px 10px;
+}
+.load1, .load2, .load3 {
+    display: inline-block;
+    margin: 10px;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-red);
+    
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+.load1 {
+    animation-name: load1;
+}
+.load2 {
+    animation-name: load2;
+}
+.load3 {
+    animation-name: load3;
+}
+
+@keyframes load1 {
+    0% {transform: scale(1);}
+    16.5% {transform: scale(1.4);}
+    33% {transform: scale(1);}
+}
+@keyframes load2 {
+    33% {transform: scale(1);}
+    49.5% {transform: scale(1.4);}
+    66% {transform: scale(1);}
+}
+@keyframes load3 {
+    66% {transform: scale(1);}
+    79.5% {transform: scale(1.4);}
+    100% {transform: scale(1);}
 }

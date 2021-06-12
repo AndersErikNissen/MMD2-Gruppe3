@@ -34,9 +34,34 @@ xhttp.send(JSON.stringify(login)); //JSON.stringify er det modsatte af JSON.pars
 function afterToken() {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () { // Onreadystatechange, bliver aktiveret når f.eks hjemmesiden bliver åbnet og skal til at loade. 
+        if (this.status !== 200) {
+            //Bruges til Loading
+
+            let container = document.createElement("section"),
+            dotBox = document.createElement("article"),
+            h2 = document.createElement("h2"),
+            load1 = document.createElement("div"),
+            load2 = document.createElement("div"),
+            load3 = document.createElement("div");
+
+            container.id = "loadingContainer";
+            h2.textContent = "Indlæser SNV.dk";
+            h2.id = "loadingH2";
+            dotBox.id = "loadingDotBox";
+            load1.classList.add("load1");
+            load2.classList.add("load2");
+            load3.classList.add("load3");
+
+            dotBox.append(load1, load2, load3)
+            container.append(h2, dotBox)
+            document.querySelector("main").appendChild(container)
+
+        } 
+
     if (this.readyState == 4 && this.status == 200) { // readyState == 4, betyder at den er færdig og har gennemført det som blev spurgt efter, og status == 200 betyder at den metode som er blevet spurgt efter har lykkedes.
         try {
         const data = JSON.parse(this.response);
+        document.querySelector("main").innerHTML = "";//Reset Main, fordi den bruges til loading indhold
         makeSite(data);
         } catch(error) {
             console.log("Parsing Error: " + error)
@@ -671,10 +696,28 @@ function makeSite(data) {
 
         //== Mobil/Tablet and Desktop Mediaqueries
         if (mobil.matches || tablet.matches) { //Matches går ind og kigger på vores MediaQueryString og ser om den "matcher", altså om den er rigtig i forhold til window.innerWidth.
+            let
+            btn = document.createAttribute("div"), topLayer = document.createElement("div"), midLayer = document.createElement("div"), botLayer = document.createElement("div"),
+            curtain = document.createElement("section"), nav = document.createElement("nav"), logoDiv = document.createElement("div"), logoImg = document.createElement("img");
+
+            //Button
+            btn.id = "burgerBtn";
+            topLayer.classList.add("burger"); midLayer.classList.add("burger"); botLayer.classList.add("burger");
+            topLayer.id = "topLayer"; midLayer.id = "midLayer"; botLayer.id = "botLayer";
+
+            // Logo
+            logoImg.src = logo;
+            logoImg.alt = "Logo tilhørende SNV.dk - Tekst og det ikoniske rødeflag med 3 stjerner";
+            logoDiv.appendChild(logoImg);
+            
+            
+            
             allNav += '<div id="burgerBtnContainer"><div class="burger"></div><div class="burger"></div><div class="burger"></div></div>' // Skaber HamburgerMenu
             allNav += '<section id="curtainContainer"><article id="curtain">' + navigation + '</article></section>'; // Skaber Curtain som indeholder hele den Globale Navigation
             allNav += '<div><a href=?pageId="' + IDforside[2] + '"><img src="' + logo +'" alt=""></a></div></nav>';
             
+
+
             if (mobil.matches) {
                 console.log("Layout: Mobile Version")
             }
@@ -686,22 +729,36 @@ function makeSite(data) {
             console.log("Layout: Desktop Version")
             allNav += '<div><a href="?pageId=' + IDforside[2] + '"><img src="' + logo +'" alt=""></a></div>';
             allNav += navigation + '</nav>';
+            createHTML("header", allNav);
         }
-        createHTML("header", allNav);
     }
     function makeSponsor () {
-        let sponsor = '<section id="infi"><ul id="infiContent">',
-            infiChildren = postData.acf.billeder[1],
-            sponsorNr = 1;
+        let 
+        infiChildren = postData.acf.billeder[1];
         
+        //Create Elements
+        let
+        sponsorContainer = document.createElement("section"), ul = document.createElement("ul");
+        ul.id = "sponsorUl";
+        sponsorContainer.id = "sponsorContainer";
+      
+        //Stærkt inspiret af:https://codepen.io/Coding_Journey/pen/yWjWKd
         infiChildren.forEach(child => {
             if (!child == "") {// Har 12 pladser i ACF'en, så der er plads til flere sponsorer. Når en af dem er tomme, så er der ingen grund til at lave et <li>.
-                sponsor += '<li class="infiChild"><img src="' + child + '" alt="Spononsor Nummer: ' + sponsorNr + '"></li>';
-                sponsorNr++;
+                let li = document.createElement("li"), img = document.createElement("img");
+                img.src = child;
+                li.appendChild(img)
+                ul.append(li)
             }
         })
-        sponsor += '</ul></section>';
-        addToHTML("#sponsorSection", sponsor);
+        //document.documentElement går ind og rammer root elementet. I dette filfælde er det HTML, og CSS :root kan findes der.
+        let liDisplayed = getComputedStyle(document.documentElement).getPropertyValue("--sponsor-display");
+
+        sponsorContainer.appendChild(ul)
+        document.querySelector("#sponsorSection").appendChild(sponsorContainer);
+        for (let i = 0; i < liDisplayed; i++) {
+            ul.appendChild(ul.children[i].cloneNode(true))
+        }
     }
     function makeFooter () {
         let 
