@@ -366,6 +366,12 @@ button[type=button] a {
 }
 
 /* Forside - Afdelinger */
+#afdeling {
+    padding: 2vw 5vw;
+}
+#afdeling h2 {
+    margin: 1rem;
+}
 #afdelingFlex {
     display: flex;
     flex-direction: row;
@@ -420,12 +426,60 @@ button[type=button] a {
 
 
 
+/* ========================= */
+/* ======== Sponsor ======== */
+/* ========================= */
+/* Sponsor SlideShowet er stærkt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
+/* Arbejde */
+#sponsorSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5vw 0;
+}
+#sponsorContainer {
+    overflow: hidden;
+    width: var(--sponsor-width);
+    height: var(--sponsor-height);
+    background-color: #e72;
+    position: relative;
+}
+#sponsorUl:hover {
+    animation-play-state: paused;
+}
+#sponsorUl {
+    list-style: none;
+    height: 100%;
+    display: flex;
+    /*  */
+    animation: sliding var(--sponsor-timing) linear infinite;
+}
+@keyframes sliding {
+    from {transform: translateX(0);}
+    to {transform: translateX(calc(-1 * var(--sponsor-li-width) * var(--sponsor-lier)));}
+}
 
+#sponsorUl li {
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0; /* Gør at hver LI beholder sin originalle størrelse */
+    width: calc(var(--sponsor-li-width));
+    max-height: 100%;
+}
 
+#sponsorUl li img {
+    width: auto;
+    height: calc(var(--sponsor-height) * .80);
+}
 
-
-
-
+/* ====================================== */
+/* ============== Footer ================ */
+/* ====================================== */
+footer {
+    background-image: url(../images/footer.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
 
 
 
@@ -1059,46 +1113,6 @@ i {
 
 
 
-/* ========================= */
-/* ======== Sponsor ======== */
-/* ========================= */
-/* Sponsor SlideShowet er stærkt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
-/* Arbejde */
-#sponsorContainer {
-    overflow: hidden;
-    width: var(--sponsor-width);
-    height: var(--sponsor-height);
-    background-color: #e72;
-    position: relative;
-}
-#sponsorUl:hover {
-    animation-play-state: paused;
-}
-#sponsorUl {
-    list-style: none;
-    height: 100%;
-    display: flex;
-    /*  */
-    animation: sliding var(--sponsor-timing) linear infinite;
-}
-@keyframes sliding {
-    from {transform: translateX(0);}
-    to {transform: translateX(calc(-1 * var(--sponsor-li-width) * var(--sponsor-lier)));}
-}
-
-#sponsorUl li {
-    display: flex;
-    justify-content: center;
-    flex-shrink: 0; /* Gør at hver LI beholder sin originalle størrelse */
-    width: calc(var(--sponsor-li-width));
-    max-height: 100%;
-}
-
-#sponsorUl li img {
-    width: auto;
-    height: calc(var(--sponsor-height) * .80);
-
-}
 
 
 /* Loading Screen  */

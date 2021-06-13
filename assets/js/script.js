@@ -179,9 +179,8 @@ function makeSite(data) {
     }
     
     function loop (area, btnArea) {
-        setTimeout(() => {//Inspiration fra: https://stackoverflow.com/questions/22154129/how-to-make-setinterval-behave-more-in-sync-or-how-to-use-settimeout-instea.
+        setTimeout(() => {                                                                                  //Inspiration fra: https://stackoverflow.com/questions/22154129/how-to-make-setinterval-behave-more-in-sync-or-how-to-use-settimeout-instea.
             //Skulle bruge et Loop som havde en timeout til at vise hver Billede.
-            
             area.childNodes.forEach(post => post.classList.remove("activeHero"));
             btnArea.childNodes.forEach(post => post.classList.remove("activeDiv"));
 
@@ -661,10 +660,10 @@ function makeSite(data) {
     let currentID = getURL();
     function getURL () {
         let id = 0;
-        const pageURL = window.location.href; //Pathname kigger op indtil ?pageId=, til gengæld virker .href (På studie serveren ville det være https://mmd.ucn.dk/) og .search fint.
+        const pageURL = window.location.href;    //Pathname kigger op indtil ?pageId=, til gengæld virker .href (På studie serveren ville det være https://mmd.ucn.dk/) og .search fint.
         console.log(pageURL)
         
-        if(pageURL.indexOf("pageId") != -1) { // Hvis pageURL indeholder pageId, og -1 ikke er true, så skal if sætningen bruges. 
+        if(pageURL.indexOf("pageId") != -1) {      // Hvis pageURL indeholder pageId, og -1 ikke er true, så skal if sætningen bruges. 
             let split = pageURL.split("pageId=");
             id = split[1];
         }
@@ -684,6 +683,14 @@ function makeSite(data) {
             title = split[1];
             document.title = title + " - SNV.dk"; // Titlen skal være den rette posts title minus Private: , så puttes foran af WordPress, men som vi ikke skal bruge.
     }
+
+
+    let obj1 = {
+        "overskrift": data.overskrift,
+        "brodtekst": data.brodtekst,
+        "billede": data.billede
+    }
+
 
     function makeNavigation (current) {
         let navigationlist = postData.acf.id.categories.navigationlist,
@@ -807,12 +814,15 @@ function makeSite(data) {
       
         //Stærkt inspiret af:https://codepen.io/Coding_Journey/pen/yWjWKd
         infiChildren.forEach(child => {
-            if (!child == "") {// Har 12 pladser i ACF'en, så der er plads til flere sponsorer. Når en af dem er tomme, så er der ingen grund til at lave et <li>.
-                let li = document.createElement("li"), img = document.createElement("img");
-                img.src = child;
-                li.appendChild(img)
+
+                let li = document.createElement("li"), img = document.createElement("img"), a = document.createElement("a");
+                a.href = child[0];
+                img.src = child[1];
+                img.alt = "Billede til sponsor Galleri";
+                a.appendChild(img)
+                li.appendChild(a)
                 ul.append(li)
-            }
+            
         })
         //document.documentElement går ind og rammer root elementet. I dette filfælde er det HTML, og CSS :root kan findes der.
         let liDisplayed = getComputedStyle(document.documentElement).getPropertyValue("--sponsor-display");
@@ -1231,7 +1241,7 @@ function makeSite(data) {
         //===== WHICH CASE TO USE TO DRAW CONTENT
         let currentSite = findCurrent(current);
 
-        const currentTag = currentSite.tags[0]; //Vi tilføjer [0] fordi vi kigger i et array, som har et tal.
+        const currentTag = currentSite.tags[0];             //Vi tilføjer [0] fordi vi kigger i et array, som har et tal.
         makeTitle(currentSite);
 
         switch (currentTag) {
@@ -1513,8 +1523,6 @@ function makeSite(data) {
     //============================================================================
 
     function addAndRemove (li) {
-        //ID til nemmere navigation #4
-
         //== Funktioner til Afdelinger Undersider
 
         // - Bliv Medlem
