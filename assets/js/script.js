@@ -324,7 +324,7 @@ function makeSite(data) {
                 let overskrift = referat.acf.overskrift,
                     dato = modDato(referat),
                     link = referat.acf.link;
-                referatBox = '<div class="referatBox hideReferat"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
+                referatBox = '<article class="referatBox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
                 referatOutput += referatBox;
                 
             })
@@ -334,7 +334,7 @@ function makeSite(data) {
                     dato = modDato(referat),
                     link = referat.acf.link;
 
-                GFbox = '<div class="GFbox hideReferat"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
+                GFbox = '<article class="GFbox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
                 GFoutput += GFbox;
             })
 
@@ -342,11 +342,10 @@ function makeSite(data) {
             let
             rData = findPost.acf[12],
             gData = findPost.acf[13],
-            referatBestyrelse = '<article id="referatContent">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1"><span>&#8249;</span></button><button type="button" id="referatBtn1"><span>&#8250;</span></button></div></article></section>',
-            GFbestyrelse = '<article id="GFcontent">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</span></button><button type="button" id="referatBtn2">&#62;</button></div></article></section>',
+            referatBestyrelse = '<article id="referatContent"><section class="referatFlex">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1">&#8249;</button><button type="button" id="referatBtn1">&#8250;</button></div></section></article>',
+            GFbestyrelse = '<article id="GFcontent"><section class="referatFlex">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</button><button type="button" id="referatBtn2">&#8250;</button></div></section></article>',
             
-            //#1
-            referat =  '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></article>';
+            referat =  '<section id="referat"><article><section><h2>' + rData[0] + '</h2><p>' + rData[1] + '</p></section><div id="referatShowHideBtnDiv"><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></div><div class="colorBoxDiv"></div></article>';
             referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse,
             referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#8250;</span></article>' + GFbestyrelse + '</section>';
             
@@ -2386,7 +2385,7 @@ function makeSite(data) {
                 let overskrift = referat.acf.overskrift,
                     dato = modDato(referat),
                     link = referat.acf.link;
-                referatBox = '<div class="referatBox hideReferat"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
+                referatBox = '<article class="referatBox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
                 referatOutput += referatBox;
                 
             })
@@ -2396,7 +2395,7 @@ function makeSite(data) {
                     dato = modDato(referat),
                     link = referat.acf.link;
 
-                GFbox = '<div class="GFbox hideReferat"><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5><a href="' + link + '">ÅBEN</a></div>';
+                GFbox = '<article class="GFbox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
                 GFoutput += GFbox;
             })
 
@@ -2404,11 +2403,10 @@ function makeSite(data) {
             let
             rData = findPost.acf[12],
             gData = findPost.acf[13],
-            referatBestyrelse = '<article id="referatContent">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1"><span>&#8249;</span></button><button type="button" id="referatBtn1"><span>&#8250;</span></button></div></article></section>',
-            GFbestyrelse = '<article id="GFcontent">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</span></button><button type="button" id="referatBtn2">&#62;</button></div></article></section>',
+            referatBestyrelse = '<article id="referatContent"><section class="referatFlex">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1">&#8249;</button><button type="button" id="referatBtn1">&#8250;</button></div></section></article>',
+            GFbestyrelse = '<article id="GFcontent"><section class="referatFlex">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</button><button type="button" id="referatBtn2">&#8250;</button></div></section></article>',
             
-            //#1
-            referat =  '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></article>';
+            referat =  '<section id="referat"><article><section><h2>' + rData[0] + '</h2><p>' + rData[1] + '</p></section><div id="referatShowHideBtnDiv"><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></div><div class="colorBoxDiv"></div></article>';
             referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse,
             referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#8250;</span></article>' + GFbestyrelse + '</section>';
             

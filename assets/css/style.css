@@ -618,18 +618,196 @@ footer img {
 #bestyrelseListe article div ul li {margin:1 rem 0; padding: 0;}
 
 
-.bestyrelseBox {
-    display: block;
-    width: 42vw;
-    height: 15vw;
-    margin-bottom: 2vw;
-    border-left: 9px solid #B12818;
+/* Referat */
+#referat {
+    background-color: var(--color-lightblue-box);
+    display: flex;
+    flex-direction: column;
+}
+#referat > article  {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2vw;
+    width: 100%;
+    
+    height: calc(1rem * 12);
+}
+#referat > article > section {
+    display: flex;
+    justify-content: space-between;
+    height: 40%;
+    width: 70%;
+}
+#referat > article > section p {
+    margin: 0;
+    padding: 0;
+    width: var(--para-width-banner);
+}
+#referat > article > * {
+    z-index: 1;
+}
+#referatShowHideBtnDiv {
+    display: flex;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 0 2rem 0;
+}
+#referatShowHideBtnDiv button {
+    height: fit-content;
+}
+#referat > article div.colorBoxDiv {
+    position: absolute;
+    top: left;
+    left: 0;
+    background-color: var(--color-white);
+    z-index: 0;
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 24% 100%);
+    width: 100%;
+    height: calc(1rem * 12);
 }
 
-.kontakt {
-    height: 15vw;
+#referatContainer {
+    padding: 2vw;
+}
+
+#clickReferat1 {
+    padding: 1vw 1.5vw;
+    background-color: white;
+    border-left: var(--color-red) 9px solid;
+    display: flex;
+    justify-content: space-between;
+}
+#referatContent {
+    background-color: var(--color-white);
+    padding: 1.5vw;
+}
+.referatFlex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.referatBox {
+    flex: 40%;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    background-color: white;
+    border-left: var(--color-red) 9px solid;
+}
+.referatBox h5 {
+    margin: 0;
+}
+.referatBox a {
+    font-weight: 400;
+    float: right;
+    color: black;
+    text-decoration: underline;
+}
+#btnDiv1 {
+    flex: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#clickReferat2 {
+    background-color: blueviolet;
+}
+
+button[type=button]#referatBtn1, button[type=button]#referatBtnReverse1, button[type=button]#referatBtn2, button[type=button]#referatBtnReverse2 {
+    background-color: red;
+    margin: 0 .3rem;
+    padding: .1rem .5rem;
+
+    text-align: center;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+}
+button#referatBtn1 {
+    font-size: 20px;
+}
+
+strong {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-family: 'Manrope', sans-serif;
+}
+.showContent {
     display: block;
 }
+.hideContent {
+    display: none;
+}
+
+
+#bodyTemplate_1261 span {
+    transform: rotate(-90deg);
+    /* Normalt ville span være et inline element */
+    display: inline-block;
+}
+i {
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+
+
+
+
+
+.infoBox {
+    width: 86vw;
+    height: 15vw;
+    margin: 0;
+    background-color: #E3E3E3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 3vw;
+}
+
+.infoBox p {
+    width: 30vw;
+}
+
+.skraaBox {
+    display: block;
+    width: 20vw;
+    height: 15vw;
+    padding: 5vw 3vw;
+    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
+}
+
+.skraaBox.stævne {
+    padding-top: 3vw;
+}
+
+.skraaBox ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+
+.lysblaa {
+    background-color: #B2CEDE;
+}
+
+.contentBox {
+    display: block;
+    width: 86vw;
+    height: fit-content;
+    margin-top: -1px;
+    margin-bottom: 2vw;
+    padding: 3vw;
+}
+
 
 
 /* klub politik */
@@ -709,60 +887,7 @@ footer img {
     margin: 1vw;
 }
 
-.infoBox {
-    width: 86vw;
-    height: 15vw;
-    margin: 0;
-    background-color: #E3E3E3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 3vw;
-}
 
-.infoBox p {
-    width: 30vw;
-}
-
-.skraaBox {
-    display: block;
-    width: 20vw;
-    height: 15vw;
-    padding: 5vw 3vw;
-    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
-}
-
-.skraaBox.stævne {
-    padding-top: 3vw;
-}
-
-.skraaBox ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 0;
-}
-
-.lysblaa {
-    background-color: #B2CEDE;
-}
-
-.contentBox {
-    display: block;
-    width: 86vw;
-    height: fit-content;
-    margin-top: -1px;
-    margin-bottom: 2vw;
-    padding: 3vw;
-}
-
-.foldUd {
-    display: block;
-    background-color: white;
-    border-left: 9px solid #B12818;
-    height: fit-content;
-    padding: 1vw;
-    margin-bottom: 2vw;
-}
 
 .infoStor {
     display: flex;
@@ -1066,38 +1191,6 @@ li {
 .hideReferat {
     display: none;
 }
-
-
-#referatBtn, #referatBtnReverse {
-    /* background-color: #e35; */
-    font-size: 15px;
-    font-weight: bold;
-    border: none;
-}
-.showContent {
-    display: block;
-}
-.hideContent {
-    display: none;
-}
-
-#clickReferat1 {
-    background-color: blueviolet;
-}
-#clickReferat2 {
-    background-color: blueviolet;
-}
-
-#bodyTemplate_1261 span {
-    transform: rotate(-90deg);
-    /* Normalt ville span være et inline element */
-    display: inline-block;
-}
-i {
-    font-weight: bold;
-    font-style: normal;
-}
-
 
 
 /* ======================== */
