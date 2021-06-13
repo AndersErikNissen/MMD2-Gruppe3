@@ -572,15 +572,15 @@ footer img {
     animation: turnUp .5s ease-in-out forwards;
 }
 @keyframes turnUp {
-    from {transform: rotate(90deg);}
-    to {transform: rotate(-90deg);}
+    from {transform: rotate(90deg); transform-origin: center;}
+    to {transform: rotate(-90deg); transform-origin: center;}
 }
 .turnDown {
     animation: turnDown .5s ease-in-out forwards;
 }
 @keyframes turnDown {
-    from {transform: rotate(-90deg);}
-    to {transform: rotate(90deg);}
+    from {transform: rotate(-90deg); transform-origin: center;}
+    to {transform: rotate(90deg); transform-origin: center;}
 }
 
 /* betyrelsen */
