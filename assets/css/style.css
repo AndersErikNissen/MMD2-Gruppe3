@@ -891,7 +891,7 @@ li {
     display: inline-block;
 }
 
-.currentPage a {
+#header .currentPage a {
     color: var(--color-red);
 }
 .hideReferat {
