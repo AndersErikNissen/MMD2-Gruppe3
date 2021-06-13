@@ -15,21 +15,22 @@ UCN MMDA0920 */
 
     /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
     --sponsor-width: 80vw;
-    --sponsor-height: 20vh;
-    --sponsor-lier: 6;
+    --sponsor-height: 15vh;
+    --sponsor-lier: 11;
     /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
-    --sponsor-display: 5;
+    --sponsor-display: 4;
     /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
     --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
-    --sponsor-timing: calc(var(--sponsor-display) * 4s); /* Giver 4s til hver element*/
+    --sponsor-timing: calc(var(--sponsor-display) * 8s); /* Giver 4s til hver element*/
 
     /* Font */
     --font-main: 18px;
+    --para-width: calc(var(--font-main) * 35);
+    --para-width-banner: calc(var(--font-main) * 30);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap');
 * {
     box-sizing: border-box;
 }
@@ -114,9 +115,11 @@ footer {
     padding: .4rem .8rem;
     margin-right: 4rem;
 }
-#header li:hover {
-    transform: scale(1.01);
-  
+#header li a:hover {
+    color: var(--color-red);
+}
+#header li:active {
+    transform: scale(0.95);
 }
 #header li.currentPage {
     font-weight: bold;
@@ -155,32 +158,6 @@ button[type=button] {
 button[type=button] a {
     color: white;
 }
-
-#medlem {
-    margin-left: 4vw;
-}
-.secondNav {
-    display: flex;
-    justify-content: space-evenly;
-    /* grid-column: 1/13;
-    grid-row: 3/4; */
-    margin: 0 7vw;
-    padding: 1vw 0;
-    border-bottom: solid #888888 1px;
-}
-.secondNav ul {
-    margin: 0;
-    padding: 0;
-}
-.secondNav ul li {
-    display: inline-block;
-    list-style: none;
-    margin: 0;
-    padding: 0 5vw;
-    border-left: solid #888888 1px;
-}
-
-
 
 /* ================================================ */
 /* =================== FORSIDE ==================== */
@@ -285,7 +262,6 @@ button[type=button] a {
     display: block;
 }
 .newsBox {
-    /* width: 1fr; */
     background-color: var(--color-darkblue-box);
     display: flex;
     flex-direction: column;
@@ -377,7 +353,6 @@ button[type=button] a {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0 5vw;
 }
 #afdelingFlex h3 {
     font-size: 1.5rem;
@@ -387,16 +362,19 @@ button[type=button] a {
     font-weight: bold;
 }
 .afdelingBox {
-    width: 40rem;
+flex: 45%;
     margin: 1rem;
     position: relative;
     height: 20rem;
+    background-color: var(--color-darkblue);
     
 }
 .afdelingBox img {
     height: 100%;
     object-fit: contain;
     float: right;
+    clip-path: polygon(57% 0, 100% 0, 100% 100%, 16% 100%);
+
 }
 .afdelingTextContainer {
     padding: 2rem;
@@ -413,63 +391,53 @@ button[type=button] a {
 .afdelingTextContainer > * {
     color: white;
 }
-.afdelingOverlay {
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: var(--color-darkblue);
-    clip-path: polygon(0 0, 70% 0, 30% 100%, 0% 100%);
-}
-
-
 
 /* ========================= */
 /* ======== Sponsor ======== */
 /* ========================= */
-/* Sponsor SlideShowet er stærkt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
-/* Arbejde */
+/* Sponsor SlideShowet er stærkt inspiret af / lånt fra: https://codepen.io/Coding_Journey/pen/yWjWKd */
 #sponsorSection {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 5vw 0;
 }
+
 #sponsorContainer {
     overflow: hidden;
     width: var(--sponsor-width);
     height: var(--sponsor-height);
-    background-color: #e72;
     position: relative;
 }
 #sponsorUl:hover {
     animation-play-state: paused;
 }
 #sponsorUl {
+    margin: 0;
+    padding: 0;
     list-style: none;
     height: 100%;
     display: flex;
-    /*  */
     animation: sliding var(--sponsor-timing) linear infinite;
 }
 @keyframes sliding {
     from {transform: translateX(0);}
     to {transform: translateX(calc(-1 * var(--sponsor-li-width) * var(--sponsor-lier)));}
 }
-
 #sponsorUl li {
+    align-self: top;
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     flex-shrink: 0; /* Gør at hver LI beholder sin originalle størrelse */
     width: calc(var(--sponsor-li-width));
     max-height: 100%;
 }
-
 #sponsorUl li img {
-    width: auto;
-    height: calc(var(--sponsor-height) * .80);
+    width: 100%;
+    height: calc(var(--sponsor-height));
+    border: 2px solid white;
 }
 
 /* ====================================== */
@@ -479,23 +447,244 @@ footer {
     background-image: url(../images/footer.svg);
     background-repeat: no-repeat;
     background-size: 100%;
+    padding: 15vh 0 5vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-
-
-
-.textBoxHeroLille {
+footer > * {
+    color: white;
+    font-weight: bold;
+}
+footer h2 {
+    margin: 1rem 0;
+    font-weight: normal;
+}
+footer a {
+    color: white;
+}
+footer nav ul li a {
+    text-decoration: underline;
+}
+address {
+    font-style: normal;
+}
+footer ul {
+    padding: 0;
+    margin: 0;
+}
+#footerSection {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+#footerSection div {
+    display: flex;
+}
+footer img {
+    width: 40px;
+    height: 40px;   
+    margin: 0 1rem; 
+}
+
+/* ====================================== */
+/* ============ Under Navigation ======== */
+/* ====================================== */
+#ulUnderNav {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#heroLille {
+    width: 100%;
+    height: 33vh;
+    background-color: var(--color-darkblue);
+
+    position: relative;
+}
+#heroLille > * {
+    color: white;
+}
+#heroLille article {
+    position: absolute;
+    top: 30%;
+    left: 35vw;
+}
+#heroLille article p {
+    width: var(--para-width-banner);
+}
+#heroLille h1 {font-size: 2.2rem}
+#heroLille h2 {font-size: 2.2rem}
+#heroLille img {
+    height: 33vh;
+    display: block;
+    clip-path: polygon(0 0, 74% 0, 97% 100%, 0% 100%);
+}
+#ulUnderNav {
+    margin: 1rem 0 0 0; 
+    padding: 0 0 1rem 0;
+    border-bottom: 1px solid #D2D2D2;
+}
+#ulUnderNav li:first-of-type {
+    border: none;
+}
+#underNavContent ul li {
+    text-align: center;
+    width: 100%;
+    border-left: solid #D2D2D2 1px;
+    cursor: pointer;
+}
+#underNavContent ul li:hover {
+    color: var(--color-red);
+}
+#underNavContent ul li:active {
+    transform: scale(.95);
+}
+.selected {
+    color: var(--color-red);
+    font-weight: bold;
+}
+
+/* ====================================== */
+/* ============ Om Klubben ============== */
+/* ====================================== */
+#bodyTemplate_1255 main {
+    padding: 5vw;
+}
+#bodyTemplate_1255 span {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    transform: rotate(90deg);
+    display: inline-block;
+}
+#referatContent span {
+    transform: rotate(0deg);
+}
+.turnUp {
+    animation: turnUp .5s ease-in-out forwards;
+}
+@keyframes turnUp {
+    from {transform: rotate(90deg);}
+    to {transform: rotate(-90deg);}
+}
+.turnDown {
+    animation: turnDown .5s ease-in-out forwards;
+}
+@keyframes turnDown {
+    from {transform: rotate(-90deg);}
+    to {transform: rotate(90deg);}
+}
+
+/* betyrelsen */
+
+#bestyrelseListe {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#bestyrelseListe article {
+    border-left: 9px solid var(--color-red);
+    flex: 30%;
+    height: calc(var(--font-main) * 15);
+    display: flex;
+    margin: 2vw;
+}
+#bestyrelseListe article img {
+    object-fit: contain;
+}
+#bestyrelseListe article div {
+    padding: 1rem;
+    width: 50%
+}
+#bestyrelseListe article div h3 {
+    margin: 1rem 0;
+    font-weight: 700;
+}
+#bestyrelseListe h4 {
+    font-family: 'Manrope', sans-serif;
+    color: var(--color-red);
+    font-weight: 400;
+}
+#bestyrelseListe article div ul {margin:1 rem 0; padding: 0;}
+#bestyrelseListe article div ul li {margin:1 rem 0; padding: 0;}
+
+
+.bestyrelseBox {
+    display: block;
+    width: 42vw;
+    height: 15vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+}
+
+.kontakt {
+    height: 15vw;
+    display: block;
+}
+
+
+/* klub politik */
+
+/* klubblad */
+
+.dokumentListe{
+    display: block;
+    margin-bottom: 2vw;
+}
+
+/* Historie */
+
+.historie {
+    display: flex;
+    justify-content: space-between;
+}
+
+.historieText {
+    width: 40vw;
+    height: fit-content;
+}
+
+.historieText .dokumentBox {
+    margin-bottom: 6vw;
+    margin-top: 2vw;
+}
+
+
+.historieImg {
+    width: 20vw;
+    width: fit-content;
+}
+
+.historieImg div {
+    background-color: black;
+    margin: 2vw 0;
+    width: 30vw;
     height: 20vw;
-    background-color: #1C3E56;
-    border: none;
-    clip-path: polygon(100% 0, 21% 0, 38% 100%, 100% 100%);
+}
+
+.aeresmedlem {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.aeresmedlemBox {
+    width: 20vw;
+    margin-bottom: 2vw;
+    border-left: 9px solid #B12818;
+    padding: 1vw;
 }
 
 
-.secondNav ul li:first-of-type {
-    border: none;
-}
 
 .padding {
     padding: 1vw 7vw;
@@ -621,81 +810,7 @@ footer {
     clip-path: polygon(0 0, 75% 0, 25% 100%, 0% 100%);
 }
 
-/* Om klubben */
 
-/* betyrelsen */
-
-.bestyrelseListe {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.bestyrelseBox {
-    display: block;
-    width: 42vw;
-    height: 15vw;
-    margin-bottom: 2vw;
-    border-left: 9px solid #B12818;
-}
-
-.kontakt {
-    height: 15vw;
-    display: block;
-}
-
-
-/* klub politik */
-
-/* klubblad */
-
-.dokumentListe{
-    display: block;
-    margin-bottom: 2vw;
-}
-
-/* Historie */
-
-.historie {
-    display: flex;
-    justify-content: space-between;
-}
-
-.historieText {
-    width: 40vw;
-    height: fit-content;
-}
-
-.historieText .dokumentBox {
-    margin-bottom: 6vw;
-    margin-top: 2vw;
-}
-
-
-.historieImg {
-    width: 20vw;
-    width: fit-content;
-}
-
-.historieImg div {
-    background-color: black;
-    margin: 2vw 0;
-    width: 30vw;
-    height: 20vw;
-}
-
-.aeresmedlem {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.aeresmedlemBox {
-    width: 20vw;
-    margin-bottom: 2vw;
-    border-left: 9px solid #B12818;
-    padding: 1vw;
-}
 
 /* Afdelinger */
 

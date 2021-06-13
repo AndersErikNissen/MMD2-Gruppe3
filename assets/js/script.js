@@ -342,13 +342,13 @@ function makeSite(data) {
             let
             rData = findPost.acf[12],
             gData = findPost.acf[13],
-            referatBestyrelse = '<article id="referatContent">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1">&#60;</button><button type="button" id="referatBtn1">&#62;</button></div></article></section>',
-            GFbestyrelse = '<article id="GFcontent">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#60;</button><button type="button" id="referatBtn2">&#62;</button></div></article></section>',
+            referatBestyrelse = '<article id="referatContent">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1"><span>&#8249;</span></button><button type="button" id="referatBtn1"><span>&#8250;</span></button></div></article></section>',
+            GFbestyrelse = '<article id="GFcontent">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</span></button><button type="button" id="referatBtn2">&#62;</button></div></article></section>',
             
             //#1
-            referat =  '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>';
-            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#10095;</span></article>' + referatBestyrelse,
-            referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#10095;</span></article>' + GFbestyrelse + '</section>';
+            referat =  '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></article>';
+            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse,
+            referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#8250;</span></article>' + GFbestyrelse + '</section>';
             
             //Laver HTML
             createHTML("main", begivenheder + medlemmer + referat);
@@ -848,7 +848,7 @@ function makeSite(data) {
         },
 
         //Indhold til Address
-        address = '<address><h2>' + fD.title + '</h2><ul><li>' + fD.email[0] + '<a href="mailto:' + fD.email[1] + '">' + fD.email[1] + '</a>' + '</li><li>' + fD.adresse + '</li></ul></address>',
+        address = '<address><h2>' + fD.title + '</h2><ul><li>' + fD.email[0] + ': <a href="mailto:' + fD.email[1] + '">' + fD.email[1] + '</a>' + '</li><li>' + fD.adresse + '</li></ul></address>',
         footerNav = '<nav><ul>',
         navigationlist = postData.acf.id.categories.navigationlist,
 
@@ -869,7 +869,7 @@ function makeSite(data) {
         })
         footerNav += '</ul></nav>'
 
-        let footer = address + footerNav + '<a href="' + fD.fb[0] + '" target="_blank"><img src="' + fD.fb[1] + '" alt="Logo til Facebook"></a>';
+        let footer = '<section id="footerSection">' + address + '<div>' + footerNav + '<a href="' + fD.fb[0] + '" target="_blank"><img src="' + fD.fb[1] + '" alt="Logo til Facebook"></a></div></section>';
         createHTML("footer", footer);
     }
 
@@ -930,11 +930,11 @@ function makeSite(data) {
         afdeling += '<div id="afdelingFlex">';
 
         objAfdeling.underafdeling_UngSejl.forEach(item => {
-            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"></div><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + ekstraText[nrInArray] + '</p></div><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
+            afdeling += '<article class="afdelingBox"><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + ekstraText[nrInArray] + '</p></div><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
             nrInArray++;
         })
         objAfdeling.underafdeling_KapJ70.forEach(item => {
-            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"></div><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div><a href="">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
+            afdeling += '<article class="afdelingBox"><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div><a href="">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
         })
         afdeling += '</div></section>';
 
@@ -942,7 +942,7 @@ function makeSite(data) {
         addToHTML("main", allHTML)
     }
     function makeOmklubben (current) {
-        let omklubben = '<article id="heroLille"><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben"></article>';
+        let omklubben = '<article id="heroLille"><article><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p></article><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben"></article>';
 
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -959,7 +959,7 @@ function makeSite(data) {
             velkomstTekst = ds[5],
             main = '<section><h2>' + overskrift + '</h2><p>' + velkomstTekst + '</p></section>',
             krumme = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + overskrift + '</a></div>',
-            afdelingHeader = '<header id="heroLille"><h1>' + overskrift + '</h1><p>' + beskrivelse + '</p><img src="' + billede + '" alt="Billede til Header - Afdelinger">';
+            afdelingHeader = '<header id="heroLille"><article><h1>' + overskrift + '</h1><p>' + beskrivelse + '</p></article><img src="' + billede + '" alt="Billede til Header - Afdelinger">';
             main += krumme;
         
         
@@ -989,7 +989,7 @@ function makeSite(data) {
     }
 
     function makeUngdom() {
-        let ungdom = '<article id="heroLille"><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - SNV Ungdom"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        let ungdom = '<article id="heroLille"></article><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p></article><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - SNV Ungdom"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -998,7 +998,7 @@ function makeSite(data) {
         makeUnderNavigation(IDbannerUngdom[3], IDbannerUngdom[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
     function makeSejlerskolen() {
-        let sejl = '<article id="heroLille"><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"></article>';
+        let sejl = '<article id="heroLille"><article><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p></article><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -1008,7 +1008,7 @@ function makeSite(data) {
     }
 
     function makeBlivmedlem(current) {
-        let medlem = '<article id="heroLille"><h1>' + IDbannerBlivmedlem[0] + '</h1><p>' + IDbannerBlivmedlem[1] + '</p><img src="' + IDbannerBlivmedlem[2] + '" alt="Billede til Header - Bliv Medlem"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        let medlem = '<article id="heroLille"><article><h1>' + IDbannerBlivmedlem[0] + '</h1><p>' + IDbannerBlivmedlem[1] + '</p></article><img src="' + IDbannerBlivmedlem[2] + '" alt="Billede til Header - Bliv Medlem"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -1019,7 +1019,7 @@ function makeSite(data) {
 
     function makeBegivenheder () {
         let 
-        header = '<article id="heroLille"><h1>' + IDbannerBegivenhed[0] + '</h1><p>' + IDbannerBegivenhed[1] + '</p><img src="' + IDbannerBegivenhed[2] + '" alt="Billede til Header - Begivenheder"></article>',
+        header = '<article id="heroLille"><article><h1>' + IDbannerBegivenhed[0] + '</h1><p>' + IDbannerBegivenhed[1] + '</p></article><img src="' + IDbannerBegivenhed[2] + '" alt="Billede til Header - Begivenheder"></article>',
         begivenhedsListe = data.filter(post => post.categories.includes(IDeventtemplate)),
         nrInArray = 1;
         sortNew(begivenhedsListe)
@@ -1162,13 +1162,14 @@ function makeSite(data) {
     
     function makeNyheder (current) {//#3
         let
-        header = '<article id="heroLille"><h1>' + IDbannerNyheder[0] + '</h1><p>' + IDbannerNyheder[1] + '</p><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Begivenheder"></article>',
+        header = '<article id="heroLille"><article><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p></article><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Nyhedstemplate"></article>',
         krummer = '<div class="krumme"><a href="?pageId=' + IDnyheder[0] + '">' + IDbannerNyheder[0] + '</a></div>',
         //<span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a>
         top = '<section><h2>' + IDbannerNyheder[0] + '</h2></section>',
         nyhedsListe = data.filter(post => post.categories.includes(IDnyhedtemplate[0]));
 
-        createHTML("main", top)
+        
+        createHTML("main", header + top)
         nyhedsListe.forEach(post => {
             //Create Elements
             let card = document.createElement("section"), img = document.createElement("img"), pContent = document.createElement("article"),  h2 = document.createElement("h2"), seMere = document.createElement("a");
@@ -1200,7 +1201,7 @@ function makeSite(data) {
     function makeTemplateNyhed(current) {
         let
         postID = data.find(post => post.id == current.id),
-        header = '<article id="heroLille"><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Begivenheder"></article>',
+        header = '<article id="heroLille"><article><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p></article><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Nyhedstemplate"></article>',
         krummerContent = '<a href="?pageId=' + IDnyheder[0] + '">' + IDbannerNyheder[0] + '</a><span> &#62; </span><a href="?pageId=' + current.id + '">' + current.acf.overskrift + '</a>';
         
         //Create Elements
@@ -1233,6 +1234,7 @@ function makeSite(data) {
             }
         })
         ramme.append(intro, pContent)
+        document.querySelector("main").innerHTML = header;
         document.querySelector("main").append(top ,ramme)
     }
 
@@ -1294,14 +1296,6 @@ function makeSite(data) {
     }
     createSite(currentID);
 
-    
-    
-    
-    
-    
-    
-    
-    
     //============================================================================
     //=========================== Eventlisteneres ================================
     //============================================================================
@@ -1316,7 +1310,7 @@ function makeSite(data) {
                 total = document.querySelectorAll(".referatBox").length,
                 pageDivide = total / 6,
                 pageTotal = Math.ceil(pageDivide),
-                pageSpan = document.createElement("span");
+                pageSpan = document.createElement("strong");
         
             pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';
             document.querySelector("#referatBtnReverse1").after(pageSpan);
@@ -1393,7 +1387,7 @@ function makeSite(data) {
                 total2 = document.querySelectorAll(".GBbox").length,
                 pageDivide2 = total2 / 6,
                 pageTotal2 = Math.ceil(pageDivide2),
-                pageSpan2 = document.createElement("span");
+                pageSpan2 = document.createElement("strong");
         
             pageSpan2.textContent = ' ' + pageNr2 + ' af ' + pageTotal2 + ' ';
             document.querySelector("#referatBtnReverse2").after(pageSpan2);
@@ -1471,8 +1465,13 @@ function makeSite(data) {
         if (document.querySelector("#one").classList.contains("selected") != -1) {
             referatFunc();
             showBlock(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatContainer"));
+            turnArrow(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatShowHideBtn > span"));
+
             showBlock(document.querySelector("#clickReferat1"), document.querySelector("#referatContent"));
+            turnArrow(document.querySelector("#clickReferat1"), document.querySelector("#clickReferat1 > span"));
+
             showBlock(document.querySelector("#clickReferat2"), document.querySelector("#GFcontent"));
+            turnArrow(document.querySelector("#clickReferat2"), document.querySelector("#clickReferat2 > span"));
         }
     }
 
@@ -1494,8 +1493,26 @@ function makeSite(data) {
         }
     }
     
-
-
+  
+    //Animere Arrows
+    function turnArrow (click, arrow) {
+        click.addEventListener("click", ()=> {
+            let pil = arrow.classList;
+    
+            switch(true) {
+                case pil.contains("turnUp"):
+                    pil.remove("turnUp");
+                    pil.add("turnDown");
+                    break;                   
+                case pil.contains("turnDown"):
+                    pil.remove("turnDown");
+                    pil.add("turnUp");
+                    break;                   
+                default:
+                    pil.add("turnUp");
+            }
+        })
+    }
 
     //Fjerner / Viser indhold
     function showBlock(click, content) {
@@ -2387,13 +2404,13 @@ function makeSite(data) {
             let
             rData = findPost.acf[12],
             gData = findPost.acf[13],
-            referatBestyrelse = '<article id="referatContent">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1">&#60;</button><button type="button" id="referatBtn1">&#62;</button></div></article></section>',
-            GFbestyrelse = '<article id="GFcontent">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#60;</button><button type="button" id="referatBtn2">&#62;</button></div></article></section>',
+            referatBestyrelse = '<article id="referatContent">' + referatOutput + '<div id="btnDiv1"><button type="button" id="referatBtnReverse1"><span>&#8249;</span></button><button type="button" id="referatBtn1"><span>&#8250;</span></button></div></article></section>',
+            GFbestyrelse = '<article id="GFcontent">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</span></button><button type="button" id="referatBtn2">&#62;</button></div></article></section>',
             
             //#1
-            referat =  '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION</button></article>';
-            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#10095;</span></article>' + referatBestyrelse,
-            referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#10095;</span></article>' + GFbestyrelse + '</section>';
+            referat =  '<section id="referat"><article><h2>' + rData[0] + '<h2><p>' + rData[1] + '</p><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></article>';
+            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse,
+            referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#8250;</span></article>' + GFbestyrelse + '</section>';
             
             //Laver HTML
             createHTML("main", begivenheder + medlemmer + referat);
@@ -2410,11 +2427,15 @@ function makeSite(data) {
             }
             
 
-            //Bruger Event functioner
             referatFunc();
             showBlock(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatContainer"));
+            turnArrow(document.querySelector("#referatShowHideBtn"), document.querySelector("#referatShowHideBtn > span"));
+
             showBlock(document.querySelector("#clickReferat1"), document.querySelector("#referatContent"));
+            turnArrow(document.querySelector("#clickReferat1"), document.querySelector("#clickReferat1 > span"));
+
             showBlock(document.querySelector("#clickReferat2"), document.querySelector("#GFcontent"));
+            turnArrow(document.querySelector("#clickReferat2"), document.querySelector("#clickReferat2 > span"));
         }
 
         
