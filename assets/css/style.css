@@ -65,13 +65,18 @@ a {text-decoration: none;}
 header {
     grid-column: 1/13;
     grid-row: 1/2;
-
+    
     position: sticky;
     top: 0;
     left: 0;
     z-index: 3;
-
+    
     background-color: white;
+}
+
+#underNavContent{
+    grid-column: 1/13;
+    grid-row: 2/3;
 }
 main {
     grid-column: 1/13;
@@ -102,7 +107,7 @@ footer {
 }
 /* Rest of Header */
 #header img {width: auto; height: 77    px;}
-#header ul li a {font-size: 1.2rem;}
+#header ul li a {font-size: 1.2rem; color: black;}
 #header ul {display: flex; justify-content: space-between; align-items: center;}
 #header li {
     display: inline-block;
@@ -122,7 +127,7 @@ footer {
     border-radius: 3px;
     margin-right: 0;
 }
-#nav_BlivMedlem a {
+#header #nav_BlivMedlem a {
     display: inline-block;
     color: white;
 }
@@ -138,12 +143,11 @@ footer {
     box-shadow: 0 5px 5px rgba(000, 000, 000, .126);
 }
 
-
 button[type=button] {
-    background-color: #5684B8;
+    background-color: var(--color-blue-btn);
     border-radius: 2px;
     padding: 0 1vw;
-    border: #5684B8 solid 8px;
+    border: var(--color-blue-btn) solid 8px;
     width: fit-content;
     margin: 0;
     color: white;
@@ -154,11 +158,6 @@ button[type=button] a {
 
 #medlem {
     margin-left: 4vw;
-}
-
-#underNavContent{
-    grid-column: 1/13;
-    grid-row: 2/3;
 }
 .secondNav {
     display: flex;
@@ -186,9 +185,39 @@ button[type=button] a {
 /* ================================================ */
 /* =================== FORSIDE ==================== */
 /* ================================================ */
-
+/* Forside Grid*/
+#slideShow {
+    grid-column: 1/13;
+    grid-row: 2/3;
+}
+#bodyTemplate_1236 main {
+    grid-column: 1/13;
+    grid-row: 3/4;
+}
+#bodyTemplate_1236 #sponsorSection {
+    grid-column: 1/13;
+    grid-row: 4/5;
+}
+#bodyTemplate_1236 footer {
+    grid-column: 1/13;
+    grid-row: 5/6;
+}
 /* Hero SlideShow */
-#slideShow section:nth-child(2) {
+#clipHero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40vw;
+    height: 80vh;
+    background-color: var(--color-darkblue);
+    z-index: 2;
+    /* Lige som med ting som margin-rækkefølge(Top, Right, Bottom, Left), det samme gælder ved clip path og 4 punkter (0 0) er Top osv. */
+    clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%);
+}
+#slideShow {
+    position: relative;
+}
+#slideShow section:nth-child(3) {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -203,29 +232,202 @@ button[type=button] a {
     height: 10px;
     background-color: var(--color-white);
     margin: 0 2px;
+    cursor: pointer;
 }
 .divHero.activeDiv {
     background-color: var(--color-red);
 }
 .divHero:nth-child(1) {margin-left: 0;} .divHero:nth-child(4) {margin-right: 0;}
+
 .imgHero {
-    background-color: coral;
-    
     display: none;
 }
 #heroTekstArea {
     position: absolute;
     z-index: 2;
-    top: 45vh;
-    left: 10vw;
-}
-#heroTekstArea h1, p {
-    color: white;
+    top: 30vh;
+    left: 5vw;
     width: 20vw;
+}
+#heroTekstArea h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+}
+#heroTekstArea > p {
+    color: white;
 }
 .activeHero {
     display: block;
 }
+/* Forside - Nyheder */
+#news {
+    padding: 41px 5vw;
+}
+#news h2 {
+    padding: 0 0 1rem 0;
+}
+#newsPost {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#forsideNewsBtn {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+#forsideNewsBtn a {
+    color: var(--color-red);
+    text-decoration: underline;
+    font-weight: bold;
+    margin: 1rem;
+    display: block;
+}
+.newsBox {
+    /* width: 1fr; */
+    background-color: var(--color-darkblue-box);
+    display: flex;
+    flex-direction: column;
+}
+.newsBox .newsBoxInsideSection  {
+    padding: 2rem;
+}
+.newsBox > * {
+    color: white;
+}
+.newsBox a {
+    color: white;
+    font-weight: bold;
+    display: block;
+    float: right;
+    text-decoration: underline;
+}
+.newsBoxInsideSection {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.newsBox:nth-child(2) {
+    margin: 0 5rem;
+}
+.newsBox img {
+    display: block;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+}
+
+/* Forside - Events */
+#events {
+    padding: 41px 0;
+    background-color: var(--color-lightblue-box);
+}
+#events > h2 {
+    padding: 1rem 5vw;
+}
+#eventPosts {
+    padding: 0 5vw;
+    display: flex;
+    justify-content: space-between;
+}
+#eventsSeMere{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 0 5vw;
+    
+}
+#eventsSeMere a {
+    display: inline-block;
+    padding: 1rem;
+}
+.eventBox {
+    display: flex;
+    justify-content: space-between;
+    padding: 3rem 7rem;
+    width: 40%;
+    height: 100%;
+    background-color: white;
+    border-left: 9px solid var(--color-red);
+}
+.eventBox > h3 {
+    font-size: 3rem;
+    width: 20%;
+}
+.eventBox ul {
+    padding: 0;
+}
+#events a {
+    font-weight: bold;
+    color: var(--color-red);
+    text-decoration: underline;
+}
+
+/* Forside - Afdelinger */
+#afdelingFlex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 5vw;
+}
+#afdelingFlex h3 {
+    font-size: 1.5rem;
+}
+#afdelingFlex a {
+    text-decoration: underline;
+    font-weight: bold;
+}
+.afdelingBox {
+    width: 40rem;
+    margin: 1rem;
+    position: relative;
+    height: 20rem;
+    
+}
+.afdelingBox img {
+    height: 100%;
+    object-fit: contain;
+    float: right;
+}
+.afdelingTextContainer {
+    padding: 2rem;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    height: 100%;
+}
+.afdelingTextContainer > * {
+    color: white;
+}
+.afdelingOverlay {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--color-darkblue);
+    clip-path: polygon(0 0, 70% 0, 30% 100%, 0% 100%);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 .textBoxHeroLille {
@@ -354,72 +556,8 @@ button[type=button] a {
     margin-top: 3vw;
 }
 
-/* Forside */
-#slideShow {
-    grid-column: 1/13;
-    grid-row: 2/3;
-}
-#bodyTemplate_1236 main {
-    grid-column: 1/13;
-    grid-row: 3/4;
-}
-#bodyTemplate_1236 #sponsorSection {
-    grid-column: 1/13;
-    grid-row: 4/5;
-}
-#bodyTemplate_1236 footer {
-    grid-column: 1/13;
-    grid-row: 5/6;
-}
-
-.textBoxHero {
-    width: 40vw;
-    height: 42vw;
-    background-color: #1C3E56;
-    border: none;
-    clip-path: polygon(0 0, 52% 0, 100% 100%, 0% 100%)
-}
 
 
-.news {
-    width: 100%;
-    height: auto;
-}
-
-.newsPosts, .eventPost, .afdelingFlex, .linksPost {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 4vw 0;
-}
-
-.newsBox {
-    display: inline-block;
-    width: 27vw;
-    height: 35vw;
-    background-color: #648DAA;
-}
-
-.blaaBox {
-    width: 100%;
-    height: fit-content;
-    background-color: #B2CEDE;
-}
-
-.eventBox {
-    display: inline-block;
-    width: 42vw;
-    height: 20vw;
-    background-color: #ffffff;
-    border-left: 9px solid #B12818;
-}
-
-.afdelingBox {
-    width: 42vw;
-    height: 20vw;
-    margin-bottom: 2vw;
-    background-color: black;
-}
 
 .textAfdeling {
     width: 42vw;
@@ -753,9 +891,6 @@ li {
     display: inline-block;
 }
 
-a {
-    color: black;
-}
 .currentPage a {
     color: var(--color-red);
 }

@@ -165,10 +165,11 @@ function makeSite(data) {
             })
             nr++;
         })
-        let sectionSlide = document.createElement("section");
-        sectionSlide.id = "slideShow"
+        let sectionSlide = document.createElement("section"), clipHero = document.createElement("div");
+        sectionSlide.id = "slideShow";
+        clipHero.id = "clipHero";
         document.querySelector("#header").after(sectionSlide);
-        document.querySelector("#slideShow").append(imgArea, btnArea, tekstArea);
+        document.querySelector("#slideShow").append(clipHero, imgArea, btnArea, tekstArea);
 
         if (!imgArea.childNodes.forEach(item => item.classList.contains("activeHero")) != -1) {
             document.querySelector("#divHero0").click() //Skal starte på med at vise 0 "onload"
@@ -872,7 +873,7 @@ function makeSite(data) {
         
         //== Skaber Hero Banner
         createHeroSlide();
-          
+        console.log(nyhedsList)
         //== Skaber Nyhedsindlæg
         news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2><div id="newsPost">';
         for (let i = 0; i < 3; i++) { //Kan bruge nyhedsList.length, men vi vil gerne kun have vidst 3 på forsiden så vi bruger i < 3, som giver os et loop på 3(Selvom en starter på 0). 
@@ -883,9 +884,9 @@ function makeSite(data) {
             for (let i = 0; i < 150; i++) { // Inspiration fra https://stackoverflow.com/questions/36770446/javascript-loop-adding-a-letter-every-time
                 tekstSub = tekst.substring(0, i + 1); //Substring vælger dele fra en string, her siger vi at den skal starte på 0, og for hver loop bliver tallet som den skal stoppe ved højere(+1). Det betyder at i for-loopet kan vi bestemme hvor mange tegn skal vises.
             }
-            news += '<article class="newsBox"><h3>' + overskrift + '</h3><p>' + tekstSub + ' ...</p><a href="?pageId=' + nyhedsList[i].id + '">SE MERE</a></article>';
+            news += '<article class="newsBox"><img src="' + nyhedsList[i].acf.billede_galleri[0] + '" alt="Billede til nyheden: ' + overskrift + '"><section class="newsBoxInsideSection"><section><h3>' + overskrift + '</h3><p>' + tekstSub + ' ...</p></section><div><a href="?pageId=' + nyhedsList[i].id + '">SE MERE</a></div></section></article>';
         }
-        news += '</div><a href="?pageId=' + IDnyheder[0] + '">SE NYHEDSOVERSIGT</a></section>';
+        news += '</div><article id="forsideNewsBtn"><a href="?pageId=' + IDnyheder[0] + '">SE NYHEDSOVERSIGT</a></article></section>';
         
         //== Skaber Events
         events += '<section id="events"><h2>' + forside.acf.overskrifter[2] + '</h2><div id="eventPosts">';
@@ -904,9 +905,9 @@ function makeSite(data) {
                 tid = [splitTid1[0] + ':' + splitTid1[1], splitTid2[0] + ':' + splitTid2[1]], //Vi har ikke brug for de sidste 2 decimaler.
                 sted = sortedList[i].acf.sted;
             
-            events += '<article class="eventBox"><h3>' + day + '. <span class="spanTable">' + numberToMonth(month) + '</span></h3><h4>' + title + '</h4><ul><li>Dato: ' + dato[0] + ' - ' + dato[1] + '</li><li>Tid: ' + tid[0] + ' - ' + tid[1] + '</li></ul><a href="?pageId=' + sortedList[i].id + '">SE MERE</a></article>'
+            events += '<article class="eventBox"><h3>' + day + '. <span class="spanTable">' + numberToMonth(month) + '</span></h3><section><h4>' + title + '</h4><ul><li><i>Dato:</i> ' + dato[0] + ' - ' + dato[1] + '</li><li><i>Tid:</i> ' + tid[0] + ' - ' + tid[1] + '</li></ul><a href="?pageId=' + sortedList[i].id + '">SE MERE</a></section></article>'
         }
-        events += '</div><a href="?pageId=' + IDbegivenheder[0] + '">SE FLERE</a></section>'
+        events += '</div><article id="eventsSeMere"><a href="?pageId=' + IDbegivenheder[0] + '">SE FLERE</a></article></section>'
        
         //== Skaber Afdelinger
         let objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
@@ -919,11 +920,11 @@ function makeSite(data) {
         afdeling += '<div id="afdelingFlex">';
 
         objAfdeling.underafdeling_UngSejl.forEach(item => {
-            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + ekstraText[nrInArray] + '</p><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a><img src="' + item[2] + '" alt=""></article>';
+            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"></div><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + ekstraText[nrInArray] + '</p></div><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
             nrInArray++;
         })
         objAfdeling.underafdeling_KapJ70.forEach(item => {
-            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a hrefSE MERE=""></a><img src="' + item[2] + '" alt=""></article>';
+            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"></div><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div><a href="">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
         })
         afdeling += '</div></section>';
 
