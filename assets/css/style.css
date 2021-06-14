@@ -10,7 +10,7 @@ UCN MMDA0920 */
     --color-blue-btn: #5684B8;
     --color-darkblue-box: #648DAA;
     --color-lightblue-box: #B2CEDE;
-    --color-white: #E3E3E3;
+    --color-white: #F5F5F5;
 
 
     /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
@@ -109,7 +109,7 @@ footer {
 }
 /* Rest of Header */
 #header img {width: auto; height: 77    px;}
-#header ul li a {font-size: 1.2rem; color: black;}
+#header ul li a {font-size: 1rem; color: black;}
 #header ul {display: flex; justify-content: space-between; align-items: center;}
 #header li {
     display: inline-block;
@@ -309,6 +309,7 @@ button[type=button] a {
 #eventPosts {
     padding: 0 5vw;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 #eventsSeMere{
@@ -323,6 +324,7 @@ button[type=button] a {
     padding: 1rem;
 }
 .eventBox {
+    min-width: 565px;
     display: flex;
     justify-content: space-between;
     padding: 3rem 7rem;
@@ -330,6 +332,7 @@ button[type=button] a {
     height: 100%;
     background-color: white;
     border-left: 9px solid var(--color-red);
+    margin-top: 1rem;
 }
 .eventBox > h3 {
     font-size: 3rem;
@@ -401,11 +404,18 @@ flex: 45%;
 /* Sponsor SlideShowet er stærkt inspiret af / lånt fra: https://codepen.io/Coding_Journey/pen/yWjWKd */
 #sponsorSection {
     width: 100%;
+    height: fit-content;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     padding: 5vw 0;
 }
-
+#sponsorSection h2{
+    flex: 100%;
+    text-decoration: underline;
+    margin: 0 0 2rem 0;
+}
 #sponsorContainer {
     overflow: hidden;
     width: var(--sponsor-width);
@@ -566,7 +576,7 @@ footer img {
 #bodyTemplate_1255 span {
     font-size: 1.5rem;
     width: 1.5rem;
-    height: auto;
+    height: 1.5rem;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -690,7 +700,8 @@ footer img {
 }
 
 #clickReferat1, #clickReferat2 {
-    padding: 1vw 1.5vw;
+    padding: 1rem 1rem;
+    height: fit-content;
     background-color: white;
     border-left: var(--color-red) 9px solid;
     display: flex;
@@ -763,7 +774,7 @@ strong {
     width: calc(var(--para-width) * 1.3);
     line-height: 2rem;
 }
-#politikIntro h2, h3 {
+#politikIntro h2, #politikIntro h3 {
     margin: 2rem 0;
 }
 #politikIntro h3 {
@@ -803,7 +814,6 @@ strong {
     border-right: solid 1px black;
     border-top: solid 1px black;
     border-bottom: solid 1px black;
-
 }
 #yearsBlad .klubbladArticle h4 {
     font-weight: 400;
@@ -892,8 +902,9 @@ div.krumme a {
 }
 #ungUnderIntro {
     display: flex;
-    margin: 1rem 0;
+    margin: 5rem 0;
     justify-content: space-between;
+
 }
 #ungUnderIntro ul {
     padding: 0;
@@ -917,17 +928,566 @@ div.krumme a {
 #ungAldersgruppe1, #ungAldersgruppe2 {
     position: relative;
     background-color: var(--color-white);
-    height: 20rem;
+    height: 15rem;
+    z-index: 0;
+    margin: 0 0 4rem 0;
 }
-#ungAldersgruppe1 img {
+#ungAldersgruppe1 img, #ungAldersgruppe2 img {
     position: absolute;
     top: 0;
     right: 0;
+    height: 15rem;
+    width: 100;
 }
-#ungAldersgruppe1 h3, #ungAldersgruppe1 p {
+#ungAldersgruppe1 div.blueBoxUngUnder, #ungAldersgruppe2 div.blueBoxUngUnder {
+    position: absolute;
+    height: 100%;
+    width: 18%; 
+    background-color: var(--color-lightblue-box);
+    clip-path: polygon(0 0, 77% 0, 100% 100%, 0 100%);
     display: flex;
-
+    justify-content: center;
+    align-items: center;
 }
+#ungAldersgruppe1 div.pBoxDivUng, #ungAldersgruppe2 div.pBoxDivUng {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+#ungAldersgruppe1 p, #ungAldersgruppe2 p {
+    width: var(--para-width);
+}
+#ungAldersgruppe1 h3, #ungAldersgruppe1 h4, #ungAldersgruppe2 h3, #ungAldersgruppe2 h4 {
+    color: white;
+}
+#ungAldersgruppe1 h3, #ungAldersgruppe2 h3 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+#ungAldersgruppe1 h4, #ungAldersgruppe2 h4 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.ungSprgSection {
+    padding-left: 1rem;
+    border-left: var(--color-red) 9px solid;
+}
+
+/* Stævne */
+#ungStaevneIntro {
+    display: flex;
+    justify-content: space-between;
+}
+#ungStaevneIntro h2, #ungStaevneIntro h3 {
+    margin: 1rem 0;
+}
+#ungStaevneIntro p {
+    width: var(--para-width);
+}
+#staevne_1 {
+    position: relative;
+    background-color: var(--color-white);
+    margin: 5rem 0;
+}
+#staevne_1Intro {
+    height: 10rem;
+}
+#staevne_1Intro > article {
+    position: absolute;
+    width: 70%;
+    height: 10rem;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+}
+#staevne_1Intro > article p {
+    width: var(--para-width);
+    padding-top: 2rem;
+}
+#staevne_1Intro > article div {
+    display: flex;
+    height: 10rem;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding: 1rem 1rem;
+}
+.blueBoxUngStaevne {
+    position: absolute;
+    height:10rem;
+    width: 18rem;
+    background-color: var(--color-lightblue-box);
+    clip-path: polygon(0 0, 77% 0, 100% 100%, 0 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem;
+    flex-direction: column;
+}
+.blueBoxUngStaevne h3 {
+    font-size: 1.5rem;
+    width: 50%;
+    margin-bottom: 1rem;
+}
+.blueBoxUngStaevne h4 {
+    font-weight: 400;
+}
+
+#staevneContent_1  {
+    background-color: var(--color-lightblue-box);
+}
+div#staevneFlexDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+#staevneContent_1 article {
+    width: 30%;
+    padding: 3rem;
+}
+
+#staevneContent_1 article div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    height: 3rem;
+    margin-bottom: 1rem;
+    border-left: 9px solid var(--color-red);
+    background-color: white;
+}
+#staevneContent_1 article.ungStaevnePraktiskInfo a {
+    color: white;
+    display: inline-block;
+    background-color: var(--color-blue-btn);
+    padding: .5rem 2rem;
+    border-radius: 3px;
+    margin-top: 5rem;
+}
+#staevneContent_1 article div.ungStaevneBox a {
+    color: black;
+    text-decoration: underline;
+}
+
+/* Info til Forældre */
+#infoIntro {
+    display: flex;
+    justify-content: space-between;
+    height: 30rem;
+}
+#infoIntro article:first-of-type {
+    width: 60%;
+}
+#infoIntro article:first-of-type > * {
+    margin: 1rem 0;
+}
+#infoIntro article:first-of-type p {
+    width: var(--para-width);
+}
+#infoIntro article:last-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-darkblue-box);
+    width: 40%;
+    clip-path: polygon(20% 1%, 100% 0, 100% 100%, 7% 100%);
+}
+#infoIntro article:last-of-type h2 {
+    font-weight: 600;
+    color: white;
+}
+#infoIntro article:last-of-type ul {
+    padding: 0;
+}
+#infoIntro article:last-of-type ul li {
+    color: white;
+    font-weight: 400;
+    font-size: 1.2rem;
+    list-style-type: disc;
+
+    margin: 10px 20px;
+}
+#infoInfo {
+    background-color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    border-left: 9px solid var(--color-red);
+    margin: 5vw 0;
+}
+#infoInfo > article {
+    padding: 2rem;
+}
+#infoInfo p {
+    width: var(--para-width);
+}
+
+/* ====================================== */
+/* ============ Sejlerskolen ============ */
+/* ====================================== */
+#bodyTemplate_1799 .krumme {
+    padding: 1.5rem 5vw;
+}
+#bodyTemplate_1799 .ungSprgSection {
+    margin: 0 5vw;
+}
+#bodyTemplate_1799 .ungSprgSection ul {
+    padding: 0;
+}
+#bodyTemplate_1799 .ungSprgSection a {
+    color: black;
+}
+ #introSejlUndervisning, #sejlNyeIntro, #sejlErfarendeIntro  {
+     display: flex;
+     justify-content: space-between;
+     height: 30rem;
+    padding: 0 5vw;
+    margin: 5rem 0;
+ }
+#introSejlUndervisning article:first-of-type, #sejlNyeIntro article:first-of-type, #sejlErfarendeIntro article:first-of-type {
+    width: 50%;
+}
+#introSejlUndervisning article:first-of-type > *, #sejlNyeIntro  article:first-of-type > *, #sejlErfarendeIntro article:first-of-type > * {
+    margin: 1rem 0;
+}
+#introSejlUndervisning article:first-of-type p, #sejlNyeIntro article:first-of-type p, #sejlErfarendeIntro article:first-of-type p {
+    width: var(--para-width);
+}
+#sejlErfarendeIntro article:first-of-type li {
+    list-style-type: disc;
+}
+#introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--color-darkblue-box);
+    width: 50%;
+    clip-path: polygon(20% 1%, 100% 0, 100% 100%, 7% 100%);
+}
+#introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type {
+    padding-left: 5rem;
+}
+#introSejlUndervisning article:last-of-type h2, #sejlNyeIntro article:last-of-type h2,#sejlErfarendeIntro article:last-of-type h2 {
+    font-weight: 600;
+    color: white;
+}
+#introSejlUndervisning article:last-of-type p, #sejlNyeIntro article:last-of-type li, #sejlErfarendeIntro article:last-of-type li {
+    color: white;
+    font-weight: 400;
+    font-size: 1.2rem;
+    list-style-type: disc;
+    width: var(--para-width-banner);
+}
+
+#galleriSejlUndervisning {
+    padding: 0 5vw;
+}
+
+#galleriSejlUndervisning > section {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+}
+#galleriSejlUndervisning > section article > img {
+    border-left: 9px solid var(--color-red);
+}
+#galleriSejlUndervisning > section article > div {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 0;
+}
+#galleriSejlUndervisning > section article > div ul {
+    padding: 0;
+    margin: 0;
+}
+
+
+#nyeSejlUndervisning, #erfarendeSejlUndervisning {
+    position: relative;
+    background-color: var(--color-white);
+    height: 15rem;
+    z-index: 0;
+    
+    margin: 4rem 5vw;
+}
+#nyeSejlUndervisning img, #erfarendeSejlUndervisning img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 15rem;
+    width: 100;
+}
+#nyeSejlUndervisning div.blueBoxUngUnder, #erfarendeSejlUndervisning div.blueBoxUngUnder {
+    position: absolute;
+    height: 100%;
+    width: 18%; 
+    background-color: var(--color-lightblue-box);
+    clip-path: polygon(0 0, 77% 0, 100% 100%, 0 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#nyeSejlUndervisning > article, #erfarendeSejlUndervisning > article {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+#nyeSejlUndervisning p, #erfarendeSejlUndervisning p {
+    width: var(--para-width);
+}
+#nyeSejlUndervisning button, #erfarendeSejlUndervisning button {
+    color: var(--color-red);
+    background-color: var(--color-white);
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#nyeSejlUndervisning h3, #nyeSejlUndervisning h4, #erfarendeSejlUndervisning h3, #erfarendeSejlUndervisning h4 {
+    color: white;
+}
+#nyeSejlUndervisning h3, #erfarendeSejlUndervisning h3 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+#nyeSejlUndervisning h4, #erfarendeSejlUndervisning h4 {
+    font-size: 1.5rem;
+    
+} 
+
+.blueBox {
+    padding: 2vw 5vw;
+    background-color: var(--color-lightblue-box);
+    display: flex;
+    justify-content: space-between;
+}
+#linkArea {
+    margin-right: 3rem;
+}
+#linkArea article {
+    margin: 1rem 0;
+}
+#linkArea article::before {
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 3px;
+    background-color: var(--color-red);
+    margin-right: 15px;
+}
+#linkArea article a {
+    color: var(--color-red);
+    text-decoration: underline;
+    font-weight: 700;
+}
+#linkArea article p {
+    margin: 0 0 0 30px;
+    width: 100%;
+}
+#appArea, #linkArea {
+    background-color: white;
+    padding: 2rem;
+    border-left: 9px solid var(--color-red);
+    width: 50%;
+}
+#appArea p, #linkArea p {
+    width: var(--para-width-banner);
+}
+#appAreaContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+#appAreaContainer article {
+    width: 50%;
+}
+#appAreaContainer article div {
+    display: flex;
+    margin: 1rem;
+    flex-wrap: wrap;
+}
+#appAreaContainer article div a {
+    display: block;
+    margin: 0 1rem;
+    width: 40%;
+}
+#appAreaContainer article div a img {
+    border-bottom: 3px solid var(--color-red);
+    padding: 0 0 5px 0;
+}
+
+/* ========================================= */
+/* ============== BLIV MEDLEM ============== */
+/* ========================================= */
+
+/* Conventus */
+#bodyTemplate_1261 main {
+    padding: 5vw;
+}
+#bodyTemplate_1261 #blivMedlemConventusOutro article {
+    border-left: 9px var(--color-red) solid;
+    padding-left: 1rem;
+    margin: 4rem 0;
+}
+#bodyTemplate_1261 #blivMedlemConventusOutro article p {
+    width: var(--para-width);
+    margin: 1.5rem 0;
+}
+#bodyTemplate_1261 #blivMedlemConventusOutro article a {
+    color: black;
+}
+
+/*---------- Medlemstype */
+#blivMedlemOpret {
+    margin: 5rem 0;
+}
+#blivMedlemOpret section:first-of-type {
+    margin-bottom: 2rem;
+}
+article.medlemsType {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    height: 8rem;
+    padding-right: 2rem;
+    background-color: var(--color-white);
+}
+.medlemsType p {
+    width: var(--para-width-banner);
+}
+.medlemsType a {
+    color: white;
+    background-color: var(--color-blue-btn);
+    padding: .5rem 1.5rem;
+    border-radius: 3px;
+}
+.medlemsType .blueShape {
+    background-color: var(--color-lightblue-box);
+    height: 8rem;
+    width: 10rem;
+    display: flex;
+    align-items: center;
+    clip-path: polygon(0 0, 64% 0, 100% 100%, 0 100%);
+    padding: 1rem;
+}
+.medlemsType .blueShape h3 {
+    width: 50%;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+/* Tilmelding */
+
+
+
+#tilStep article {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    height: 8rem;
+    padding-right: 2rem;
+    background-color: var(--color-white);
+}
+#tilStep article .emptySpace {
+    width: 100px;
+    height: 1px;
+}
+#tilStep p {
+    width: var(--para-width-banner);
+}
+#tilmeldingIntro a {
+    color: var(--color-blue-btn);
+    text-decoration: underline;
+}
+#tilStep #tilStepBtn1 {
+    color: white;
+    padding: .5rem 1.5rem;
+    background-color: var(--color-blue-btn);
+    border-radius: 3px;
+    text-decoration: none;
+}
+#tilStep a {
+    color: var(--color-blue-btn);
+    text-decoration: underline;
+}
+#tilStep .blueShapeStep {
+    background-color: var(--color-lightblue-box);
+    height: 8rem;
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    clip-path: polygon(0 0, 64% 0, 100% 100%, 0 100%);
+    padding: 1rem;
+}
+#tilStep .blueShapeStep h3 {
+    width: 50%;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+
+
+/* ----------- Tilmeldings Kasser */
+#tilmeldBox1, #tilmeldBox2, #tilmeldBox3, #tilmeldBox4 {
+    position: relative;
+    background-color: var(--color-white);
+    margin: 5rem 0;
+}
+#tilmeldBox1 article.tilmeldAfdelingIntro, #tilmeldBox2 article.tilmeldAfdelingIntro, #tilmeldBox3 article.tilmeldAfdelingIntro, #tilmeldBox4 article.tilmeldAfdelingIntro {
+    position: relative;
+    height: 10rem;
+}
+#tilmeldBox1 article > article, #tilmeldBox2 article > article, #tilmeldBox3 article > article, #tilmeldBox4 article > article {
+    position: absolute;
+    width: 70%;
+    height: 10rem;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+}
+#tilmeldBox1 article > article p, #tilmeldBox2 article > article p, #tilmeldBox3 article > article p, #tilmeldBox4 article > article p {
+    width: var(--para-width);
+    padding-top: 2rem;
+}
+#tilmeldBox1 article > article div, #tilmeldBox2 article > article div, #tilmeldBox3 article > article div, #tilmeldBox4 article > article div {
+    display: flex;
+    height: 10rem;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding: 1rem 1rem;
+}
+#bodyTemplate_1261 div.blueBoxUngStaevne h2 {
+    font-size: 1.4rem;
+    width: 90%;
+    margin-bottom: 1rem;
+}
+#bodyTemplate_1261 div.blueBoxUngStaevne h3 {
+    font-size: 1.2rem;
+    width: 70%;
+    font-weight: 400;
+}
+/* Indhold til Tilmeldings Kasser */
+.showHideInner {
+    background-color: var(--color-lightblue-box);
+    padding: 2rem;
+}
+
+
 
 
 
@@ -945,6 +1505,16 @@ i {
     font-weight: bold;
     font-style: normal;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

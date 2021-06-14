@@ -389,8 +389,8 @@ function makeSite(data) {
             sec2Tekst = sec2[3],
             sec2Img = sec2[4],
             liER = '',
-            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></section>',
-            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></section>';
+            section1 = '<section id="ungAldersgruppe1"><div class="blueBoxUngUnder"><section><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></section></div><div class="pBoxDivUng"><p>' + sec1Tekst + '</p></div><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></section>',
+            section2 = '<section id="ungAldersgruppe2"><div class="blueBoxUngUnder"><section><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></section></div><div class="pBoxDivUng"><p>' + sec2Tekst + '</p></div><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></section>';
                 
             // Laver indhold til Ul
             for(let i = 0; i < liste.length; i++) {
@@ -398,7 +398,7 @@ function makeSite(data) {
             }
 
             let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
-            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
+            sprgFooter = '<section class="ungSprgSection"><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
       
 
             //Samler alt indhold til Ungdom Undervisning
@@ -450,7 +450,7 @@ function makeSite(data) {
                     "beskriv1": dataArray[0].tekst_gruppe_1[2],
                     "beskriv2": dataArray[0].tekst_gruppe_1[4],
                     //Dulighedstitle
-                    "ulTitle": dataArray[0].tekst_liste_1[0],
+                    "ulTitle": dataArray[0].tekst_gruppe_1[3],
                     //Ul1
                     // "ul1": dataArray[0].tekst_liste_1[1],
                     // "li1Array": [dataArray[0].tekst_liste_1[2], dataArray[0].tekst_liste_1[3],dataArray[0].tekst_liste_1[4],dataArray[0].tekst_liste_1[5]],
@@ -490,10 +490,10 @@ function makeSite(data) {
             });
 
             //Skaber og samler hovedindholdet
-            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><p>' + uData.intro.beskriv2 + '</p></article></section>',
+            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p></article><article><div><h2>' + uData.intro.ulTitle + '</h2><p>' + uData.intro.beskriv2 + '</p></div></article></section>',
                 galleri = '<section id="galleriSejlUndervisning"><article><h2>' + uData.galleri.title + '</h2><p>' + uData.galleri.beskriv + '</p></article><section>' + imgList + '</section></section>',
-                nye = '<section id="nyeSejlUndervisning"><h2>' + uData.elever.nye[0] + '</h2><article><p>' + uData.elever.nye[1] + '</p><button type=button id="nyeClick">LÆS MERE</button></article><img src="' + uData.elever.nye[2] + '" alt="Billede til ' + uData.elever.nye[0] + '"></section>',
-                erfarende = '<section id="erfarendeSejlUndervisning"><h2>' + uData.elever.erfarende[0] + '</h2><article><p>' + uData.elever.erfarende[1] + '</p><button type=button id="erfarendeClick">LÆS MERE</button></article><img src="' + uData.elever.erfarende[2] + '" alt="Billede til ' + uData.elever.erfarende[0] + '"></section>',
+                nye = '<section id="nyeSejlUndervisning"><div class="blueBoxUngUnder"><h2>' + uData.elever.nye[0] + '</h2></div><article><div><p>' + uData.elever.nye[1] + '</p><button type=button id="nyeClick">LÆS MERE</button></div></article><img src="' + uData.elever.nye[2] + '" alt="Billede til ' + uData.elever.nye[0] + '"></section>',
+                erfarende = '<section id="erfarendeSejlUndervisning"><div class="blueBoxUngUnder"><h2>' + uData.elever.erfarende[0] + '</h2></div><article><div><p>' + uData.elever.erfarende[1] + '</p><button type=button id="erfarendeClick">LÆS MERE</button></div></article><img src="' + uData.elever.erfarende[2] + '" alt="Billede til ' + uData.elever.erfarende[0] + '"></section>',
                 
                 //Skaber liste med Articles som indeholder links og beskrivelse
                 linkList = '<section>';
@@ -504,7 +504,7 @@ function makeSite(data) {
                 let linkArea = '<article id="linkArea"><h2>' + uData.link.title + '</h2><p>' + uData.link.beskriv + '</p>' + linkList + '</article>',
 
                 //Skaber liste med Articles som indeholder links(Apple Store) og beskrivelse + billede til appen
-                appList = '<section>',
+                appList = '<section id="appAreaContainer">',
                 appBox1 = '<article><h3>Sikkerhed</h3><div>',
                 appBox2 = '<article><h3>Fællesskab på vandet</h3><div>',
                 appBox3 = '<article><h3>Knob</h3><div>',
@@ -522,6 +522,10 @@ function makeSite(data) {
                 for (let i = 5; i < 7; i++) {
                     appBox4 += '<a href="' + uData.app.app[i][2] + '" class="appBox"><img src="' + uData.app.app[i][0] + '" alt="Billede til appen: ' + uData.app.app[i][1] + '"><h4>' + uData.app.app[i][1] + '</h4></a>';
                 }
+                appBox1 += '</div></article>'
+                appBox2 += '</div></article>'
+                appBox3 += '</div></article>'
+                appBox4 += '</div></article>'
                 appList += appBox1 + appBox2 + appBox4 + appBox3;
                 
                 //Samler indhold
@@ -579,13 +583,13 @@ function makeSite(data) {
                         "email": dataArray[0][7][2],
                     }
                 },
-                intro = '<section><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
-                profil = '<section><section><h2>' + ds.profil.title + '</h2><p>' + ds.profil.obs + '</p></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
-                profil += '<article><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
-                profil += '<article><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
+                intro = '<section id="blivMedlemIntro"><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
+                profil = '<section id="blivMedlemOpret"><section><h2>' + ds.profil.title + '</h2><p>' + ds.profil.obs + '</p></section><article class="medlemsType"><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+                profil += '<article class="medlemsType"><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+                profil += '<article class="medlemsType"><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
     
-                let outro = '<section><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
-                outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
+                let outro = '<section id="blivMedlemConventusOutro"><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
+                outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article class="ungSprgSection"><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
                 
     
                 let main = intro + profil + outro;
@@ -824,10 +828,12 @@ function makeSite(data) {
             
         })
         //document.documentElement går ind og rammer root elementet. I dette filfælde er det HTML, og CSS :root kan findes der.
-        let liDisplayed = getComputedStyle(document.documentElement).getPropertyValue("--sponsor-display");
+        let liDisplayed = getComputedStyle(document.documentElement).getPropertyValue("--sponsor-display"),
+            sponsorTitle = document.createElement("h2");
 
+            sponsorTitle.textContent = "Stor tak til vores sponsore";
         sponsorContainer.appendChild(ul)
-        document.querySelector("#sponsorSection").appendChild(sponsorContainer);
+        document.querySelector("#sponsorSection").append(sponsorTitle ,sponsorContainer);
         for (let i = 0; i < liDisplayed; i++) {
             ul.appendChild(ul.children[i].cloneNode(true))
         }
@@ -1010,7 +1016,7 @@ function makeSite(data) {
     }
 
     function makeBlivmedlem(current) {
-        let medlem = '<article id="heroLille"><article><h1>' + IDbannerBlivmedlem[0] + '</h1><p>' + IDbannerBlivmedlem[1] + '</p></article><img src="' + IDbannerBlivmedlem[2] + '" alt="Billede til Header - Bliv Medlem"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        let medlem = '<article id="heroLille"><article><h1>' + IDbannerBlivmedlem[0] + '</h1><p>' + IDbannerBlivmedlem[1] + '</p></article><img src="' + IDbannerBlivmedlem[2] + '" alt="Billede til Header - Bliv Medlem"></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -1567,7 +1573,7 @@ function makeSite(data) {
                 "step": {
                     "title": dataArray[1].info_step[0],
                     //Indeholde: Første del af text, sidste del af tekst og Link
-                    "one": dataArray[1].info_step[1],
+                    "one": [dataArray[1].info_step[1][0], dataArray[1].info_step[1][1]],
                     "two": dataArray[1].info_step[1][1]
                 },
 
@@ -1578,9 +1584,9 @@ function makeSite(data) {
                 }
             },
             container = document.createElement("section"),
-            intro = '<section><h2>' + ds.intro.title + '</h2><article><h3>' + ds.intro.under1 + '</h3><p>' + ds.intro.beskriv1 + '</p></article><article><h3>' + ds.intro.under2 + '</h3><p>' + ds.intro.beskriv2 + '<a href="' + ds.intro.data[0] + '">' + ds.intro.data[0] + '</a></p></article></section>',
-            step = '<section id="tilStep"><article><div class="blueShapeStep"><h3>1.</h3></div><p>' + ds.step.one[0][0] + ' (<a href="' + ds.step.one[0][2] + '">LÆS MERE</a>). ' + ds.step.one[0][0] + '</p><a href="' + ds.step.one[0][2] + '">Tilmeld</a></article>';
-            step += '<article><div class="blueShapeStep"><h3>2.</h3></div><p>' + ds.step.two + '</p></article></section>';
+            intro = '<section id="tilmeldingIntro"><h2>' + ds.intro.title + '</h2><article><h3>' + ds.intro.under1 + '</h3><p>' + ds.intro.beskriv1 + '</p></article><article><h3>' + ds.intro.under2 + '</h3><p>' + ds.intro.beskriv2 + '<a href="' + ds.intro.data[0] + '">' + ds.intro.data[0] + '</a></p></article></section>',
+            step = '<section id="tilStep"><article><div class="blueShapeStep"><h3>1.</h3></div><p>' + ds.step.one[0][0] + ' (<a href="' + ds.step.one[0][2] + '">læs mere</a>). ' + ds.step.one[0][1] + '</p><a href="' + ds.step.one[0][2] + '" id="tilStepBtn1">Tilmeld</a></article>';
+            step += '<article><div class="blueShapeStep"><h3>2.</h3></div><p>' + ds.step.two + '</p><div class="emptySpace"></div></article></section>';
             
             //Bruges til at kunne styre forskellige ting i et forEach loop
             let nr = 1;
@@ -1597,27 +1603,48 @@ function makeSite(data) {
                 let 
                 section = document.createElement("section"),
                 showHide = document.createElement("section"),
+                showHideInner = document.createElement("section"),
                 article = document.createElement("article"),
                 h2 = document.createElement("h2"),
                 h3 = document.createElement("h3"),
                 p = document.createElement("p"),
                 btn = document.createElement("button"),
-                arrow = '<span>&#10094;</span>';
+                arrow = '<span>&#10094;</span>',
+                blueDiv = document.createElement("div"),
+                infoArticle = document.createElement("article"),
+                btnDiv = document.createElement("div");
 
                 //Tilføjer værdier
                 section.id = "tilmeldBox" + nr;
                 h2.textContent = item[0];
                 h3.textContent = item[1];
                 p.textContent = item[2];
+                blueDiv.classList.add("blueBoxUngStaevne");
+                showHide.classList.add("showHideContent");
+                showHideInner.classList.add("showHideInner");
+
                 //ShowHide knap
                 btn.type = "button";
                 btn.id = "showBtn" + nr;
                 btn.innerHTML = "MERE INFORMATION" + arrow;
                     
                 //Ligger alle elementer sammen
-                article.append(h2, h3, p, btn);
+                blueDiv.append(h2, h3);
+                btnDiv.appendChild(btn);
+                infoArticle.append(p, btnDiv);
+
+                article.classList.add("tilmeldAfdelingIntro")
+                article.append(blueDiv, infoArticle);
                 section.appendChild(article);
-                section.appendChild(showHide);
+
+                //Skal kunne tilføjes til de 2 som har ekstra indhold
+                if (nr === 1 || nr === 2) {
+                    showHide.classList.add("showHideContent");
+                    showHideInner.classList.add("showHideInner");
+                    showHide.appendChild(showHideInner)
+                    section.appendChild(showHide);
+                }
+
                 container.appendChild(section);
                 
                 if (nr === 1) {
@@ -1636,6 +1663,7 @@ function makeSite(data) {
                         dato = new Date(),
                         year = dato.getFullYear();
 
+                        ramme.classList.add("ramme");
                         //Click Box
                         h4_1.innerHTML = '<strong>' + year + '</strong>' + item[0];
                         pil.innerHTML = "&#10094;";
@@ -1680,7 +1708,7 @@ function makeSite(data) {
                         content.append(h4_2, ulArticle)
 
                         ramme.append(clickBox, content);
-                        showHide.appendChild(ramme);
+                        showHideInner.appendChild(ramme);
 
 
                         showBlock(clickBox, content)
@@ -1753,7 +1781,7 @@ function makeSite(data) {
                         content.append(h4_2, ulArticle)
 
                         ramme.append(clickBox, content);
-                        showHide.appendChild(ramme);
+                        showHideInner.appendChild(ramme);
 
 
                         showBlock(clickBox, content)
@@ -1811,13 +1839,13 @@ function makeSite(data) {
                     "email": dataArray[0][7][2],
                 }
             },
-            intro = '<section><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
-            profil = '<section><section><h2>' + ds.profil.title + '</h2><p>' + ds.profil.obs + '</p></section><article><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
-            profil += '<article><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
-            profil += '<article><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
+            intro = '<section id="blivMedlemIntro"><h2>' + ds.intro.title + '</h2><p>' + ds.intro.under + '</p></section>',
+            profil = '<section id="blivMedlemOpret"><section><h2>' + ds.profil.title + '</h2><p>' + ds.profil.obs + '</p></section><article class="medlemsType"><div class="blueShape"><h3>' + ds.profil.aMedlem[0] + '</h3></div><p>' + ds.profil.aMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+            profil += '<article class="medlemsType"><div class="blueShape"><h3>' + ds.profil.bMedlem[0] + '</h3></div><p>' + ds.profil.bMedlem[1] + '</p><a href="">Tilmeld</a></article>';
+            profil += '<article class="medlemsType"><div class="blueShape"><h3>' + ds.profil.cMedlem[0] + '</h3></div><p>' + ds.profil.cMedlem[1] + '</p><a href="">Tilmeld</a></article></section>';
 
-            let outro = '<section><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
-            outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
+            let outro = '<section id="blivMedlemConventusOutro"><article><h3>' + ds.intro.konti + '</h3><p>' + ds.intro.kBeskriv1 + '</p><p>' + ds.intro.kBeskriv2 + '</p></article>';
+            outro += '<article><h3>' + ds.data.title + '</h3><p>' + ds.data.beskriv1 + '</p><p>' + ds.data.beskriv2 + '</p></article><article class="ungSprgSection"><h3>' + ds.sprg.title + '</h3><p>' + ds.sprg.beskriv + '</p><p>E-Mail: <a href="mailto:' + ds.sprg.email + '">' + ds.sprg.email + '</a></p></article></section>';
             
 
             let main = intro + profil + outro;
@@ -1911,9 +1939,15 @@ function makeSite(data) {
             nData.info.liArray.forEach(each => {
                 liListe += '<li>' + each + '</li>'
             })
+            // Split Email & Tlf
+            let emailSplit = nData.info.sprg[2].split(": "),
+                email = emailSplit[1],
+                tlfSplit = nData.info.sprg[3].split(": "),
+                tlf = tlfSplit[1];
+
             let
             krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>',
-            main = krummer + '<section><article><h2>' + nData.intro.title1 + '</h2><p>' + nData.intro.beskriv1 + '</p><h3>' + nData.intro.title2 + '</h3><p>' + nData.intro.beskriv2 + '</p></article><article><h2>' + nData.info.ul  + '</h2><ul>' + liListe + '</ul></article></section><section><h3>' + nData.info.sprg[0] + '</h3><p>' + nData.info.sprg[1] + '</p><ul><li><a href="tel:+45' + nData.info.sprg[2] + '">' + nData.info.sprg[2] + '</a></li><li>E-mail: <a href="mailto:' + nData.info.sprg[3] + '">' + nData.info.sprg[3] + '</a></li></ul></section>';
+            main = krummer + '<section id="sejlNyeIntro"><article><h2>' + nData.intro.title1 + '</h2><p>' + nData.intro.beskriv1 + '</p><h3>' + nData.intro.title2 + '</h3><p>' + nData.intro.beskriv2 + '</p></article><article><div><h2>' + nData.info.ul  + '</h2><ul>' + liListe + '</ul></div></article></section><section class="ungSprgSection"><h3>' + nData.info.sprg[0] + '</h3><p>' + nData.info.sprg[1] + '</p><ul><li>Tlf: <a href="tel:+45' + tlf + '">' + tlf + '</a></li><li>E-mail: <a href="mailto:' + email + '">' + email + '</a></li></ul></section>';
         
 
             createHTML("main", main)
@@ -1945,9 +1979,14 @@ function makeSite(data) {
             eData.info.liArray.forEach(each => {
                 liListe += '<li>' + each + '</li>'
             })
+            let emailSplit = eData.info.sprg[2].split(": "),
+                email = emailSplit[1],
+                tlfSplit = eData.info.sprg[3].split(": "),
+                tlf = tlfSplit[1];
+
             let
             krummer = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + IDbannerAfdelinger[0] + '</a><span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a></div>',
-            main = krummer + '<section><article><h2>' + eData.intro.title + '</h2><p>' + eData.intro.beskriv1 + '</p><p>' + eData.intro.beskriv2 + '<ul><li>' + eData.intro.indhug + '</li></ul>' + eData.intro.fastlagt + '</p></article><article><h2>' + eData.info.ul  + '</h2><ul>' + liListe + '</ul></article></section><section><h3>' + eData.info.sprg[0] + '</h3><p>' + eData.info.sprg[1] + '</p><ul><li><a href="tel:+45' + eData.info.sprg[2] + '">' + eData.info.sprg[2] + '</a></li><li>E-mail: <a href="mailto:' + eData.info.sprg[3] + '">' + eData.info.sprg[3] + '</a></li></ul></section>';
+            main = krummer + '<section id="sejlErfarendeIntro"><article><h2>' + eData.intro.title + '</h2><p>' + eData.intro.beskriv1 + '</p><p>' + eData.intro.beskriv2 + '</p><ul><li>' + eData.intro.indhug + '</li></ul><p>' + eData.intro.fastlagt + '</p></article><article><div><h2>' + eData.info.ul  + '</h2><ul>' + liListe + '</ul></div></article></section><section class="ungSprgSection"><h3>' + eData.info.sprg[0] + '</h3><p>' + eData.info.sprg[1] + '</p><ul><li>Tlf: <a href="tel:+45' + tlf + '">' + tlf + '</a></li><li>E-mail: <a href="mailto:' + email + '">' + email + '</a></li></ul></section>';
 
             createHTML("main", main)
         };
@@ -1993,7 +2032,7 @@ function makeSite(data) {
                     "beskriv1": dataArray[0].tekst_gruppe_1[2],
                     "beskriv2": dataArray[0].tekst_gruppe_1[4],
                     //Dulighedstitle
-                    "ulTitle": dataArray[0].tekst_liste_1[0],
+                    "ulTitle": dataArray[0].tekst_gruppe_1[3],
                     //Ul1
                     // "ul1": dataArray[0].tekst_liste_1[1],
                     // "li1Array": [dataArray[0].tekst_liste_1[2], dataArray[0].tekst_liste_1[3],dataArray[0].tekst_liste_1[4],dataArray[0].tekst_liste_1[5]],
@@ -2033,10 +2072,10 @@ function makeSite(data) {
             });
 
             //Skaber og samler hovedindholdet
-            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p></article><article><h2>' + uData.intro.ulTitle + '</h2><p>' + uData.intro.beskriv2 + '</p></article></section>',
+            let intro = '<section id="introSejlUndervisning"><article><h2>' + uData.intro.title1 + '</h2><p>' + uData.intro.beskriv1 + '</p></article><article><div><h2>' + uData.intro.ulTitle + '</h2><p>' + uData.intro.beskriv2 + '</p></div></article></section>',
                 galleri = '<section id="galleriSejlUndervisning"><article><h2>' + uData.galleri.title + '</h2><p>' + uData.galleri.beskriv + '</p></article><section>' + imgList + '</section></section>',
-                nye = '<section id="nyeSejlUndervisning"><h2>' + uData.elever.nye[0] + '</h2><article><p>' + uData.elever.nye[1] + '</p><button type=button id="nyeClick">LÆS MERE</button></article><img src="' + uData.elever.nye[2] + '" alt="Billede til ' + uData.elever.nye[0] + '"></section>',
-                erfarende = '<section id="erfarendeSejlUndervisning"><h2>' + uData.elever.erfarende[0] + '</h2><article><p>' + uData.elever.erfarende[1] + '</p><button type=button id="erfarendeClick">LÆS MERE</button></article><img src="' + uData.elever.erfarende[2] + '" alt="Billede til ' + uData.elever.erfarende[0] + '"></section>',
+                nye = '<section id="nyeSejlUndervisning"><div class="blueBoxUngUnder"><h2>' + uData.elever.nye[0] + '</h2></div><article><div><p>' + uData.elever.nye[1] + '</p><button type=button id="nyeClick">LÆS MERE</button></div></article><img src="' + uData.elever.nye[2] + '" alt="Billede til ' + uData.elever.nye[0] + '"></section>',
+                erfarende = '<section id="erfarendeSejlUndervisning"><div class="blueBoxUngUnder"><h2>' + uData.elever.erfarende[0] + '</h2></div><article><div><p>' + uData.elever.erfarende[1] + '</p><button type=button id="erfarendeClick">LÆS MERE</button></div></article><img src="' + uData.elever.erfarende[2] + '" alt="Billede til ' + uData.elever.erfarende[0] + '"></section>',
                 
                 //Skaber liste med Articles som indeholder links og beskrivelse
                 linkList = '<section>';
@@ -2047,7 +2086,7 @@ function makeSite(data) {
                 let linkArea = '<article id="linkArea"><h2>' + uData.link.title + '</h2><p>' + uData.link.beskriv + '</p>' + linkList + '</article>',
 
                 //Skaber liste med Articles som indeholder links(Apple Store) og beskrivelse + billede til appen
-                appList = '<section>',
+                appList = '<section id="appAreaContainer">',
                 appBox1 = '<article><h3>Sikkerhed</h3><div>',
                 appBox2 = '<article><h3>Fællesskab på vandet</h3><div>',
                 appBox3 = '<article><h3>Knob</h3><div>',
@@ -2065,6 +2104,10 @@ function makeSite(data) {
                 for (let i = 5; i < 7; i++) {
                     appBox4 += '<a href="' + uData.app.app[i][2] + '" class="appBox"><img src="' + uData.app.app[i][0] + '" alt="Billede til appen: ' + uData.app.app[i][1] + '"><h4>' + uData.app.app[i][1] + '</h4></a>';
                 }
+                appBox1 += '</div></article>'
+                appBox2 += '</div></article>'
+                appBox3 += '</div></article>'
+                appBox4 += '</div></article>'
                 appList += appBox1 + appBox2 + appBox4 + appBox3;
                 
                 //Samler indhold
@@ -2121,12 +2164,12 @@ function makeSite(data) {
             iUl += '</ul>';
 
             let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
-            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
+            sprgFooter = '<section class="ungSprgSection"><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
       
 
             //Skaber Forældreråd Boks
-            let raadBoks = '<section><article><h3>' + fData.title + '</h3><p>' + fData.beskriv1 + '</p><p>' + fData.beskriv2 + '</p></article><img src="' + fData.billede + '" alt="Billede til Forældreråd"</section>';
-            let intro = krummer + '<section><article><h2>' + iData.title + '</h2><h3>' + iData.under + '</h3><p>' + iData.beskriv + '</p></article><article><h2>' + iData.sikkerhed[0] + '</h2>' + iUl + '</article></section>' + raadBoks;
+            let raadBoks = '<section id="infoInfo"><article><h3>' + fData.title + '</h3><p>' + fData.beskriv1 + '</p><p>' + fData.beskriv2 + '</p></article><img src="' + fData.billede + '" alt="Billede til Forældreråd"></section>';
+            let intro = krummer + '<section id="infoIntro"><article><h2>' + iData.title + '</h2><h3>' + iData.under + '</h3><p>' + iData.beskriv + '</p></article><article><div><h2>' + iData.sikkerhed[0] + '</h2>' + iUl + '</div></article></section>' + raadBoks;
 
             createHTML("main", intro + sprgFooter)
         }
@@ -2177,17 +2220,17 @@ function makeSite(data) {
                 let liste1 = '<article><section><h3>' + sData.info1_title + '</h3><p>' + sData.info1_beskriv + '</p></section>',
                     liste2 = '<article><section><h3>' + sData.info2_title  + '</h3><p>' + sData.info2_beskriv + '</p></section>';
                 for (let i = 0; i < 5; i++) {
-                    liste1 += '<div><h4>' + sData.info1[i][0] + '</h4><a href="' + sData.info1[i][1] + '">ÅBEN</a></div>'
+                    liste1 += '<div class="ungStaevneBox"><h4>' + sData.info1[i][0] + '</h4><a href="' + sData.info1[i][1] + '">Åben</a></div>'
                 }
                 for (let i = 0; i < 5; i++) {
-                    liste2 += '<div><h4>' + sData.info2[i][0] + '</h4><a href="' + sData.info2[i][1] + '">ÅBEN</a></div>'
+                    liste2 += '<div class="ungStaevneBox"><h4>' + sData.info2[i][0] + '</h4><a href="' + sData.info2[i][1] + '">Åben</a></div>'
                 }
                 liste1 += '</article>';
                 liste2 += '</article>';
                 
                 //Skaber hovedindhold
-                let staevneContent = '<section id="staevneContent_' + number +'"><article><h3>' + sData.pTitle + '</h3><p>' + sData.pInfo + '</p><a href="' + sData.tilmeld + '">Tilmelding</a></article>' + liste1 + liste2 +'</section>';
-                staevne += '<section id="staevne_' + number + '" class="staevneContent"><article><div><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4><div><p>' + sData.beskriv + OBS + '</p><button type=button id="staevneBtn_' + number + '">MERE INFORMATION</button></article>' + staevneContent + '</section>';
+                let staevneContent = '<section id="staevneContent_' + number +'"><div id="staevneFlexDiv"><article class="ungStaevnePraktiskInfo"><h3>' + sData.pTitle + '</h3><p>' + sData.pInfo + '</p><a href="' + sData.tilmeld + '">Tilmelding</a></article>' + liste1 + liste2 +'</div></section>';
+                staevne += '<section id="staevne_' + number + '" class="staevneContent"><article id="staevne_' + number + 'Intro"><div class="blueBoxUngStaevne"><h3>' + sData.title + '</h3><h4>' +  sData.year + '</h4></div><article><p>' + sData.beskriv + OBS + '</p><div><button type=button id="staevneBtn_' + number + '">MERE INFORMATION</button></div></article></article>' + staevneContent + '</section>';
                 
                 // Skal "udløse" hvis årstallet er mindre end 2021, de nuværende år. Kunne også være relevant at kigge på dag/måned.
                 let date = new Date(),
@@ -2201,10 +2244,10 @@ function makeSite(data) {
 
             //Skaber hoved indholdet
             let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
-            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
+            sprgFooter = '<section class="ungSprgSection"><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
       
             //Første Stævne (Ikke Dynamisk)
-            let main = krummer + '<section>' + intro + '<img src="' + findPost.acf.billede + '" alt="Billede til Stævner - Ungdom"></section>' + staevne + sprgFooter;
+            let main = krummer + '<section id="ungStaevneIntro">' + intro + '<img src="' + findPost.acf.billede + '" alt="Billede til Stævner - Ungdom"></section>' + staevne + sprgFooter;
             
             createHTML("main", main)
             //Bruger ShowBlock på alle sektioner som skabes via sDataPost.
@@ -2236,17 +2279,16 @@ function makeSite(data) {
             sec2Tekst = sec2[3],
             sec2Img = sec2[4],
             liER = '',
-            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></section>',
-            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></section>';
+            section1 = '<section id="ungAldersgruppe1"><div class="blueBoxUngUnder"><section><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></section></div><div class="pBoxDivUng"><p>' + sec1Tekst + '</p></div><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></section>',
+            section2 = '<section id="ungAldersgruppe2"><div class="blueBoxUngUnder"><section><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></section></div><div class="pBoxDivUng"><p>' + sec2Tekst + '</p></div><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></section>';
                 
             // Laver indhold til Ul
             for(let i = 0; i < liste.length; i++) {
                 liER += '<li>' + liste[i] + '</li>';
             }
 
-        let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
-            sprgFooter = '<section><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
-      
+            let sprgData = data.find(post => post.id == Number(postData.acf.id.categories.ungdom_undernav[0])),
+            sprgFooter = '<section class="ungSprgSection"><h3>' + sprgData.acf.sporgsmal[0] + '</h3><p>' + sprgData.acf.sporgsmal[1] + '</p><p>Email: <a href=""></a>' + sprgData.acf.sporgsmal[2] + '</p></section>';
 
             //Samler alt indhold til Ungdom Undervisning
             let main = krummer + '<section id="ungUnderIntro"><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2 + sprgFooter;
