@@ -30,7 +30,7 @@ UCN MMDA0920 */
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
 * {
     box-sizing: border-box;
 }
@@ -45,6 +45,7 @@ body {
 
 h1, h2, h3, h4 {
     font-family: 'Archivo Narrow', sans-serif;
+    letter-spacing: calc(1rem * 0.007);
     margin: 0;
     padding: 0;
 }
@@ -131,6 +132,8 @@ footer {
     margin-right: 0;
 }
 #header #nav_BlivMedlem a {
+
+    font-weight: 400;
     display: inline-block;
     color: white;
 }
@@ -323,7 +326,7 @@ button[type=button] a {
     display: flex;
     justify-content: space-between;
     padding: 3rem 7rem;
-    width: 40%;
+    width: 48%;
     height: 100%;
     background-color: white;
     border-left: 9px solid var(--color-red);
@@ -502,7 +505,7 @@ footer img {
     width: 100%;
     height: 33vh;
     background-color: var(--color-darkblue);
-
+    z-index: 1;
     position: relative;
 }
 #heroLille > * {
@@ -522,6 +525,12 @@ footer img {
     height: 33vh;
     display: block;
     clip-path: polygon(0 0, 74% 0, 97% 100%, 0% 100%);
+}
+#heroLille a {
+    color: white;
+    background-color: var(--color-red);
+    padding: .7rem;
+    border-radius: 3px;
 }
 #ulUnderNav {
     margin: 1rem 0 0 0; 
@@ -583,20 +592,22 @@ footer img {
     to {transform: rotate(90deg); transform-origin: center;}
 }
 
-/* betyrelsen */
+/* Bestyrelsen */
 
 #bestyrelseListe {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
+#bodyTemplate_1255 main p {
+    width:calc(var(--para-width) * 1.1);
+}
 #bestyrelseListe article {
     border-left: 9px solid var(--color-red);
-    flex: 30%;
+    flex: 40%;
     height: calc(var(--font-main) * 15);
     display: flex;
-    margin: 2vw;
+    margin: 2vw 2vw 2vw 0;
 }
 #bestyrelseListe article img {
     object-fit: contain;
@@ -674,16 +685,20 @@ footer img {
 #referatContainer {
     padding: 2vw;
 }
+#referatContainer section:first-of-type {
+    margin-bottom: 2rem;
+}
 
-#clickReferat1 {
+#clickReferat1, #clickReferat2 {
     padding: 1vw 1.5vw;
     background-color: white;
     border-left: var(--color-red) 9px solid;
     display: flex;
     justify-content: space-between;
 }
-#referatContent {
+#referatContent, #GFcontent {
     background-color: var(--color-white);
+    border-left: var(--color-red) 9px solid;
     padding: 1.5vw;
 }
 .referatFlex {
@@ -691,47 +706,41 @@ footer img {
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.referatBox {
+.referatBox, .GFbox {
     flex: 40%;
     padding: 1rem 2rem;
     margin: 1rem;
     background-color: white;
     border-left: var(--color-red) 9px solid;
 }
-.referatBox h5 {
+.referatBox h5, .GFbox h5 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
     margin: 0;
 }
-.referatBox a {
+.referatBox a, .GFbox a {
     font-weight: 400;
     float: right;
     color: black;
     text-decoration: underline;
 }
-#btnDiv1 {
+#btnDiv1, #btnDiv2 {
     flex: 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    padding: 0 1rem;
 }
-
-#clickReferat2 {
-    background-color: blueviolet;
-}
-
 button[type=button]#referatBtn1, button[type=button]#referatBtnReverse1, button[type=button]#referatBtn2, button[type=button]#referatBtnReverse2 {
-    background-color: red;
+    background-color: var(--color-white);
     margin: 0 .3rem;
     padding: .1rem .5rem;
-
+    font-size: 20px;
     text-align: center;
     color: black;
-    font-size: 15px;
     font-weight: bold;
     border: none;
 }
-button#referatBtn1 {
-    font-size: 20px;
-}
-
 strong {
     margin: 0;
     padding: 0;
@@ -745,6 +754,187 @@ strong {
     display: none;
 }
 
+/* Klub Politik */
+#bodyTemplate_1255 #politikListe ul {
+    margin: 2rem 0;
+    padding: 0;
+}
+#bodyTemplate_1255 #politikListe li {
+    width: calc(var(--para-width) * 1.3);
+    line-height: 2rem;
+}
+#politikIntro h2, h3 {
+    margin: 2rem 0;
+}
+#politikIntro h3 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+}
+#download {
+    display: flex;
+    justify-content: flex-end;
+}
+#download button {
+    cursor: pointer;
+}
+
+/* Klubblad */
+#yearsBlad {
+    display: flex;
+    flex-direction: column;
+}
+#year2021, #year2020, #year2019, #year2018 {
+    display: flex;
+    flex-direction: column;
+}
+#year2021 h3, #year2020 h3, #year2019 h3, #year2018 h3 {
+    margin: 1.5rem 0;
+
+}
+#yearsBlad .klubbladArticle, #historieBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    width: 35vw;
+    height: 3rem;
+    margin-bottom: 2vw;
+    border-left: 9px solid var(--color-red);
+    border-right: solid 1px black;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+
+}
+#yearsBlad .klubbladArticle h4 {
+    font-weight: 400;
+}
+#yearsBlad .klubbladArticle a {
+    color: black;
+    text-decoration: underline;
+}
+
+/* Historie */
+#historieFlex {
+    display: flex;
+    justify-content: space-between;
+}
+#historieGalleri {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+#historieIntro h2 {
+    margin: 2rem 0;
+}
+#historieBtn a {
+    color: black;
+    text-decoration: underline;
+}
+#aeresMedlemmer {
+    margin: 10vh 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+#aeresMedlemmer div {
+    display: flex;
+    flex: 24%;
+    position: relative;
+    flex-direction: column;
+    padding: 0 1rem;
+    margin-bottom: 2vw;
+}
+
+#aeresMedlemmer div p {
+    width: fit-content;
+    margin: 0;
+    padding: 0 0 0 calc(.5rem + 9px);
+    height: 2rem
+}
+#aeresMedlemmer div h3 {
+    width: fit-content;
+    margin: 0;
+    border-left: var(--color-red) 9px solid;
+    padding: 0 0 0 .5rem;
+    height: 2.5rem
+}
+
+/* ====================================== */
+/* ============ Afdelinger ============== */
+/* ====================================== */
+
+#bodyTemplate_1257 #afdelingFlex {
+    padding: 0 5vw;
+}
+#bodyTemplate_1257 .afdelingBox {
+    margin-left: 0;
+    margin-right: 2rem;
+}
+div.krumme {
+    padding: 1.5rem 0;
+}
+#bodyTemplate_1257 div.krumme {
+    padding: 1.5rem 5vw;
+}
+div.krumme a {
+    color: black;
+    text-decoration: underline;
+}
+#afdelingerIntro {
+    padding: 0 5vw;
+    margin: .5rem 0 3rem 0;
+}
+
+/* ====================================== */
+/* ============ SNV UNGDOM ============== */
+/* ====================================== */
+#bodyTemplate_1720 main {
+    padding: 0 5vw;
+}
+#ungUnderIntro {
+    display: flex;
+    margin: 1rem 0;
+    justify-content: space-between;
+}
+#ungUnderIntro ul {
+    padding: 0;
+}
+#ungUnderIntro ul li {
+    list-style-type: disc;
+    margin-left: 40px;
+}
+#ungUnderIntro ul li:first-of-type {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: calc(1.2rem * 0.007);
+    font-family: 'Archivo Narrow', sans-serif;
+    list-style-type: none;
+}
+#ungUnderIntro ul li:last-of-type {
+    margin: 1rem 0 0 20px;
+    list-style-type: none;
+}
+#ungAldersgruppe1, #ungAldersgruppe2 {
+    position: relative;
+    background-color: var(--color-white);
+    height: 20rem;
+}
+#ungAldersgruppe1 img {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#ungAldersgruppe1 h3, #ungAldersgruppe1 p {
+    display: flex;
+
+}
+
+
+
+
+
+
+
 
 #bodyTemplate_1261 span {
     transform: rotate(-90deg);
@@ -755,8 +945,6 @@ i {
     font-weight: bold;
     font-style: normal;
 }
-
-
 
 
 
@@ -870,24 +1058,6 @@ i {
 
 
 
-.dokumentBox {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 35vw;
-    height: 4vw;
-    margin-bottom: 2vw;
-    border-left: 9px solid #B12818;
-    border-right: solid 1px black;
-    border-top: solid 1px black;
-    border-bottom: solid 1px black;
-}
-
-.dokumentBox p {
-    margin: 1vw;
-}
-
-
 
 .infoStor {
     display: flex;
@@ -939,19 +1109,6 @@ i {
 
 /* Afdelinger */
 
-.afdeling p {
-    margin-bottom: 5vw;
-}
-
-/* Ungdom */
-
-.introUngdom ul li {
-    line-height: 2vw;
-}
-.introUngdom p {
-    margin-bottom: 2vw;
-}
-
 
 .infoBoxAfdeling {
     width: 86vw;
@@ -976,16 +1133,7 @@ i {
     clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
 }
 
-.blaa {
-    background-color: #648DAA;
-    color: white;
-}
 
-.imgUngdom {
-    background-color: black;
-    width: 20vw;
-    height: 15vw;
-}
 
 .contentBoxStævne {
     display: flex;

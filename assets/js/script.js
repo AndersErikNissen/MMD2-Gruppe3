@@ -324,7 +324,7 @@ function makeSite(data) {
                 let overskrift = referat.acf.overskrift,
                     dato = modDato(referat),
                     link = referat.acf.link;
-                referatBox = '<article class="referatBox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
+                referatBox = '<article class="referatBox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">Åben</a></article>';
                 referatOutput += referatBox;
                 
             })
@@ -334,7 +334,7 @@ function makeSite(data) {
                     dato = modDato(referat),
                     link = referat.acf.link;
 
-                GFbox = '<article class="GFbox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
+                GFbox = '<article class="GFbox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">Åben</a></article>';
                 GFoutput += GFbox;
             })
 
@@ -346,7 +346,7 @@ function makeSite(data) {
             GFbestyrelse = '<article id="GFcontent"><section class="referatFlex">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</button><button type="button" id="referatBtn2">&#8250;</button></div></section></article>',
             
             referat =  '<section id="referat"><article><section><h2>' + rData[0] + '</h2><p>' + rData[1] + '</p></section><div id="referatShowHideBtnDiv"><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></div><div class="colorBoxDiv"></div></article>';
-            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse,
+            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse + '</section>',
             referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#8250;</span></article>' + GFbestyrelse + '</section>';
             
             //Laver HTML
@@ -389,8 +389,8 @@ function makeSite(data) {
             sec2Tekst = sec2[3],
             sec2Img = sec2[4],
             liER = '',
-            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></<section>',
-            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></<section>';
+            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></section>',
+            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></section>';
                 
             // Laver indhold til Ul
             for(let i = 0; i < liste.length; i++) {
@@ -402,7 +402,7 @@ function makeSite(data) {
       
 
             //Samler alt indhold til Ungdom Undervisning
-            let main = krummer + '<section><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2;
+            let main = krummer + '<section id="ungUnderIntro"><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2;
 
             createHTML("main", main + sprgFooter)
         }
@@ -956,39 +956,42 @@ function makeSite(data) {
             beskrivelse = ds[1],
             billede = ds[2],
             velkomstTekst = ds[5],
-            main = '<section><h2>' + overskrift + '</h2><p>' + velkomstTekst + '</p></section>',
+            main ='',
             krumme = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + overskrift + '</a></div>',
-            afdelingHeader = '<header id="heroLille"><article><h1>' + overskrift + '</h1><p>' + beskrivelse + '</p></article><img src="' + billede + '" alt="Billede til Header - Afdelinger">';
-            main += krumme;
+            afdelingHeader = '<header id="heroLille"><article><h1>' + overskrift + '</h1><p>' + beskrivelse + '</p></article><img src="' + billede + '" alt="Billede til Header - Afdelinger"></header>';
+            main += krumme + '<section id="afdelingerIntro"><h2>' + overskrift + '</h2><p>' + velkomstTekst + '</p></section>';
         
-        
-        //== (Dette kode er også blevet brugt på forsiden)
+        // //== (Dette kode er også blevet brugt på forsiden)
         let
-        afdeling = '<section id="afdelingFlex">',
+        afdeling = '<section id="afdelingFlexContainer">',
         objAfdeling = { //Indeholder data til de forskellige under-Afdelinger.
-                underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
-                underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
-                ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
+            underafdeling_UngSejl: [IDbannerUngdom, IDbannerSejlerskolen],
+            underafdeling_KapJ70: [IDbannerAfdelinger[3], IDbannerAfdelinger[4]],
+            ids: [postData.acf.id.categories.underafdelinger[0], postData.acf.id.categories.underafdelinger[1]]
         },
+        ekstraText = [postData.acf.bannerdata[1][6], postData.acf.bannerdata[1][7]],
         nrInArray = 0;
+        afdeling += '<div id="afdelingFlex">';
 
-        // Skaber de to kasser som linker videre
         objAfdeling.underafdeling_UngSejl.forEach(item => {
-            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a><img src="' + item[2] + '" alt=""></article>';
+            afdeling += '<article class="afdelingBox"><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + ekstraText[nrInArray] + '</p></div><a href="?pageId=' + objAfdeling.ids[nrInArray] + '">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
             nrInArray++;
         })
-        // Skaber de to kasser til afdelinger som ikke er på domænet i denne version.
         objAfdeling.underafdeling_KapJ70.forEach(item => {
-            afdeling += '<article class="afdelingBox"><div class="afdelingOverlay"><h3>' + item[0] + '</h3><p>' + item[1] + '</p><a hrefSE MERE=""></a><img src="' + item[2] + '" alt=""></article>';
-        }) 
-        afdeling += '</section>';
+            afdeling += '<article class="afdelingBox"><section class="afdelingTextContainer"><div><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div><a href="">SE MERE</a></section><img src="' + item[2] + '" alt=""></article>';
+        })
+        afdeling += '</div></section>';
+
+
+
+
         main += afdeling;
 
         createHTML("main", afdelingHeader + main)
     }
 
     function makeUngdom() {
-        let ungdom = '<article id="heroLille"></article><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p></article><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - SNV Ungdom"><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article>';
+        let ungdom = '<article id="heroLille"><article><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - SNV Ungdom"></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -997,7 +1000,7 @@ function makeSite(data) {
         makeUnderNavigation(IDbannerUngdom[3], IDbannerUngdom[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
     function makeSejlerskolen() {
-        let sejl = '<article id="heroLille"><article><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p></article><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"></article>';
+        let sejl = '<article id="heroLille"><article><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -1159,7 +1162,7 @@ function makeSite(data) {
         }
     }
     
-    function makeNyheder (current) {//#3
+    function makeNyheder (current) {
         let
         header = '<article id="heroLille"><article><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p></article><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Nyhedstemplate"></article>',
         krummer = '<div class="krumme"><a href="?pageId=' + IDnyheder[0] + '">' + IDbannerNyheder[0] + '</a></div>',
@@ -1215,7 +1218,10 @@ function makeSite(data) {
         h2.textContent = IDbannerNyheder[0];
         top.append(krummer, h2)
 
-        img.src = current.acf.billede_galleri[0]
+        if (mobil.matches || tablet.matches) {
+            img.src = current.acf.billede_galleri[0]
+        }
+        img.src = current.acf.billede_galleri[1]
         img.alt = "Billede til nyheden" + current.acf.overskrift;
         h1.textContent = current.acf.overskrift;
         snack.textContent = current.acf.underoverskrifter[0];
@@ -2230,8 +2236,8 @@ function makeSite(data) {
             sec2Tekst = sec2[3],
             sec2Img = sec2[4],
             liER = '',
-            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></<section>',
-            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></<section>';
+            section1 = '<section id="ungAldersgruppe1"><div><h3>' + sec1Title + '</h3><h4>' + sec1Alder1 + ' - ' + sec1Alder2 + ' år</h4></div><p>' + sec1Tekst + '</p><img src="' + sec1Img + '" alt="Billede til aldersgruppen ' + sec1Alder1 + ' - ' + sec1Alder2 + ' år"></section>',
+            section2 = '<section id="ungAldersgruppe2"><div><h3>' + sec2Title + '</h3><h4> Fra ' + sec2Alder1 + ' år</h4></div><p>' + sec2Tekst + '</p><img src="' + sec2Img + '" alt="Billede til aldersgruppen ' + sec2Alder1 + ' - ' + sec2Alder2 + ' år"></section>';
                 
             // Laver indhold til Ul
             for(let i = 0; i < liste.length; i++) {
@@ -2243,7 +2249,7 @@ function makeSite(data) {
       
 
             //Samler alt indhold til Ungdom Undervisning
-            let main = krummer + '<section><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2 + sprgFooter;
+            let main = krummer + '<section id="ungUnderIntro"><article><h2>' + IDbannerUngdom[3][0] + '</h2><ul>' + liER + '</ul></article><img src="' + billede + '" alt="Billede til Undervisning - Ungdom"></section>' + section1 + section2 + sprgFooter;
 
             createHTML("main", main)
         }
@@ -2257,7 +2263,7 @@ function makeSite(data) {
                 tekst2 = findPost.acf.brodtekster[1],
                 billeder = findPost.acf.billeder,
                 findMedlemmer =  data.filter(post => post.categories.includes(Number(postData.acf.id.categories.template_aeresmedlem))),
-                main = '<article><h2>' + overskrift1 + '</h2><p>' + tekst1 + '</p><div id="historieBtn"><h4>SNV Igennem Historien <h4><a href="">ÅBEN</a></div></article><article><h2>' + overskrift2 + '</h2><p>' + tekst2 + '</p></article><div id="historieGalleri"><img src="' + billeder[0] + '" alt="Billede fra Historie Galleri"><img src="' + billeder[1] + '" alt="Billede fra Historie Galleri"></div>',
+                main = '<div id="historieFlex"><section id="historieIntro"><article><h2>' + overskrift1 + '</h2><p>' + tekst1 + '</p><div id="historieBtn"><h4>SNV Igennem Historien <h4><a href="">Åben</a></div></article><article><h2>' + overskrift2 + '</h2><p>' + tekst2 + '</p></article></section><div id="historieGalleri"><img src="' + billeder[0] + '" alt="Billede fra Historie Galleri"><img src="' + billeder[1] + '" alt="Billede fra Historie Galleri"></div></div>',
                 medlemmer = '<section id="aeresMedlemmer">';
             
                 //Skabe liste af elementer til hver medlem(post)
@@ -2294,16 +2300,16 @@ function makeSite(data) {
                 
                 switch (year) {
                     case 2021:
-                        year2021 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        year2021 += '<article class="klubbladArticle"><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">Åben</a></article>'
                         break;
                     case 2020:
-                        year2020 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        year2020 += '<article class="klubbladArticle"><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">Åben</a></article>'
                         break;
                     case 2019:
-                        year2019 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        year2019 += '<article class="klubbladArticle"><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">Åben</a></article>'
                         break;
                     case 2018:
-                        year2018 += '<div><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">ÅBEN</a>'
+                        year2018 += '<article class="klubbladArticle"><h4>' + day + '. ' + monthString + '</h4><a href="' + link + '">Åben</a></article>'
                         break;
                     default:
                         console.log("Error: Kunne ikke matche årstal med vores system")
@@ -2324,8 +2330,8 @@ function makeSite(data) {
                 overskrift = findPost.acf.overskrifter[0],
                 undertitle = findPost.acf.overskrifter[1],
                 vedtækter = findPost.acf.liste_med_paragraffer,
-                main = '<section><h2>' + overskrift + '</h2><h3>' + undertitle + '</h3></section><section>',
-                downloadFil = '<a href="' + findPost.acf.fil + '" download="Vedtægt2012_SNV.dk"><button type="button>DOWNLOAD DOKUMENT</button></a>"';
+                main = '<section id="politikIntro"><h2>' + overskrift + '</h2><h3>' + undertitle + '</h3></section><section id="politikListe">',
+                downloadFil = '<a href="' + findPost.acf.fil + '" download="Vedtægt2012_SNV.dk"><button type="button">DOWNLOAD DOKUMENT</button></a>';
             for (let i = 0; i < vedtækter.length; i++) {
                 let ul = '<ul>§' + (i+1);
                 vedtækter[i].forEach(line => {
@@ -2385,7 +2391,7 @@ function makeSite(data) {
                 let overskrift = referat.acf.overskrift,
                     dato = modDato(referat),
                     link = referat.acf.link;
-                referatBox = '<article class="referatBox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
+                referatBox = '<article class="referatBox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">Åben</a></article>';
                 referatOutput += referatBox;
                 
             })
@@ -2395,7 +2401,7 @@ function makeSite(data) {
                     dato = modDato(referat),
                     link = referat.acf.link;
 
-                GFbox = '<article class="GFbox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">ÅBEN</a></article>';
+                GFbox = '<article class="GFbox hideReferat"><section><h3>' + overskrift + '</h3><h5>Sidst ændret den ' + dato + '</h5></section><a href="' + link + '">Åben</a></article>';
                 GFoutput += GFbox;
             })
 
@@ -2407,7 +2413,7 @@ function makeSite(data) {
             GFbestyrelse = '<article id="GFcontent"><section class="referatFlex">' + GFoutput + '<div id="btnDiv2"><button type="button" id="referatBtnReverse2">&#8249;</button><button type="button" id="referatBtn2">&#8250;</button></div></section></article>',
             
             referat =  '<section id="referat"><article><section><h2>' + rData[0] + '</h2><p>' + rData[1] + '</p></section><div id="referatShowHideBtnDiv"><button type="button" id="referatShowHideBtn">MERE INFORMATION<span>&#8250;</span></button></div><div class="colorBoxDiv"></div></article>';
-            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse,
+            referat += '<section id="referatContainer"><section><article id="clickReferat1"><h3>' + rData[0] +'</h3><span>&#8250;</span></article>' + referatBestyrelse + '</section>',
             referat += '<section><article id="clickReferat2"><h3>' + gData[2] +'</h3><span>&#8250;</span></article>' + GFbestyrelse + '</section>';
             
             //Laver HTML
