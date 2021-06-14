@@ -77,7 +77,7 @@ xhttp.send();
 }
 
 function makeSite(data) {
-    console.log(data);
+    // console.log(data);
     //========================== LISTE MED DATA OG UNIVERSALE FUNCTIONER
     //== ID's
     const postData = data.find(post => post.id == 1248), // Er den bestemte post(id) som indeholder general data til produktet. 
@@ -664,13 +664,13 @@ function makeSite(data) {
     function getURL () {
         let id = 0;
         const pageURL = window.location.href;    //Pathname kigger op indtil ?pageId=, til gengæld virker .href (På studie serveren ville det være https://mmd.ucn.dk/) og .search fint.
-        console.log(pageURL)
+        // console.log(pageURL)
         
         if(pageURL.indexOf("pageId") != -1) {      // Hvis pageURL indeholder pageId, og -1 ikke er true, så skal if sætningen bruges. 
             let split = pageURL.split("pageId=");
             id = split[1];
         }
-        console.log("Det her er pageID = ", id)
+        // console.log("Det her er pageID = ", id)
     
         return id;
     }
@@ -888,7 +888,7 @@ function makeSite(data) {
         
         //== Skaber Hero Banner
         createHeroSlide();
-        console.log(nyhedsList)
+
         //== Skaber Nyhedsindlæg
         news += '<section id="news"><h2>' + forside.acf.overskrifter[1] + '</h2><div id="newsPost">';
         for (let i = 0; i < 3; i++) { //Kan bruge nyhedsList.length, men vi vil gerne kun have vidst 3 på forsiden så vi bruger i < 3, som giver os et loop på 3(Selvom en starter på 0). 
@@ -1329,7 +1329,7 @@ function makeSite(data) {
             //== Hvis mere indhold 6 af gangen
             document.querySelector("#referatBtn1").addEventListener("click", function () {
                 let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
-                console.log(boxList)
+
                 boxList.forEach(post => {
                     post.style.display = "none";
                 })
@@ -1356,7 +1356,7 @@ function makeSite(data) {
             //== Hvis mindre indhold 6 af gangen
             document.querySelector("#referatBtnReverse1").addEventListener("click", function () {
                 let boxList = document.querySelectorAll(".referatBox"); // Drillede, men det virkede at lave let inde i function. Den må have ikke have kunne finde den ellers. 
-                console.log(boxList)
+         
                 boxList.forEach(post => {
                     post.style.display = "none";
                 })
@@ -1370,7 +1370,7 @@ function makeSite(data) {
                         boxList[i].style.display = "block";
                     }
                 }
-                console.log(loopNr)
+        
                 pageNr -= 1;
                 pageSpan.textContent = ' ' + pageNr + ' af ' + pageTotal + ' ';//Ændre textContent når det bliver klikket.
                 if (pageNr == 1) {//Fjerne tilbage knappen når på side 1
@@ -1591,7 +1591,7 @@ function makeSite(data) {
             //Bruges til at kunne styre forskellige ting i et forEach loop
             let nr = 1;
            
-            console.log(ds.step.one)
+        
             //Starter det nye indhold i main, som appendChild skal ligge sig efter
             createHTML("main", intro + step)
             //Skaber appendChild(Container)
@@ -1659,20 +1659,22 @@ function makeSite(data) {
                         h4_1 = document.createElement("h4"),
                         h4_2 = document.createElement("h4"),
                         tilmeldBtn = document.createElement("a"),
-                        pil = document.createElement("span")
+                        pil = document.createElement("span"),
                         dato = new Date(),
-                        year = dato.getFullYear();
+                        year = dato.getFullYear(),
+                        ul2Div = document.createElement("div");
 
                         ramme.classList.add("ramme");
                         //Click Box
                         h4_1.innerHTML = '<strong>' + year + '</strong>' + item[0];
                         pil.innerHTML = "&#10094;";
-                        clickBox.append(h4_1, pil)
+                        clickBox.append(h4_1, pil);
 
                         //Content 
                         h4_2.textContent = item[0];
                         tilmeldBtn.textContent = "Tilmeld";
-                        tilmeldBtn.href = ""
+                        tilmeldBtn.href = item[8];
+                        tilmeldBtn.target = "_blank";
                         item[7].forEach(each => {
                             if(each != "") {//Checker efter tomt data, som ikke behøver et Li element
                                 let li = document.createElement("li");
@@ -1702,10 +1704,15 @@ function makeSite(data) {
                                     indhold.innerHTML = "<i>Sted: </i>" + item[i];
                                     break;
                             }
-                            ul1.appendChild(indhold)
+                            ul1.appendChild(indhold);
                         }
-                        ulArticle.append(ul1, ul2, tilmeldBtn)
-                        content.append(h4_2, ulArticle)
+                        ul2Div.append(ul2, tilmeldBtn);
+                        ul2Div.classList.add("ul2Div");                      
+
+                        ulArticle.append(ul1, ul2Div);
+                        content.append(h4_2, ulArticle);
+                        content.classList.add("rammeContent");
+                        clickBox.classList.add("clickBoxArticle");
 
                         ramme.append(clickBox, content);
                         showHideInner.appendChild(ramme);
@@ -1727,20 +1734,21 @@ function makeSite(data) {
                         h4_1 = document.createElement("h4"),
                         h4_2 = document.createElement("h4"),
                         tilmeldBtn = document.createElement("a"),
-                        pil = document.createElement("span")
+                        pil = document.createElement("span"),
                         dato = new Date(),
                         year = dato.getFullYear();
 
+                        ramme.classList.add("ramme");
                         //Click Box
                         h4_1.innerHTML = '<strong>' + year + '</strong>' + item[0];
                         pil.innerHTML = "&#10094;";
-                        clickBox.append(h4_1, pil)
+                        clickBox.append(h4_1, pil);
 
                         //Content 
                         h4_2.textContent = item[0];
                         tilmeldBtn.textContent = "Tilmeld";
                         tilmeldBtn.href = item[8];
-                        tilmeldBtn.target = "_blank"
+                        tilmeldBtn.target = "_blank";
                         item[7].forEach(each => {
                             if(each != "") {//Checker efter tomt data, som ikke behøver et Li element
                                 let li = document.createElement("li");
@@ -1779,6 +1787,8 @@ function makeSite(data) {
                         }
                         ulArticle.append(ul1, ul2, tilmeldBtn)
                         content.append(h4_2, ulArticle)
+                        content.classList.add("rammeContent");
+                        clickBox.classList.add("clickBoxArticle");
 
                         ramme.append(clickBox, content);
                         showHideInner.appendChild(ramme);

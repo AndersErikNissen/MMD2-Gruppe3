@@ -1451,7 +1451,7 @@ article.medlemsType {
     position: relative;
     height: 10rem;
 }
-#tilmeldBox1 article > article, #tilmeldBox2 article > article, #tilmeldBox3 article > article, #tilmeldBox4 article > article {
+#tilmeldBox1 article.tilmeldAfdelingIntro > article, #tilmeldBox2 article.tilmeldAfdelingIntro > article, #tilmeldBox3 article.tilmeldAfdelingIntro > article, #tilmeldBox4 article.tilmeldAfdelingIntro > article {
     position: absolute;
     width: 70%;
     height: 10rem;
@@ -1460,11 +1460,11 @@ article.medlemsType {
     display: flex;
     justify-content: space-between;
 }
-#tilmeldBox1 article > article p, #tilmeldBox2 article > article p, #tilmeldBox3 article > article p, #tilmeldBox4 article > article p {
+#tilmeldBox1 article.tilmeldAfdelingIntro > article p, #tilmeldBox2 article.tilmeldAfdelingIntro > article p, #tilmeldBox3 article.tilmeldAfdelingIntro > article p, #tilmeldBox4 article.tilmeldAfdelingIntro > article p {
     width: var(--para-width);
     padding-top: 2rem;
 }
-#tilmeldBox1 article > article div, #tilmeldBox2 article > article div, #tilmeldBox3 article > article div, #tilmeldBox4 article > article div {
+#tilmeldBox1 article.tilmeldAfdelingIntro > article div, #tilmeldBox2 article.tilmeldAfdelingIntro > article div, #tilmeldBox3 article.tilmeldAfdelingIntro > article div, #tilmeldBox4 article.tilmeldAfdelingIntro > article div {
     display: flex;
     height: 10rem;
     justify-content: flex-end;
@@ -1486,8 +1486,54 @@ article.medlemsType {
     background-color: var(--color-lightblue-box);
     padding: 2rem;
 }
-
-
+.showHideInner .ramme {
+    background-color: white;
+    border-left: 9px solid var(--color-red);
+    margin: 2rem 0;
+}
+.showHideInner .ramme article.clickBoxArticle {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem;
+}
+.showHideInner .ramme article.clickBoxArticle strong {margin-right: 2rem;}
+.showHideInner .ramme article.rammeContent {
+    background-color: var(--color-white);
+    padding: 1rem 3rem;
+}
+.showHideInner .ramme article.rammeContent h4 {
+    font-size: 1.3rem;
+}
+.showHideInner .ramme article.rammeContent ul {
+    padding: 0;
+    margin: 0;
+}
+.showHideInner .ramme article.rammeContent article {
+    display: flex;
+    justify-content: space-between;
+}
+.showHideInner .ramme article.rammeContent article li {
+    margin: 1rem 0;
+}
+.showHideInner .ramme article.rammeContent article a {
+    color: white;
+    display: inline-block;
+    width: fit-content;
+    background-color: var(--color-blue-btn);
+    padding: .5rem 1.5rem;
+    border-radius: 3px;
+}
+.showHideInner .ramme article.rammeContent article .ul2Div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#tilmeldBox2 a {
+    height: fit-content;
+}
+button#showBtn1 span, button#showBtn2 span, button#showBtn3 span,button#showBtn4 span   {
+    margin-left: .5rem;
+}
 
 
 
