@@ -1215,6 +1215,7 @@ div#staevneFlexDiv {
 #galleriSejlUndervisning > section {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin: 2rem 0;
 }
 #galleriSejlUndervisning > section article > img {
@@ -1996,6 +1997,14 @@ header#header #desktopNav .currentPage a {
 /* ===================== MEDIA QUERY ===================== */
 /* ======================================================= */
 
+@media screen and (max-width: 1300px) {
+    :root {
+        --font-main: 16px;
+        --para-width: calc(var(--font-main) * 25);
+    --para-width-banner: calc(var(--font-main) * 20);
+    }
+}
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
 
 
@@ -2553,10 +2562,11 @@ header#header #desktopNav .currentPage a {
         flex-direction: column;
         margin: 0;
         width: 100%;
+        flex-wrap: nowrap;
     }
     #galleriSejlUndervisning > section article > img {width: 100%;}
     #galleriSejlUndervisning > section article > div {
-        width: 100%;
+        width: 90%;
         padding: .5rem 0;
     }
     #nyeSejlUndervisning, #erfarendeSejlUndervisning {
@@ -2576,7 +2586,7 @@ header#header #desktopNav .currentPage a {
     #nyeSejlUndervisning img, #erfarendeSejlUndervisning img {
         position: static;
         width: 100%;
-        object-fit: contain;
+        object-fit: cover;
     }
 
     .blueBox {
@@ -2815,7 +2825,9 @@ header#header #desktopNav .currentPage a {
     .blueBoxUngStaevne {height: 10rem; width: 32%;}
 
 
-
+    .blueBox {
+        padding: 2rem;
+    }
     #afdelingFlex {
         flex-wrap: nowrap;
     }
