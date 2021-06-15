@@ -37,12 +37,15 @@ function afterToken() {
         if (this.status !== 200) {
             //Bruges til Loading
 
+            const underDesktop = window.matchMedia("(max-width: 1024px)");
+
             let container = document.createElement("section"),
             dotBox = document.createElement("article"),
             h2 = document.createElement("h2"),
             load1 = document.createElement("div"),
             load2 = document.createElement("div"),
             load3 = document.createElement("div");
+
 
             container.id = "loadingContainer";
             h2.textContent = "Indlæser SNV.dk";
@@ -53,7 +56,12 @@ function afterToken() {
             load3.classList.add("load3");
 
             dotBox.append(load1, load2, load3)
-            container.append(h2, dotBox)
+            if (!underDesktop.matches) {
+                container.append(h2, dotBox)
+            }
+            if(underDesktop.matches) {
+                container.appendChild(dotBox)
+            }
             document.querySelector("main").appendChild(container)
 
         } 
@@ -142,7 +150,17 @@ function makeSite(data) {
             heroImg.classList.add("imgHero");
             heroImg.id = "hero_" + nr;
             div.id = "divHero" + nr;
-            heroImg.src = hero;
+
+            if (mobil.matches) {
+                heroImg.src = hero[0];
+            }
+
+            if (tablet.matches) {
+                heroImg.src = hero[1];
+            }
+            if (!mobil.matches && !tablet.matches) {
+                heroImg.src = hero[2];
+            }
             
             //Bruges til at ændre i på click, alt efter hvor i loopet knappen er blevet lavet.
             let divNr = 0;
@@ -168,8 +186,10 @@ function makeSite(data) {
         let sectionSlide = document.createElement("section"), clipHero = document.createElement("div");
         sectionSlide.id = "slideShow";
         clipHero.id = "clipHero";
+        btnArea.id = "btnArea";
+
         document.querySelector("#header").after(sectionSlide);
-        document.querySelector("#slideShow").append(clipHero, imgArea, btnArea, tekstArea);
+        document.querySelector("#slideShow").append(clipHero, imgArea, tekstArea, btnArea);
 
         if (!imgArea.childNodes.forEach(item => item.classList.contains("activeHero")) != -1) {
             document.querySelector("#divHero0").click() //Skal starte på med at vise 0 "onload"
@@ -697,7 +717,7 @@ function makeSite(data) {
 
     function makeNavigation (current) {
         let navigationlist = postData.acf.id.categories.navigationlist,
-            allNav = '<nav>',
+            allNav = '<nav id="desktopNav">',
             navigation = '<ul>';
         //== LIST OF NAV POSTS
         navigationlist.forEach(navID => {// Skal lave en <li> for hver element i natPosts, og give en class med et nummer som vi kan ramme senere.
@@ -721,6 +741,12 @@ function makeSite(data) {
             btn = document.createElement("section"), topLayer = document.createElement("div"), midLayer = document.createElement("div"), botLayer = document.createElement("div"),
             curtain = document.createElement("section"), nav = document.createElement("nav"), logoDiv = document.createElement("div"), logoA = document.createElement("a"), logoImg = document.createElement("img");
 
+            let loginContainer = document.createElement("section"), loginH4 = document.createElement("h4");
+            // Login
+            loginH4.textContent = "Medlemslogin";
+            loginContainer.id = "login";
+            loginContainer.appendChild(loginH4)
+
             //Button
             btn.id = "burgerBtn";
             topLayer.classList.add("burger"); midLayer.classList.add("burger"); botLayer.classList.add("burger");
@@ -739,7 +765,7 @@ function makeSite(data) {
             nav.id = "burgerNav"
             curtain.id = "curtain";
             curtain.appendChild(nav)
-            document.querySelector("#header").append(logoDiv, btn, curtain);
+            document.querySelector("#header").append(loginContainer, logoDiv, btn, curtain);
 
             btn.addEventListener("click", ()=> {
                 //Inspiration : https://stackoverflow.com/questions/46983030/how-to-check-classname-in-a-switch-statement-when-an-element-has-multiple-classe
@@ -831,7 +857,15 @@ function makeSite(data) {
         let liDisplayed = getComputedStyle(document.documentElement).getPropertyValue("--sponsor-display"),
             sponsorTitle = document.createElement("h2");
 
-            sponsorTitle.textContent = "Stor tak til vores sponsore";
+        if (mobil.matches) {
+            liDisplayed = 1;
+        }   
+        
+        if (tablet.matches) {
+            liDisplayed = 2;
+        }
+
+        sponsorTitle.textContent = "Stor tak til vores sponsore";
         sponsorContainer.appendChild(ul)
         document.querySelector("#sponsorSection").append(sponsorTitle ,sponsorContainer);
         for (let i = 0; i < liDisplayed; i++) {
@@ -947,7 +981,7 @@ function makeSite(data) {
         addToHTML("main", allHTML)
     }
     function makeOmklubben (current) {
-        let omklubben = '<article id="heroLille"><article><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p></article><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben"></article>';
+        let omklubben = '<article id="heroLille"><img src="' + IDbannerOmklubben[2] + '" alt="Billede til Header - Om Klubben"><article><h1>' + IDbannerOmklubben[0] + '</h1><p>' + IDbannerOmklubben[1] + '</p></article></article>';
 
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -964,7 +998,7 @@ function makeSite(data) {
             velkomstTekst = ds[5],
             main ='',
             krumme = '<div class="krumme"><a href="?pageId=' + IDafdelinger[0] + '">' + overskrift + '</a></div>',
-            afdelingHeader = '<header id="heroLille"><article><h1>' + overskrift + '</h1><p>' + beskrivelse + '</p></article><img src="' + billede + '" alt="Billede til Header - Afdelinger"></header>';
+            afdelingHeader = '<header id="heroLille"><img src="' + billede + '" alt="Billede til Header - Afdelinger"><article><h1>' + overskrift + '</h1><p>' + beskrivelse + '</p></article></header>';
             main += krumme + '<section id="afdelingerIntro"><h2>' + overskrift + '</h2><p>' + velkomstTekst + '</p></section>';
         
         // //== (Dette kode er også blevet brugt på forsiden)
@@ -997,7 +1031,7 @@ function makeSite(data) {
     }
 
     function makeUngdom() {
-        let ungdom = '<article id="heroLille"><article><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - SNV Ungdom"></article>';
+        let ungdom = '<article id="heroLille"><img src="' + IDbannerUngdom[2] + '" alt="Billede til Header - SNV Ungdom"><article><h1>' + IDbannerUngdom[0] + '</h1><p>' + IDbannerUngdom[1] + '</p><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -1006,7 +1040,7 @@ function makeSite(data) {
         makeUnderNavigation(IDbannerUngdom[3], IDbannerUngdom[3].length); // (Array som skal indeholder overskrifter til UnderNavigation, mængden af loops som skal laves)
     }
     function makeSejlerskolen() {
-        let sejl = '<article id="heroLille"><article><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"></article>';
+        let sejl = '<article id="heroLille"><img src="' + IDbannerSejlerskolen[2] + '" alt="Billede til Header - Sejlskolen Voksne"><article><h1>' + IDbannerSejlerskolen[0] + '</h1><p>' + IDbannerSejlerskolen[1] + '</p><a href="?pageId=' + IDblivmedlem[0] + '">Tilmelding</a></article></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -1016,7 +1050,7 @@ function makeSite(data) {
     }
 
     function makeBlivmedlem(current) {
-        let medlem = '<article id="heroLille"><article><h1>' + IDbannerBlivmedlem[0] + '</h1><p>' + IDbannerBlivmedlem[1] + '</p></article><img src="' + IDbannerBlivmedlem[2] + '" alt="Billede til Header - Bliv Medlem"></article>';
+        let medlem = '<article id="heroLille"><img src="' + IDbannerBlivmedlem[2] + '" alt="Billede til Header - Bliv Medlem"><article><h1>' + IDbannerBlivmedlem[0] + '</h1><p>' + IDbannerBlivmedlem[1] + '</p></article></article>';
         
         //Laver Section til UnderNav
         makeUnderNavSection();
@@ -1027,7 +1061,7 @@ function makeSite(data) {
 
     function makeBegivenheder () {
         let 
-        header = '<article id="heroLille"><article><h1>' + IDbannerBegivenhed[0] + '</h1><p>' + IDbannerBegivenhed[1] + '</p></article><img src="' + IDbannerBegivenhed[2] + '" alt="Billede til Header - Begivenheder"></article>',
+        header = '<article id="heroLille"><img src="' + IDbannerBegivenhed[2] + '" alt="Billede til Header - Begivenheder"><article><h1>' + IDbannerBegivenhed[0] + '</h1><p>' + IDbannerBegivenhed[1] + '</p></article></article>',
         begivenhedsListe = data.filter(post => post.categories.includes(IDeventtemplate)),
         nrInArray = 1;
         sortNew(begivenhedsListe)
@@ -1086,12 +1120,12 @@ function makeSite(data) {
 
             //EventBox 
             datoStor.innerText = day1 + '. ' + numberToMonth(month1);
-            datoLille.innerText = datoList;
+            datoLille.innerText = 'Dato: ' + datoList;
             title.innerText = list.acf.overskrift;
-            tid.innerText = tid1;
+            tid.innerText = 'Tid: ' + tid1;
             seMere.innerText = "SE MERE";
             seMere.id = "seMereBtn_" + nrInArray;
-            eventBox.classList.add("eventBox");
+            eventBox.classList.add("eventBoxBegivenheder");
 
             //EventBox - Append
             ul.append(datoLille, tid, seMere);
@@ -1112,6 +1146,10 @@ function makeSite(data) {
             infoDato.innerHTML = '<strong>Dato: </strong>' + datoList;
             infoTid.innerHTML = '<strong>Tid: </strong>' + tid1;
             infoSted.innerHTML = '<strong>Sted: </strong>' + list.acf.sted;
+            
+            header.id = "displayHeader";
+            infoList.id = "displayList";
+            tekstContent.id = "displayTekst";
 
             //Append 
             header.append(headerDato, headerTitle)
@@ -1170,58 +1208,67 @@ function makeSite(data) {
     
     function makeNyheder (current) {
         let
-        header = '<article id="heroLille"><article><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p></article><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Nyhedstemplate"></article>',
+        header = '<article id="heroLille"><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Nyhedstemplate"><article><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p></article></article>',
         krummer = '<div class="krumme"><a href="?pageId=' + IDnyheder[0] + '">' + IDbannerNyheder[0] + '</a></div>',
         //<span> &#62; </span><a href="?pageId=' + IDsejlklub[0] + '">' + IDbannerSejlerskolen[0] + '</a>
         top = '<section><h2>' + IDbannerNyheder[0] + '</h2></section>',
-        nyhedsListe = data.filter(post => post.categories.includes(IDnyhedtemplate[0]));
+        nyhedsListe = data.filter(post => post.categories.includes(IDnyhedtemplate[0])),
+        cardContainer = document.createElement("section");
 
-        
-        createHTML("main", header + top)
+        cardContainer.id = "cardContainer"
+        console.log(nyhedsListe)
+        createHTML("main", header + krummer + top)
         nyhedsListe.forEach(post => {
             //Create Elements
-            let card = document.createElement("section"), img = document.createElement("img"), pContent = document.createElement("article"),  h2 = document.createElement("h2"), seMere = document.createElement("a");
+            let card = document.createElement("section"), img = document.createElement("img"), pContent = document.createElement("article"),  h3 = document.createElement("h3"), seMere = document.createElement("a");
             
             //Opsæt Data
             img.src = post.acf.billede_galleri[0]
             img.alt = "Billede til nyheden" + post.acf.overskrift;
             
-            h2.textContent = post.acf.overskrift;
+            h3.textContent = post.acf.overskrift;
             
-            post.acf.brodtekst_box.forEach(item => {
-                if(item != "") {
-                    let p = document.createElement("p");
-                    p.textContent = item;
-                    pContent.append(p);
-                }
-            })
+            let p = document.createElement("p"),
+                tekst = post.acf.brodtekst_box[0],
+                tekstSub;
+            //== Bestemmer mængden af tekst som bliver fremvist  
+            for (let i = 0; i < 150; i++) { // Inspiration fra https://stackoverflow.com/questions/36770446/javascript-loop-adding-a-letter-every-time
+                tekstSub = tekst.substring(0, i + 1); //Substring vælger dele fra en string, her siger vi at den skal starte på 0, og for hver loop bliver tallet som den skal stoppe ved højere(+1). Det betyder at i for-loopet kan vi bestemme hvor mange tegn skal vises.
+            }
+            tekstSub += ' ...';
+            p.textContent = tekstSub;
+            pContent.append(p);
             
             seMere.href = "?pageId=" + post.id;
             seMere.textContent = "SE MERE"
+            card.classList.add("newsBox");
 
             //Append
-            card.append(img, h2, pContent, seMere)
-            document.querySelector("main").appendChild(card)
+            card.append(img, h3, pContent, seMere)
+            cardContainer.appendChild(card)
         })
+
+        document.querySelector("main").appendChild(cardContainer)
 
     }
 
     function makeTemplateNyhed(current) {
         let
         postID = data.find(post => post.id == current.id),
-        header = '<article id="heroLille"><article><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p></article><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Nyhedstemplate"></article>',
+        header = '<article id="heroLille"><img src="' + IDbannerNyheder[2] + '" alt="Billede til Header - Nyhedstemplate"><article><h2>' + IDbannerNyheder[0] + '</h2><p>' + IDbannerNyheder[1] + '</p></article></article>',
         krummerContent = '<a href="?pageId=' + IDnyheder[0] + '">' + IDbannerNyheder[0] + '</a><span> &#62; </span><a href="?pageId=' + current.id + '">' + current.acf.overskrift + '</a>';
         
         //Create Elements
         let 
-        top = document.createElement("section"), ramme = document.createElement("section"), intro = document.createElement("section"), img = document.createElement("img"), 
+        top = document.createElement("section"), ramme = document.createElement("section"), rammeOuter = document.createElement("section"), intro = document.createElement("section"), img = document.createElement("img"), 
         h1 = document.createElement("h1"), h2 = document.createElement("h2"), krummer = document.createElement("nav"), pContent = document.createElement("article"),
-        snack = document.createElement("p"), author = document.createElement("article");
+        snack = document.createElement("p"), author = document.createElement("article"), authorTekst = document.createElement("h3");
 
         //Assign Data
         krummer.classList.add("krumme");
         krummer.innerHTML = krummerContent;
         h2.textContent = IDbannerNyheder[0];
+        h2.classList.add("nyhedTemplateH2");
         top.append(krummer, h2)
 
         if (mobil.matches || tablet.matches) {
@@ -1234,7 +1281,8 @@ function makeSite(data) {
         //Date Split
         let datoData = current.acf.author[0].split("/"), day = datoData[1], month = numberToMonth(Number(datoData[1])), year = datoData[2];
 
-        author.textContent = day + '. ' + month + ' af ' + current.acf.author[1];
+        authorTekst.textContent = day + '. ' + month + ' af ' + current.acf.author[1];
+        author.appendChild(authorTekst);
         intro.append(img, h1, snack, author)
 
         current.acf.brodtekst_box.forEach(item => {
@@ -1244,9 +1292,14 @@ function makeSite(data) {
                 pContent.append(p);
             }
         })
-        ramme.append(intro, pContent)
+        pContent.id = "pContent";
+        ramme.append(intro, pContent);
+        rammeOuter.appendChild(ramme);
+        rammeOuter.id = "nyhedTemplateRammeOuter";
+        ramme.id = "nyhedTemplateRamme";
+        document.querySelector("main").id = "nyhedTemplate";
         document.querySelector("main").innerHTML = header;
-        document.querySelector("main").append(top ,ramme)
+        document.querySelector("main").append(top ,rammeOuter)
     }
 
 
@@ -1914,8 +1967,8 @@ function makeSite(data) {
             })
             ggList+= '</ul>';
 
-            let intro = '<section><article><h2>' + ds.intro.title + '</h2><h3>' + ds.intro.under + '</h3><p>' + ds.intro.beskriv + '</p></article><article><h3>' + ds.mentor.title + '</h3>' + mentorList + '</article></section>',
-                gg = '<section><h3>' + ds.gode.title + '</h3>' + ggList + '<p>' + ds.gode.kontakt + '</p></section>',
+            let intro = '<section id="mentorIntro"><article><h2>' + ds.intro.title + '</h2><h3>' + ds.intro.under + '</h3><p>' + ds.intro.beskriv + '</p></article><article><div><h2>' + ds.mentor.title + '</h2>' + mentorList + '</div></article></section>',
+                gg = '<section id="mentorOutro"><h3>' + ds.gode.title + '</h3>' + ggList + '<p>' + ds.gode.kontakt[0] + ' <a href="mailto:' + ds.gode.kontakt[1] + '">' + ds.gode.kontakt[1] + '</a>' + '</p></section>',
                 main = intro + gg;
 
 

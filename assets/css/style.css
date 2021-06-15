@@ -42,6 +42,15 @@ body {
     grid-template-columns: repeat(12, 1fr);
     font-size: var(--font-main);
 }
+/* Til skærme over 1920px */
+@media screen and (min-width: 1921px) {
+    main,#slideShow, #sponsorSection {max-width: 1920px;}
+    body {display: flex; flex-direction: column; align-items: center;}
+    header {width: 100%;}
+    footer {width: 100%;}
+}
+
+
 
 h1, h2, h3, h4 {
     font-family: 'Archivo Narrow', sans-serif;
@@ -80,6 +89,7 @@ header {
     grid-column: 1/13;
     grid-row: 2/3;
 }
+#underNavContent li {list-style-type: none;}
 main {
     grid-column: 1/13;
     grid-row: 3/4;
@@ -109,9 +119,9 @@ footer {
 }
 /* Rest of Header */
 #header img {width: auto; height: 77    px;}
-#header ul li a {font-size: 1rem; color: black;}
-#header ul {display: flex; justify-content: space-between; align-items: center;}
-#header li {
+#header #desktopNav ul li a {font-size: 1rem; color: black;}
+#header #desktopNav ul {display: flex; justify-content: space-between; align-items: center;}
+#header #desktopNav li {
     display: inline-block;
     padding: .4rem .8rem;
     margin-right: 4rem;
@@ -125,14 +135,13 @@ footer {
 #header li.currentPage {
     font-weight: bold;
 }
-#nav_BlivMedlem {
+#header #desktopNav #nav_BlivMedlem {
     display: inline-block;
     background-color: var(--color-blue-btn);
     border-radius: 3px;
     margin-right: 0;
 }
-#header #nav_BlivMedlem a {
-
+#header #desktopNav #nav_BlivMedlem a {
     font-weight: 400;
     display: inline-block;
     color: white;
@@ -140,7 +149,7 @@ footer {
 #nav_BlivMedlem.currentPage {
     background-color: var(--color-red);
 }
-#header nav {
+#header nav#desktopNav {
     display: flex;
     padding: 0 5vw;
     height: fit-content;
@@ -199,7 +208,7 @@ button[type=button] a {
 }
 #slideShow section:nth-child(3) {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
 }
 #slideShow img {
@@ -413,7 +422,6 @@ flex: 45%;
 }
 #sponsorSection h2{
     flex: 100%;
-    text-decoration: underline;
     margin: 0 0 2rem 0;
 }
 #sponsorContainer {
@@ -448,7 +456,6 @@ flex: 45%;
     max-height: 100%;
 }
 #sponsorUl li img {
-    width: 100%;
     height: calc(var(--sponsor-height));
     border: 2px solid white;
 }
@@ -460,7 +467,7 @@ footer {
     background-image: url(../images/footer.svg);
     background-repeat: no-repeat;
     background-size: 100%;
-    padding: 15vh 0 5vw;
+    padding: 15vh 0 5vw 0;
 
     display: flex;
     justify-content: center;
@@ -1141,26 +1148,26 @@ div#staevneFlexDiv {
 #bodyTemplate_1799 .ungSprgSection a {
     color: black;
 }
- #introSejlUndervisning, #sejlNyeIntro, #sejlErfarendeIntro  {
+ #introSejlUndervisning, #sejlNyeIntro, #sejlErfarendeIntro, #mentorIntro  {
      display: flex;
      justify-content: space-between;
      height: 30rem;
     padding: 0 5vw;
     margin: 5rem 0;
  }
-#introSejlUndervisning article:first-of-type, #sejlNyeIntro article:first-of-type, #sejlErfarendeIntro article:first-of-type {
+#introSejlUndervisning article:first-of-type, #sejlNyeIntro article:first-of-type, #sejlErfarendeIntro article:first-of-type, #mentorIntro article:first-of-type {
     width: 50%;
 }
-#introSejlUndervisning article:first-of-type > *, #sejlNyeIntro  article:first-of-type > *, #sejlErfarendeIntro article:first-of-type > * {
+#introSejlUndervisning article:first-of-type > *, #sejlNyeIntro  article:first-of-type > *, #sejlErfarendeIntro article:first-of-type > *, #mentorIntro article:first-of-type > * {
     margin: 1rem 0;
 }
-#introSejlUndervisning article:first-of-type p, #sejlNyeIntro article:first-of-type p, #sejlErfarendeIntro article:first-of-type p {
+#introSejlUndervisning article:first-of-type p, #sejlNyeIntro article:first-of-type p, #sejlErfarendeIntro article:first-of-type p, #mentorIntro article:first-of-type p {
     width: var(--para-width);
 }
 #sejlErfarendeIntro article:first-of-type li {
     list-style-type: disc;
 }
-#introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type {
+#introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type, #mentorIntro article:last-of-type {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1169,14 +1176,14 @@ div#staevneFlexDiv {
     width: 50%;
     clip-path: polygon(20% 1%, 100% 0, 100% 100%, 7% 100%);
 }
-#introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type {
+#introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type, #mentorIntro article:last-of-type {
     padding-left: 5rem;
 }
-#introSejlUndervisning article:last-of-type h2, #sejlNyeIntro article:last-of-type h2,#sejlErfarendeIntro article:last-of-type h2 {
+#introSejlUndervisning article:last-of-type h2, #sejlNyeIntro article:last-of-type h2,#sejlErfarendeIntro article:last-of-type h2, #mentorIntro article:last-of-type h2 {
     font-weight: 600;
     color: white;
 }
-#introSejlUndervisning article:last-of-type p, #sejlNyeIntro article:last-of-type li, #sejlErfarendeIntro article:last-of-type li {
+#introSejlUndervisning article:last-of-type p, #sejlNyeIntro article:last-of-type li, #sejlErfarendeIntro article:last-of-type li, #mentorIntro article:last-of-type li {
     color: white;
     font-weight: 400;
     font-size: 1.2rem;
@@ -1220,7 +1227,6 @@ div#staevneFlexDiv {
     top: 0;
     right: 0;
     height: 15rem;
-    width: 100;
 }
 #nyeSejlUndervisning div.blueBoxUngUnder, #erfarendeSejlUndervisning div.blueBoxUngUnder {
     position: absolute;
@@ -1535,408 +1541,212 @@ button#showBtn1 span, button#showBtn2 span, button#showBtn3 span,button#showBtn4
     margin-left: .5rem;
 }
 
+/* Mentor Ordening */
+#mentorOutro {
+    border-left: 9px solid var(--color-red);
+    padding: 0 0 0 1rem;
+}
+#mentorOutro li {
+    list-style-type: disc;
+}
+#mentorOutro a {
+    color: black;
+    text-decoration: underline;
+}
+
+/* ========================================== */
+/* ============== Begivenheder ============== */
+/* ========================================== */
+#bodyTemplate_1272 h2 {
+    margin: 0 5vw;
+    padding: 4vw 0 1vw 0;
+}
+#eventRamme {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-lightblue-box);
+    padding: 2vw 5vw;
+}
+#eventWindows {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    
+}
+#eventRamme .eventBoxBegivenheder {
+    background-color: white;
+    border-left: 9px solid var(--color-red);
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 0 1.5rem 0;
+}
+#eventRamme .eventBoxBegivenheder article {
+    min-width: 200px;
+}
+#eventRamme .eventBoxBegivenheder h3 {
+    font-size: 2rem;
+    width: 70%;
+}
+#eventRamme .eventBoxBegivenheder ul {
+    padding: 0;
+    
+}
+#eventRamme .eventBoxBegivenheder li {
+    margin: .6rem 0;
+}
+#eventRamme .eventBoxBegivenheder button {
+    background-color: white;
+    color: var(--color-red);
+    border: none;
+    text-decoration: underline;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0;
+}
+
+/* Display */
+#display {
+    background-color: white;
+    border-left: 9px solid var(--color-red);
+    padding: 4vw;
+    width: 50%;
+}
+#displayHeader {
+    display: flex;
+}
+#displayHeader h3:first-of-type {
+    margin: 0 5vw 0 0;
+}
+#displayList {
+    margin: 2vw 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+#displayList strong {
+    font-weight: 700;
+}
+#displayTekst {
+    width: var(--para-width);
+}
 
 
+/* ========================================= */
+/* ============ Nyhed Template ============= */
+/* ========================================= */
+#bodyTemplate_1259 h2  {
+    margin: 0 5vw;
+    padding: 2vw 0;
+}
+#bodyTemplate_1259 .krumme, #nyhedTemplate .krumme {
+    padding: 1vw 0;
+    margin: 0 5vw;
+}
+#bodyTemplate_1259 #cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 5vw;
+}
+#bodyTemplate_1259 .newsBox {
+    background-color: var(--color-darkblue-box);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%;
+    margin: 2vw 0;
+}
+#bodyTemplate_1259 .newsBox h3, #bodyTemplate_1259 .newsBox p, #bodyTemplate_1259 .newsBox a {
+    padding: 0 1rem;
+}
+#bodyTemplate_1259 .newsBox a {
+    padding: 1rem;
+}
+.newsBox .newsBoxInsideSection  {
+    padding: 2rem;
+}
+.newsBox > * {
+    color: white;
+}
+.newsBox a {
+    color: white;
+    font-weight: bold;
+    display: block;
+    float: right;
+    text-decoration: underline;
+}
+.newsBoxInsideSection {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.newsBox:nth-child(2) {
+    margin: 0 5rem;
+}
+.newsBox img {
+    display: block;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+}
+#heroLille h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 2.2rem;
+}
 
-
-
-
+/* NyhedsTemplate */
+#nyhedTemplate .krumme a {
+    color: black;
+    text-decoration: underline;
+}
+.nyhedTemplateH2 {
+    margin: 0 5vw;
+    padding: 2vw 0;
+}
+#nyhedTemplateRammeOuter {
+    display: flex;
+    justify-content: center;
+}
+#nyhedTemplateRamme {
+    max-width: 1024px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#nyhedTemplateRamme section:first-of-type h1, #nyhedTemplateRamme section:first-of-type p {
+    padding: 1rem 0;
+}
+#nyhedTemplateRamme section:first-of-type p {
+    font-weight: 700;
+}
+#nyhedTemplateRamme section:first-of-type article {
+    padding: 1rem 0;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+#nyhedTemplateRamme section:first-of-type article h3 {
+    padding: 0 1rem;
+}
+#nyhedTemplateRamme article#pContent p {
+    padding: 1rem 0;
+    margin: 1.5rem 0;
+}
 
 #bodyTemplate_1261 span {
     transform: rotate(-90deg);
-    /* Normalt ville span være et inline element */
     display: inline-block;
 }
+
 i {
     font-weight: bold;
     font-style: normal;
-}
+} 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-.infoBox {
-    width: 86vw;
-    height: 15vw;
-    margin: 0;
-    background-color: #E3E3E3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 3vw;
-}
-
-.infoBox p {
-    width: 30vw;
-}
-
-.skraaBox {
-    display: block;
-    width: 20vw;
-    height: 15vw;
-    padding: 5vw 3vw;
-    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
-}
-
-.skraaBox.stævne {
-    padding-top: 3vw;
-}
-
-.skraaBox ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 0;
-}
-
-.lysblaa {
-    background-color: #B2CEDE;
-}
-
-.contentBox {
-    display: block;
-    width: 86vw;
-    height: fit-content;
-    margin-top: -1px;
-    margin-bottom: 2vw;
-    padding: 3vw;
-}
-
-
-
-/* klub politik */
-
-/* klubblad */
-
-.dokumentListe{
-    display: block;
-    margin-bottom: 2vw;
-}
-
-/* Historie */
-
-.historie {
-    display: flex;
-    justify-content: space-between;
-}
-
-.historieText {
-    width: 40vw;
-    height: fit-content;
-}
-
-.historieText .dokumentBox {
-    margin-bottom: 6vw;
-    margin-top: 2vw;
-}
-
-
-.historieImg {
-    width: 20vw;
-    width: fit-content;
-}
-
-.historieImg div {
-    background-color: black;
-    margin: 2vw 0;
-    width: 30vw;
-    height: 20vw;
-}
-
-.aeresmedlem {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.aeresmedlemBox {
-    width: 20vw;
-    margin-bottom: 2vw;
-    border-left: 9px solid #B12818;
-    padding: 1vw;
-}
-
-
-
-.padding {
-    padding: 1vw 7vw;
-}
-
-
-
-
-.infoStor {
-    display: flex;
-    justify-content: space-between;
-    margin: 2vw 0;
-    width: 100%;
-}
-
-.skraaBoxStor {
-    display: block;
-    width: 50vw;
-    height: 31vw;
-    padding-left: 20vw;
-    padding-top: 2vw;
-    padding-bottom: 2vw;
-    clip-path: polygon(36% 0, 100% 0, 100% 100%, 0% 100%);
-}
-.skraaBoxText {
-    width: 27vw;
-}
-.skraaBoxStor ul {
-    padding-left: 1.2vw;
-}
-
-.infoStorBoxText {
-    width: 30vw;
-    height: 31vw;
-}
-
-.infoStorBoxText h2 {
-    margin-top: 0;
-}
-.infoStorBoxText h3 {
-    margin-top: 3vw;
-}
-
-
-
-
-.textAfdeling {
-    width: 42vw;
-    height: 20vw;
-    background-color: #1C3E56;
-    border: none;
-    clip-path: polygon(0 0, 75% 0, 25% 100%, 0% 100%);
-}
-
-
-
-/* Afdelinger */
-
-
-.infoBoxAfdeling {
-    width: 86vw;
-    height: 15vw;
-    margin: 4vw 0;
-    background-color: #E3E3E3;
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    align-items: center;
-}
-
-.infoBoxAfdeling p {
-    width: 35vw;
-}
-
-.skraaBoxAfdeling {
-    display: block;
-    width: 20vw;
-    height: 15vw;
-    padding: 3.5vw 3vw;
-    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
-}
-
-
-
-.contentBoxStævne {
-    display: flex;
-    justify-content: space-between;
-    width: 86vw;
-    height: fit-content;
-    margin-top: -1px;
-    margin-bottom: 2vw;
-    padding: 3vw;
-}
-
-.contentBoxStævne section {
-    width: 21vw;
-}
-
-.dokumentBoxStævne {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 20vw;
-    height: 4vw;
-    margin-bottom: 2vw;
-    background-color: #ffffff;
-    border-left: 9px solid #B12818;
-    border-right: solid 1px black;
-    border-top: solid 1px black;
-    border-bottom: solid 1px black;
-}
-
-.dokumentBoxStævne p {
-    margin: 1vw;
-}
-
-.foraeldreinfo {
-    display: flex;
-    width: 100%;
-    height: fit-content;
-    justify-content: space-between;
-    border-left: 9px solid #B12818;
-    background-color: #F5F5F5;
-    padding: 1vw;
-    margin: 3vw 0;
-}
-
-.foraeldreinfoText {
-    width: 60vw;
-}
-
-/* sejlerskole */
-.baadliste {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.baadBox {
-    width: 18vw;
-    height: 18vw;
-    border-left: 9px solid #B12818;
-    background-color: black;
-}
-.baadBoxText {
-    display: flex;
-    justify-content: space-between;
-    width: 18vw;
-}
-
-.linkBox {
-    display: inline-block;
-    width: 42vw;
-    height: 30vw;
-    background-color: #ffffff;
-    border-left: 9px solid #B12818;
-}
-
-
-/* nyheder */
-
-.margin {
-    margin-bottom: 2vw;
-}
-
-#nyhedsside {
-    padding: 3vw 17vw;
-}
-
-.nyhed {
-    display: flex;
-    flex-direction: column;
-    padding: 3vw 17vw;
-}
-
-.imgNyhed {
-    background-color: black;
-    height: 30vw;
-}
-
-.forfatter {
-    padding: 1vw 1vw;
-    border-top: 1px solid #D7D7D7;
-    border-bottom: 1px solid #D7D7D7;
-}
-
-/* begivenheder */
-
-/* bliv medlemsside */
-.button.aktivButton{ 
-    /* begge classes sættes på uden mellemrum, så det kun gælder for elementer med begge classes */
-    background-color: #B12818;
-    border: #B12818 solid 8px;
-}
-
-.infoTilmeld {
-    width: 50vw;
-    height: fit-content;
-    padding-left: 1vw;
-    border-left: 9px solid #B12818;
-    margin: 3vw 0;
-}
-
-.infoBoxTilmeld {
-    width: 60vw;
-    height: 8vw;
-    margin-bottom: 2vw;
-    background-color: #E3E3E3;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.infoBoxTilmeld p {
-    width: 30vw;
-    margin: 0 4vw;
-}
-
-.skraaBoxTilmeld {
-    display: block;
-    width: 10vw;
-    height: 8vw;
-    padding: 1.5vw 2vw;
-    clip-path: polygon(0 0, 63% 0, 100% 100%, 0% 100%);
-}
-
-/* Mentor */
-
-/* Begivenheder */
-.marginEvent {
-    margin: 2vw 0;
-}
-
-#begivenheder {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-}
-
-.eventPostLille{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-}
-
-.eventBoxLille{
-    display: inline-block;
-    width: 30vw;
-    height: 12vw;
-    background-color: #ffffff;
-    border-left: 9px solid #B12818;
-}
-
-.eventBoxLille:first-child{
-    margin-top: 0;
-}
-
-.eventBoxStor {
-    display: inline-block;
-    width: 52vw;
-    height: 39vw;
-    background-color: #ffffff;
-    border-left: 9px solid #B12818;
-}
-
-
-
-li {
-    list-style: none;
-}
 /* Skrifter til næste linje, bruges i stedet for /br. Bruger span i stedet. Inspiration fra: https://css-tricks.com/injecting-line-break/*/
 .spanTable {
     display: table;
@@ -1949,7 +1759,7 @@ li {
     display: inline-block;
 }
 
-#header .currentPage a {
+#header #desktopNav .currentPage a {
     color: var(--color-red);
 }
 .hideReferat {
@@ -1961,8 +1771,8 @@ li {
 /* ====== BurgerMenu ====== */
 /* ======================== */
 .burger {
-    width: 40px;
-    height: 4px;
+    width: 30px;
+    height: 3px;
     margin: 5px;
     background-color: var(--color-darkblue);
     border-radius: 5px;
@@ -1985,17 +1795,22 @@ li {
     opacity: 0;
     display: none;
 }
+#burgerNav ul {
+    margin: 0;
+    padding: 0;
+}
 #burgerNav li {
-    margin: 1rem;
+    margin: 3rem 1rem;
 }
 #burgerNav li a {
     color: var(--color-darkblue);
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 #burgerBtn {
     z-index: 10;
-
-    position: fixed;
-    top: 10px;
+    position: absolute;
+    top: 40px;
     right: 11px;
 }
 
@@ -2018,7 +1833,7 @@ li {
 @keyframes div2In {
     0% {transform: translateY(0);}
     20% {transform: translateY(8px);}
-    100% {transform: translateY(1px) rotateZ(45deg);}
+    100% {transform: translateY(2px) rotateZ(45deg);}
 }
 @keyframes div3In {
     50% {width: 30px;}
@@ -2041,7 +1856,7 @@ li {
     100% {transform: translateY(0);}
 }
 @keyframes div2Out {
-    0% {transform: translateY(1px) rotateZ(45deg);}
+    0% {transform: translateY(2px) rotateZ(45deg);}
     80% {transform: translateY(8px);}
     100% {transform: translateY(0);}
 }
@@ -2081,12 +1896,6 @@ li {
     60% {opacity: 0;}
 }
 
-
-
-
-
-
-
 /* Loading Screen  */
 #loadingContainer {
     display: flex;
@@ -2094,11 +1903,19 @@ li {
     align-items: center;
     height: 100vh;
 }
+@media screen and (max-width: 480px) {
+    #loadingContainer {
+        flex-direction: column;
+    }
+    #loadingH2 {
+        font-size: 18px;
+    }
+}
 #loadingH2 {
     margin: 0;
     padding: 0;
     display: inline-block;
-    font-size: 80px;
+    font-size: 5rem;
     height: 100px;
     color: var(--color-red);
 }
@@ -2145,4 +1962,607 @@ li {
     100% {transform: scale(1);}
 }
 
-/* Burger Menu */
+/* ======================================================= */
+/* ===================== MEDIA QUERY ===================== */
+/* ======================================================= */
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    :root {
+         /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
+        --sponsor-width: 100vw;
+        --sponsor-height: 20vh;
+        /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
+        --sponsor-display: 1;
+        /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
+        --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
+        --sponsor-timing: calc(var(--sponsor-display) * 40s); /* Giver 4s til hver element*/
+
+        /* Font */
+        --font-main: 16px;
+    }
+    li {list-style-type: none;}
+    #login h4 {
+        font-size: .8rem;
+    }
+    #header img {
+        height: 40px;
+        margin: .5rem;
+    }
+    /* Footer */
+    footer {
+        padding-bottom: 0;
+        padding-top: 5vh;
+    }
+    footer li {list-style-type: none;}
+    section#footerSection {
+        align-items: center;
+        flex-direction: column;
+        background-color: var(--color-darkblue);
+    }
+    section#footerSection > * {
+        margin: 1rem 0;
+    }
+    section#footerSection address {
+        width: 50%;
+    }
+    section#footerSection img {
+        margin-right: 0;
+    }
+    section#footerSection li {
+        margin: 1rem 0;
+    }
+    /* Forside */
+    #slideShow {
+        height: fit-content;
+    }
+    #slideShow img {
+        height: auto;
+    }
+    #clipHero {
+        /* clip-path: none;
+        width: 100%;
+        height: 40%;
+        top: 58%;
+        left: 0; */
+        display: none;
+    }
+    #slideShow section:first-of-type {
+        display: block;
+    }
+    #slideShow section#heroTekstArea {
+        position: static;
+        width: 100%;
+        position: none;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-darkblue);
+        padding: .5rem;
+    }
+    section#news {
+        padding: 0;
+        margin: 1rem 0;
+    }
+    #heroTekstArea h1{
+        font-size: 1.2rem;
+        padding: 0 0 0 1rem;
+    }
+    #heroTekstArea p{
+        padding: 1rem;
+    }
+    #btnArea {
+        display: flex;
+    }
+    /* News */
+    #newsPost {
+        flex-direction: column;
+        width: 100%;
+    }
+    .newsBox {
+        width: 100%;
+        margin: .5rem 0;
+    }
+    .newsBox img {
+        width: 100%;
+    }
+    .newsBox:nth-child(2) {
+        margin: 0;
+    }
+    /* Events */
+    #events {
+        width: 100%;
+    }
+    #eventPosts {
+        flex-direction: column;
+        padding: 0;
+    }
+    .eventBox {
+        min-width: 100%;
+        width: 100%;
+        padding: 5px;
+    }
+    .eventBox h3 {
+        font-size: 2rem;
+    }
+    .eventBox li {
+        list-style: none;
+    }
+    i {
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    /* Afdeling */
+    #afdeling {
+        padding: 0;
+    }
+    #afdelingFlex {
+        flex-direction: column;
+    }
+    .afdelingTextContainer {
+        padding: 0;
+        width: 100%;
+        position: static;
+        height: fit-content;
+    }
+    .afdelingBox {
+        flex: none;
+        width: 100%;
+        background-color: var(--color-lightblue-box);
+        margin: 1rem 0;
+        padding: .5rem;
+        height: fit-content;
+    }
+    .afdelingBox a {
+        color: var(--color-red);
+    }
+    .afdelingBox img {
+        display: none;
+    }
+    /* Sponsor */
+    #sponsorSection h2 {
+        font-size: 1.2rem;
+    }
+
+    /* ========================== */
+    /* ======= Hero Lille ======= */
+    /* ========================== */
+    #underNavContent {
+        display: flex;
+        flex-direction: column;
+    }
+    #heroLille {
+        height: fit-content;
+    }
+    #heroLille img {
+        position: static;
+        clip-path: none;
+        width: 100%;
+    }
+    #heroLille article {
+        display: block;
+        position: static;
+        width: 100%;
+        height: fit-content;
+        background-color: var(--color-darkblue);
+        padding: .5rem;
+    }
+    #heroLille a {
+        padding: 5px;
+    }
+    #heroLille article p {
+        width: 100%;
+    }
+    #ulUnderNav {
+        margin: .5rem 0 0 0;
+        flex-wrap: wrap;
+        padding: 0 0 .5rem 0;
+    }
+    #ulUnderNav li.underNav {
+        width: 45%;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: .2rem;
+        margin: .5rem 0;
+    }
+
+    /* ========================== */
+    /* ======= Om Klubben ======= */
+    /* ========================== */
+    #bodyTemplate_1255 main {
+        padding: 2rem 0;
+    }
+    #bodyTemplate_1255 main > p {
+        width: 100%;
+        padding: 0 1rem;
+    }
+    #bodyTemplate_1255 main > h2 {
+        padding: 0 1rem;
+    }
+    /* Bestyrelse */
+    #bestyrelseListe {
+        flex-direction: column;
+    }
+    #bestyrelseListe article {
+        flex: 100%;
+        margin: 1rem 0;
+        width: 100%;
+        height: fit-content;
+        justify-content: space-between;
+        border-left: 5px solid var(--color-red);
+
+    }
+    #bestyrelseListe article h3 {
+        font-size: 1.2rem;
+    }
+    #bestyrelseListe article h4 {
+        font-size: .9rem;
+    }
+    #bestyrelseListe article img {
+        width: 50%;
+        height: fit-content;
+    }
+    #bestyrelseListe article div {
+        width: 45%;
+        padding: 0;
+        height: fit-content;
+    }
+    /* Referat */
+    #referat > article {
+        flex-direction: column;
+    }
+    #referat > article > section {
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem 0;
+    }
+    #referat > article > section p {
+        width: 100%;
+    }
+    #clickReferat1, #clickReferat2 {
+        font-size: 1.1rem;
+        border-left: 5px solid var(--color-red);
+    }
+    .referatBox h3 {
+        font-size: 1rem;
+        margin: 0 0 .5rem 0;
+    }
+    #referatContent {
+        border-left: 5px solid var(--color-red);
+    }
+    .referatFlex {flex-direction: column;}
+    .referatBox, .GFbox {
+        margin: .5rem;
+        border-left: 5px solid var(--color-red);
+    }
+    #referatContent, #GFcontent {padding: 0;}
+
+    /* Politik */
+    #bodyTemplate_1255 #politikListe {padding: 0 1rem;}
+    #bodyTemplate_1255 #politikListe li {
+        width: 100%;
+    }
+    div#download {
+        justify-content: center;
+    }
+
+    /* Klubblad */
+    #bodyTemplate_1255 main p {width: 100%;}
+    #yearsBlad .klubbladArticle, #historieBtn {
+        width: 90%;
+        padding: 0 .5rem;
+    }
+
+    /* Historie */
+    #historieFlex {
+        flex-direction: column;
+    }
+    #aeresMedlemmer {
+        flex-direction: column;
+    }
+    #aeresMedlemmer div {
+        margin-bottom: 2rem;
+    }
+    #historieGalleri {
+        width: 100%;
+    }
+    /* ========================== */
+    /* ======= Afdelinger ======= */
+    /* ========================== */
+    #bodyTemplate_1257 .afdelingBox {
+        padding: 0;
+    }
+    #bodyTemplate_1257 .afdelingBox h3,  #bodyTemplate_1257 .afdelingBox p, #bodyTemplate_1257 .afdelingBox a {
+        padding: .5rem
+    }
+    #bodyTemplate_1257 .afdelingBox img {
+        display: block;
+        float: none;
+        clip-path: none;
+        width: 100%;
+    }
+
+    /* ========================== */
+    /* ======= SNV UNGDOM ======= */
+    /* ========================== */
+    #bodyTemplate_1720 main {padding: 0;}
+
+    div.krumme {padding: 1rem;}
+    .ungSprgSection {border-left: 5px solid var(--color-red);}
+    /* Undervisning */
+    #ungUnderIntro {
+        margin: 0;
+        flex-direction: column;
+        padding: 1rem;
+    }
+    #ungAldersgruppe1, #ungAldersgruppe2 {
+        margin: 2rem 0;
+        position: static;
+        height: fit-content;
+    }
+    #ungAldersgruppe1 div.blueBoxUngUnder, #ungAldersgruppe2 div.blueBoxUngUnder {
+        position: static;
+        width: 100%;
+        clip-path: none;
+        height: fit-content;
+        flex-direction: column;
+        padding: 1rem 0;
+    }
+    #ungAldersgruppe1 p, #ungAldersgruppe2 p {
+        width: 100%;
+        padding: 1rem;
+        margin: 0;
+        background-color: var(--color-lightblue-box);
+        color: white;
+    }
+    #ungAldersgruppe1 img, #ungAldersgruppe2 img {
+        position: static;
+        width: 100%;
+        height: fit-content;
+    }
+    #ungAldersgruppe1 div.pBoxDivUng, #ungAldersgruppe2 div.pBoxDivUng {
+        height: fit-content;
+    }
+
+    /* Stævner */
+    #ungStaevneIntro {
+        flex-direction: column;
+    }
+    #ungStaevneIntro article:first-of-type {
+        padding: 1rem;
+    }
+    #ungStaevneIntro p {
+        width: 100%;
+    }
+
+
+
+    #staevne_1Intro {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+    }
+    .blueBoxUngStaevne {
+        position: static;
+        height: fit-content;
+        width: 70%;
+        /* clip-path: none; */
+    }
+    #staevne_1Intro > article {
+        position: static;
+        width: 100%;
+        flex-direction: column;
+        background-color: var(--color-lightblue-box);
+        height: fit-content;
+    }
+    #staevne_1Intro > article p {
+        width: 100%;
+        padding: 0 1rem;
+        margin: 1rem;
+    }
+    div#staevneFlexDiv {
+        flex-direction: column;
+    }
+    #staevne_1Intro > article div {
+        padding: 0;
+        justify-content: center;
+        flex-direction: row;
+        margin: 1rem;
+        height: fit-content;
+    }
+    #staevne_1Intro > article div #staevneBtn_1 {
+        height: 2rem;
+    }
+    #staevneContent_1 article {
+        width: 100%;
+        padding: 1rem;
+    }
+    #staevneContent_1 article.ungStaevnePraktiskInfo a {
+        margin: 0;
+    }
+    #infoIntro {
+        flex-direction: column;
+        height: fit-content;
+    }
+    #infoIntro article:first-of-type {
+        width: 100%;
+        padding: 2rem 1rem;
+    }
+    #infoIntro article:first-of-type p {
+        width: 100%;
+    }
+    #infoIntro article:last-of-type {
+        clip-path: none;
+        width: 100%;
+        padding: 2rem 1rem;
+    }
+    #infoInfo {
+        margin: 1rem 0;
+        flex-direction: column;
+        border-left: 5px solid var(--color-red);
+    }
+    #infoInfo p {
+        width: 100%;
+    }
+
+    /* ======================================= */
+    /* ============== Sejlerskolen =========== */
+    /* ======================================= */
+    #introSejlUndervisning, #sejlNyeIntro, #sejlErfarendeIntro, #mentorIntro {
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        height: fit-content;
+    }
+    #introSejlUndervisning article:first-of-type, #sejlNyeIntro article:first-of-type, #sejlErfarendeIntro article:first-of-type, #mentorIntro article:first-of-type {width: 100%;}
+    #introSejlUndervisning article:first-of-type p, #sejlNyeIntro article:first-of-type p, #sejlErfarendeIntro article:first-of-type p, #mentorIntro article:first-of-type p {width: 100%;padding: 1rem;}
+    #introSejlUndervisning article:last-of-type h2, #sejlNyeIntro article:last-of-type h2, #sejlErfarendeIntro article:last-of-type h2, #mentorIntro article:last-of-type h2 {width: 100%;}
+    #introSejlUndervisning article:last-of-type p, #sejlNyeIntro article:last-of-type li, #sejlErfarendeIntro article:last-of-type li, #mentorIntro article:last-of-type li {
+        width: 100%;
+        font-size: 1rem;
+    }
+    #introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type, #mentorIntro article:last-of-type {
+        clip-path: none;
+        width: 100%;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    /* Galleri */
+    #galleriSejlUndervisning {padding: 1rem;}
+    #galleriSejlUndervisning article {
+        margin: 1rem 0;
+    }
+    #galleriSejlUndervisning > section {
+        flex-direction: column;
+        margin: 0;
+        width: 100%;
+    }
+    #galleriSejlUndervisning > section article > img {width: 100%;}
+    #galleriSejlUndervisning > section article > div {
+        width: 100%;
+        padding: .5rem 0;
+    }
+    #nyeSejlUndervisning, #erfarendeSejlUndervisning {
+        position: static;
+        height: fit-content;
+        flex-direction: column;
+    }
+    #nyeSejlUndervisning div.blueBoxUngUnder, #erfarendeSejlUndervisning div.blueBoxUngUnder {
+        flex-direction: column;
+        position: static;
+        width: 100%;
+        padding: 1rem;
+        clip-path: none;
+    }
+    #nyeSejlUndervisning p, #erfarendeSejlUndervisning p {width: 100%;padding: 1rem;}
+    #nyeSejlUndervisning button, #erfarendeSejlUndervisning button {padding: 1rem;}
+    #nyeSejlUndervisning img, #erfarendeSejlUndervisning img {
+        position: static;
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .blueBox {
+        flex-direction: column;
+        padding: 0;
+    }
+    #linkArea section {
+        width: 90%;
+    }
+    #appArea, #linkArea {
+        width: 100%;
+        padding: .5rem;
+        margin: 1rem 0;
+    }
+    #appArea p, #linkArea p {
+        width: 100%;
+    } 
+    #appAreaContainer {
+        flex-direction: column;
+    }
+    #appAreaContainer article {
+        width: 100%;
+    }
+    #appAreaContainer article div {
+        margin: 1rem 0;
+        width: 100%;
+    }
+    #appAreaContainer article div a {
+        width: 50%;
+        margin: 0;
+    }
+
+
+    /* ======================================= */
+    /* ============== Bliv Medlem ============ */
+    /* ======================================= */
+    #bodyTemplate_1261 main {padding: .5rem;}
+    #bodyTemplate_1261 #blivMedlemConventusOutro article p {width: 100%;}
+    #bodyTemplate_1261 #blivMedlemConventusOutro article {
+        border-left: 5px solid var(--color-red);
+    }
+    article.medlemsType {
+        flex-direction: column;
+        padding: 0 0 1rem 0;
+        height: fit-content;
+    }
+    .medlemsType .blueShape {
+        width: 100%;
+        clip-path: none;
+        padding: 1rem;
+        margin: 0;
+    }
+    .medlemsType p {width: 100%;padding: 1rem;}
+    
+    /* Mentor */
+    #mentorOutro {
+        border-left: 5px solid var(--color-red);
+    }
+
+    /* Tilmelding */
+    #tilmeldingIntro {
+        padding: 1rem;
+    }
+    #tilmeldingIntro h2 {
+        margin: 1rem 0;
+    }
+    #tilStep p {width: 100%;}
+    #tilStep article {
+        flex-direction: column;
+        height: fit-content;
+        padding: 0;
+    }
+    #tilStep .blueShapeStep {
+        justify-content: flex-start;
+        height: fit-content;
+        width: 100%;
+        clip-path: none;
+    }
+
+    #tilmeldBox1 article.tilmeldAfdelingIntro, #tilmeldBox2 article.tilmeldAfdelingIntro, #tilmeldBox3 article.tilmeldAfdelingIntro, #tilmeldBox4 article.tilmeldAfdelingIntro {
+        position: static;
+        height: fit-content;
+    }
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article p, #tilmeldBox2 article.tilmeldAfdelingIntro > article p, #tilmeldBox3 article.tilmeldAfdelingIntro > article p, #tilmeldBox4 article.tilmeldAfdelingIntro > article p {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article div, #tilmeldBox2 article.tilmeldAfdelingIntro > article div, #tilmeldBox3 article.tilmeldAfdelingIntro > article div, #tilmeldBox4 article.tilmeldAfdelingIntro > article div {
+        height: fit-content;
+    }
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article, #tilmeldBox2 article.tilmeldAfdelingIntro > article, #tilmeldBox3 article.tilmeldAfdelingIntro > article, #tilmeldBox4 article.tilmeldAfdelingIntro > article {
+        position: static;
+        width: 100%;
+        height: fit-content;
+        flex-direction: column;
+    }
+    #bodyTemplate_1261 .blueBoxUngStaevne {
+        width: 100%;
+    }
+
+
+}
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+    
+}
