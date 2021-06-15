@@ -1634,7 +1634,7 @@ button#showBtn1 span, button#showBtn2 span, button#showBtn3 span,button#showBtn4
     background-color: white;
     border-left: 9px solid var(--color-red);
     padding: 4vw;
-    width: 50%;
+    width: 65%;
 }
 #display #displayHeader {
     display: flex;
