@@ -1166,7 +1166,7 @@ div#staevneFlexDiv {
     padding: 0;
     margin: 5rem 0;
  }
-#bodyTemplate_1799 #introSejlUndervisning, #bodyTemplate_1799  #sejlNyeIntro {
+#bodyTemplate_1799 #introSejlUndervisning, #bodyTemplate_1799  #sejlNyeIntro,#bodyTemplate_1799 #sejlErfarendeIntro {
     padding: 0 5vw;
 }
 #introSejlUndervisning article:first-of-type, #sejlNyeIntro article:first-of-type, #sejlErfarendeIntro article:first-of-type, #mentorIntro article:first-of-type {
