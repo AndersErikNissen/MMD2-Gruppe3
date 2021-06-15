@@ -1096,7 +1096,8 @@ function makeSite(data) {
             datoLille = document.createElement("li"),
             tid = document.createElement("li"),
             seMere = document.createElement("button"),
-            tekstContent = document.createElement("article");
+            tekstContent = document.createElement("article"),
+            eventTinyRamme = document.createElement("section");
 
             list.acf.beskrivelser.forEach(beskriv => {
                 if (beskriv != "") {
@@ -1157,7 +1158,9 @@ function makeSite(data) {
             displayContent.append(header, infoList, tekstContent)
 
             datoStorBox.appendChild(datoStor);
-            eventBox.append(datoStorBox, eventArticle)
+            eventTinyRamme.append(datoStorBox, eventArticle);
+            eventTinyRamme.classList.add("eventTinyRamme")
+            eventBox.appendChild(eventTinyRamme)
 
             //Tilføjer til Listen af Events
             eventWindows.appendChild(eventBox)
@@ -1174,14 +1177,12 @@ function makeSite(data) {
             //Mobil / Tablet
             if (mobil.matches|| tablet.matches) {
                 let mobilDisplay = document.createElement("section");
+                mobilDisplay.classList.add("mobilDisplay")
 
                 mobilDisplay.appendChild(displayContent);
                 eventBox.appendChild(mobilDisplay);
 
                 showBlock(seMere, mobilDisplay);
-                
-
-                console.log("Event Template - Mobil / Tablet")
             }
             nrInArray++;
         })

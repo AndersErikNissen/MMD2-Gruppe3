@@ -50,7 +50,7 @@ body {
     footer {width: 100%;}
 }
 
-
+li {list-style-type: none;}
 
 h1, h2, h3, h4 {
     font-family: 'Archivo Narrow', sans-serif;
@@ -146,7 +146,7 @@ footer {
     display: inline-block;
     color: white;
 }
-#nav_BlivMedlem.currentPage {
+#desktopNav #nav_BlivMedlem.currentPage {
     background-color: var(--color-red);
 }
 #header nav#desktopNav {
@@ -230,6 +230,11 @@ button[type=button] a {
 
 .imgHero {
     display: none;
+}
+#btnArea {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 #heroTekstArea {
     position: absolute;
@@ -377,7 +382,7 @@ button[type=button] a {
     font-weight: bold;
 }
 .afdelingBox {
-flex: 45%;
+    flex: 40%;
     margin: 1rem;
     position: relative;
     height: 20rem;
@@ -1011,6 +1016,8 @@ div.krumme a {
     right: 0;
     display: flex;
     justify-content: space-between;
+    /* Problemer med en px tynd linje */
+    margin-top: -1px;
 }
 #staevne_1Intro > article p {
     width: var(--para-width);
@@ -1573,7 +1580,8 @@ button#showBtn1 span, button#showBtn2 span, button#showBtn3 span,button#showBtn4
     width: 30%;
     
 }
-#eventRamme .eventBoxBegivenheder {
+
+#eventRamme .eventBoxBegivenheder .eventTinyRamme {
     background-color: white;
     border-left: 9px solid var(--color-red);
     padding: 2rem;
@@ -1595,6 +1603,7 @@ button#showBtn1 span, button#showBtn2 span, button#showBtn3 span,button#showBtn4
 }
 #eventRamme .eventBoxBegivenheder li {
     margin: .6rem 0;
+    list-style-type: none;
 }
 #eventRamme .eventBoxBegivenheder button {
     background-color: white;
@@ -1604,6 +1613,7 @@ button#showBtn1 span, button#showBtn2 span, button#showBtn3 span,button#showBtn4
     font-size: 1rem;
     font-weight: 700;
     padding: 0;
+    cursor: pointer;
 }
 
 /* Display */
@@ -1613,22 +1623,22 @@ button#showBtn1 span, button#showBtn2 span, button#showBtn3 span,button#showBtn4
     padding: 4vw;
     width: 50%;
 }
-#displayHeader {
+#display #displayHeader {
     display: flex;
 }
-#displayHeader h3:first-of-type {
+#display #displayHeader h3:first-of-type {
     margin: 0 5vw 0 0;
 }
-#displayList {
+#display #displayList {
     margin: 2vw 0;
     padding: 0;
     display: flex;
     justify-content: space-between;
 }
-#displayList strong {
+#display #displayList strong {
     font-weight: 700;
 }
-#displayTekst {
+#display #displayTekst {
     width: var(--para-width);
 }
 
@@ -1962,32 +1972,17 @@ i {
     100% {transform: scale(1);}
 }
 
+
+
+
+
 /* ======================================================= */
 /* ===================== MEDIA QUERY ===================== */
 /* ======================================================= */
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
-    :root {
-         /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
-        --sponsor-width: 100vw;
-        --sponsor-height: 20vh;
-        /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
-        --sponsor-display: 1;
-        /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
-        --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
-        --sponsor-timing: calc(var(--sponsor-display) * 40s); /* Giver 4s til hver element*/
 
-        /* Font */
-        --font-main: 16px;
-    }
-    li {list-style-type: none;}
-    #login h4 {
-        font-size: .8rem;
-    }
-    #header img {
-        height: 40px;
-        margin: .5rem;
-    }
+
     /* Footer */
     footer {
         padding-bottom: 0;
@@ -2011,6 +2006,120 @@ i {
     section#footerSection li {
         margin: 1rem 0;
     }
+
+      /* ======================================= */
+    /* ============== Bliv Medlem ============ */
+    /* ======================================= */
+    #bodyTemplate_1261 main {padding: .5rem;}
+    #bodyTemplate_1261 #blivMedlemConventusOutro article p {width: 100%;}
+    #bodyTemplate_1261 #blivMedlemConventusOutro article {
+        border-left: 5px solid var(--color-red);
+    }
+    article.medlemsType {
+        flex-direction: column;
+        padding: 0 0 1rem 0;
+        height: fit-content;
+    }
+    .medlemsType .blueShape {
+        width: 100%;
+        clip-path: none;
+        padding: 1rem;
+        margin: 0;
+    }
+    .medlemsType p {width: 100%;padding: 1rem;}
+    
+    /* Mentor */
+    #mentorOutro {
+        border-left: 5px solid var(--color-red);
+    }
+
+    /* Tilmelding */
+    #tilmeldingIntro {
+        padding: 1rem;
+    }
+    #tilmeldingIntro h2 {
+        margin: 1rem 0;
+    }
+    #tilStep p {width: 100%;}
+    #tilStep article {
+        flex-direction: column;
+        height: fit-content;
+        padding: 0;
+    }
+    #tilStep .blueShapeStep {
+        justify-content: flex-start;
+        height: fit-content;
+        width: 100%;
+        clip-path: none;
+    }
+
+    #tilmeldBox1 article.tilmeldAfdelingIntro, #tilmeldBox2 article.tilmeldAfdelingIntro, #tilmeldBox3 article.tilmeldAfdelingIntro, #tilmeldBox4 article.tilmeldAfdelingIntro {
+        position: static;
+        height: fit-content;
+    }
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article p, #tilmeldBox2 article.tilmeldAfdelingIntro > article p, #tilmeldBox3 article.tilmeldAfdelingIntro > article p, #tilmeldBox4 article.tilmeldAfdelingIntro > article p {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article div, #tilmeldBox2 article.tilmeldAfdelingIntro > article div, #tilmeldBox3 article.tilmeldAfdelingIntro > article div, #tilmeldBox4 article.tilmeldAfdelingIntro > article div {
+        height: fit-content;
+        justify-content: center;
+        flex-direction: row;
+    }
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article, #tilmeldBox2 article.tilmeldAfdelingIntro > article, #tilmeldBox3 article.tilmeldAfdelingIntro > article, #tilmeldBox4 article.tilmeldAfdelingIntro > article {
+        position: static;
+        width: 100%;
+        height: fit-content;
+        flex-direction: column;
+    }
+    #bodyTemplate_1261 .blueBoxUngStaevne {
+        width: 100%;
+        clip-path: none;
+    }
+    .showHideInner {
+        padding: .5rem;
+    }
+    .showHideInner .ramme {
+        margin: 1rem 0;
+    }
+    .showHideInner .ramme article.clickBoxArticle strong {
+        margin-right: .5rem;
+    }
+    .showHideInner .ramme article.rammeContent {
+        padding: .5rem;
+        flex-direction: column;
+    }
+    .showHideInner .ramme article.rammeContent ul {width: 100%;}
+    .showHideInner .ramme article.rammeContent article {
+        flex-direction: column;
+    }
+    .showHideInner .ramme article.rammeContent h4 {font-size: 1.2rem;}
+}
+
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+    :root {
+         /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
+        --sponsor-width: 100vw;
+        --sponsor-height: 20vh;
+        /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
+        --sponsor-display: 1;
+        /* Skal udregne hvor brede hver element i listen skal være for at udfylde slide functionen */
+        --sponsor-li-width: calc(var(--sponsor-width) / var(--sponsor-display));
+        --sponsor-timing: calc(var(--sponsor-display) * 40s); /* Giver 4s til hver element*/
+
+        /* Font */
+        --font-main: 16px;
+    }
+    li {list-style-type: none;}
+    #login h4 {
+        font-size: .8rem;
+    }
+    #header img {
+        height: 40px;
+        margin: .5rem;
+    }
+
     /* Forside */
     #slideShow {
         height: fit-content;
@@ -2019,11 +2128,6 @@ i {
         height: auto;
     }
     #clipHero {
-        /* clip-path: none;
-        width: 100%;
-        height: 40%;
-        top: 58%;
-        left: 0; */
         display: none;
     }
     #slideShow section:first-of-type {
@@ -2032,7 +2136,7 @@ i {
     #slideShow section#heroTekstArea {
         position: static;
         width: 100%;
-        position: none;
+        position: static;
         display: flex;
         flex-direction: column;
         background-color: var(--color-darkblue);
@@ -2048,9 +2152,6 @@ i {
     }
     #heroTekstArea p{
         padding: 1rem;
-    }
-    #btnArea {
-        display: flex;
     }
     /* News */
     #newsPost {
@@ -2234,7 +2335,7 @@ i {
         margin: .5rem;
         border-left: 5px solid var(--color-red);
     }
-    #referatContent, #GFcontent {padding: 0;}
+    #referatContent, #GFcontent {padding: 0; border-left: 5px solid var(--color-red);}
 
     /* Politik */
     #bodyTemplate_1255 #politikListe {padding: 0 1rem;}
@@ -2493,76 +2594,222 @@ i {
     }
 
 
-    /* ======================================= */
-    /* ============== Bliv Medlem ============ */
-    /* ======================================= */
-    #bodyTemplate_1261 main {padding: .5rem;}
-    #bodyTemplate_1261 #blivMedlemConventusOutro article p {width: 100%;}
-    #bodyTemplate_1261 #blivMedlemConventusOutro article {
-        border-left: 5px solid var(--color-red);
-    }
-    article.medlemsType {
-        flex-direction: column;
-        padding: 0 0 1rem 0;
-        height: fit-content;
-    }
-    .medlemsType .blueShape {
-        width: 100%;
-        clip-path: none;
-        padding: 1rem;
-        margin: 0;
-    }
-    .medlemsType p {width: 100%;padding: 1rem;}
-    
-    /* Mentor */
-    #mentorOutro {
-        border-left: 5px solid var(--color-red);
-    }
 
-    /* Tilmelding */
-    #tilmeldingIntro {
+    /* ======================================= */
+    /* ============= Begivenheder ============ */
+    /* ======================================= */
+    #eventRamme {
+        padding: 0;
+    }
+    #eventWindows {
+        width: 100%;
+    }
+    #eventRamme .eventBoxBegivenheder .eventTinyRamme {
+        border-left: 5px solid var(--color-red);
+        margin: 0;
         padding: 1rem;
     }
-    #tilmeldingIntro h2 {
+    #eventRamme .eventBoxBegivenheder {
+        width: 100%;
+        margin: 1rem 0;
+        flex-direction: column;
+    }
+    .mobilDisplay {
+        border-left: 5px solid var(--color-red);
+        background-color: white;
+        padding: 1rem;
+        border-top: 2px var(--color-red) dashed;
+    }
+    .mobilDisplay #displayHeader h3 {
+        font-size: 1.5rem;
+        width: 100%;
         margin: 1rem 0;
     }
-    #tilStep p {width: 100%;}
-    #tilStep article {
-        flex-direction: column;
-        height: fit-content;
-        padding: 0;
-    }
-    #tilStep .blueShapeStep {
-        justify-content: flex-start;
-        height: fit-content;
-        width: 100%;
-        clip-path: none;
+    .mobilDisplay strong {
+        font-weight: 700;
     }
 
-    #tilmeldBox1 article.tilmeldAfdelingIntro, #tilmeldBox2 article.tilmeldAfdelingIntro, #tilmeldBox3 article.tilmeldAfdelingIntro, #tilmeldBox4 article.tilmeldAfdelingIntro {
-        position: static;
-        height: fit-content;
+    /* ======================================= */
+    /* ============= Nyheder ================= */
+    /* ======================================= */
+    #bodyTemplate_1259 #cardContainer {
+        flex-direction: column;
     }
-    #tilmeldBox1 article.tilmeldAfdelingIntro > article p, #tilmeldBox2 article.tilmeldAfdelingIntro > article p, #tilmeldBox3 article.tilmeldAfdelingIntro > article p, #tilmeldBox4 article.tilmeldAfdelingIntro > article p {
+    #bodyTemplate_1259 .newsBox {
         width: 100%;
-        padding: 0;
+    }
+    #bodyTemplate_1259 .newsBox h3 {
+        margin: 1rem 0 0 0;
+    }
+
+    /* TEMPLATE NYHEDER */
+    #nyhedTemplateRamme img {
+        width: 100%;
+    }
+    #nyhedTemplateRamme section:first-of-type h1, #nyhedTemplateRamme section:first-of-type p {
+        padding: 1rem;
+    }
+    #nyhedTemplateRamme article#pContent p {
+        padding: 1rem;
         margin: 0;
     }
-    #tilmeldBox1 article.tilmeldAfdelingIntro > article div, #tilmeldBox2 article.tilmeldAfdelingIntro > article div, #tilmeldBox3 article.tilmeldAfdelingIntro > article div, #tilmeldBox4 article.tilmeldAfdelingIntro > article div {
-        height: fit-content;
+    .nyhedTemplateH2 {
+        padding: 2rem 1rem;
+        margin: 0;
     }
-    #tilmeldBox1 article.tilmeldAfdelingIntro > article, #tilmeldBox2 article.tilmeldAfdelingIntro > article, #tilmeldBox3 article.tilmeldAfdelingIntro > article, #tilmeldBox4 article.tilmeldAfdelingIntro > article {
-        position: static;
-        width: 100%;
-        height: fit-content;
-        flex-direction: column;
-    }
-    #bodyTemplate_1261 .blueBoxUngStaevne {
-        width: 100%;
-    }
-
-
 }
 @media screen and (min-width: 481px) and (max-width: 1024px) {
-    
+    /* Ekstra Tablet Indstillinger */
+    /* Burger Nav */
+    #burgerNav li a {
+        font-size: 1.5rem;
+    }
+    /* SlideShow */
+    #clipHero {display: block; height: 60vh;}
+    #slideShow img {height: 60vh;}
+    #slideShow section#heroTekstArea {position: absolute; width: 30vw;background-color: transparent;left: 1vw;top: 35vh;}
+
+
+    .newsBox {margin: 2rem 0;}
+
+    #eventPosts {
+        padding: 0 5vw;
+    }
+
+    /* Hero Lille */
+    #heroLille {
+        height: 33vh;
+    }
+    #heroLille img {
+        clip-path: polygon(0 0, 74% 0, 97% 100%, 0% 100%);
+        width: 30%;
+        object-fit: cover;
+    }
+    #heroLille article {
+        position: absolute;
+        background-color: transparent;
+        width: var(--para-width-banner);
+        padding: 0;
+    }
+
+
+    /* Afdelinger */
+    #afdelingFlex, #bodyTemplate_1257 #afdelingFlex {
+        width: 100%;
+    }
+    .afdelingBox, #bodyTemplate_1257 .afdelingBox {
+        flex: 45%;
+        margin: 1rem;
+        position: relative;
+        height: 20rem;
+        background-color: var(--color-darkblue-box);
+        padding: 0;
+        width: auto;
+    }
+    .afdelingTextContainer, #bodyTemplate_1257 .afdelingTextContainer {
+        padding: 2rem;
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 50%;
+        height: 100%;
+    }
+    .afdelingBox img, #bodyTemplate_1257 .afdelingBox img {
+        display: block;
+        float: right;
+        clip-path: polygon(57% 0, 100% 0, 100% 100%, 16% 100%);
+        object-fit: contain;
+    }
+
+    /* Betyrelsen */
+    #bestyrelseListe {
+        flex-direction: row;
+    }
+    #bestyrelseListe article {
+        flex: 40%;
+        margin: 2rem 1rem;
+    }
+
+    /* Referat */
+    #referatShowHideBtnDiv {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    /* Politik */
+    #bodyTemplate_1255 main {
+        padding: 2rem;
+    }
+    #bodyTemplate_1255 #politikListe li {width: var(--para-width);}
+    /* Æresmedlemmer */
+    #aeresMedlemmer {
+        flex-direction: row;
+    }
+    #aeresMedlemmer div {
+        flex: 40%;
+    }
+
+    /* Aldersgrupper */
+    #ungAldersgruppe1, #ungAldersgruppe2 {
+        position: relative;
+        margin: 0 0 4rem 0;
+        height: 20rem;
+        width: 100%;
+    }
+    #ungAldersgruppe1 div.blueBoxUngUnder, #ungAldersgruppe2 div.blueBoxUngUnder {
+        position: absolute;
+        height: 100%;
+        width: 30%;
+        clip-path: polygon(0 0, 77% 0, 100% 100%, 0 100%);
+        flex-direction: row;
+        padding: 0;
+    }
+    #ungAldersgruppe1 h3, #ungAldersgruppe2 h3 {width: 70%;}
+    #ungAldersgruppe1 div.pBoxDivUng, #ungAldersgruppe2 div.pBoxDivUng {height: 100%;}
+    #ungAldersgruppe1 p, #ungAldersgruppe2 p {
+        width: calc(var(--para-width) / 2.5);
+        background-color: transparent;
+        color: black;
+    }
+    #ungAldersgruppe1 img, #ungAldersgruppe2 img {
+        position: absolute;
+        width: 30%;
+        object-fit: cover;
+        height: 20rem;
+    }
+
+    /* Events */
+    #eventWindows {
+        padding: 2rem;
+    }
+
+    /* Bliv Medlem */
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article, #tilmeldBox2 article.tilmeldAfdelingIntro > article, #tilmeldBox3 article.tilmeldAfdelingIntro > article, #tilmeldBox4 article.tilmeldAfdelingIntro > article {
+        flex-direction: row;
+        height: 3rem;
+    }
+    #tilmeldBox1 article.tilmeldAfdelingIntro > article p, #tilmeldBox2 article.tilmeldAfdelingIntro > article p, #tilmeldBox3 article.tilmeldAfdelingIntro > article p, #tilmeldBox4 article.tilmeldAfdelingIntro > article p {
+        padding: 0;
+        margin: 1rem 0 .5rem 0;
+        width: 50%;
+    }
+    .blueBoxUngStaevne {height: 10rem; width: 32%;}
+
+
+
+    #afdelingFlex {
+        flex-wrap: nowrap;
+    }
+    footer {
+        padding-bottom: 0;
+        /* padding-top: 0; */
+        
+    }
+    #footerSection {
+        background-color: var(--color-darkblue);
+        padding-bottom: 5rem;
+    }
 }
