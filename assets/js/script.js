@@ -177,7 +177,7 @@ function makeSite(data) {
                 heroImg.classList.add("activeHero");
 
                 item = divNr + 1;//+1 for at den ikke viser det samme 2 gange
-                if (divNr + 1 > 3) {
+                if (divNr + 1 > 4) {
                     item = 0;
                 }
             })
@@ -209,7 +209,7 @@ function makeSite(data) {
 
             loop(area, btnArea);
             item++;
-            if(item > 3) {
+            if(item > 4) {
                 item = 0;//RESTS LOOP
             }
         }, 5000)
@@ -837,7 +837,7 @@ function makeSite(data) {
         
         //Create Elements
         let
-        sponsorContainer = document.createElement("section"), ul = document.createElement("ul");
+        sponsorContainer = document.createElement("section"), ul = document.createElement("ul"), sponsorDiv = document.createElement("div");
         ul.id = "sponsorUl";
         sponsorContainer.id = "sponsorContainer";
       
@@ -865,13 +865,15 @@ function makeSite(data) {
             liDisplayed = 2;
         }
 
-        sponsorTitle.textContent = "Stor tak til vores sponsore";
+        sponsorTitle.textContent = "Stor tak til vores sponsorer";
+        sponsorDiv.appendChild(sponsorTitle)
         sponsorContainer.appendChild(ul)
-        document.querySelector("#sponsorSection").append(sponsorTitle ,sponsorContainer);
+        document.querySelector("#sponsorSection").append(sponsorDiv ,sponsorContainer);
         for (let i = 0; i < liDisplayed; i++) {
             ul.appendChild(ul.children[i].cloneNode(true))
         }
     }
+
     function makeFooter () {
         let 
         splitEmail = postData.acf.footer[0][1].split(": "),

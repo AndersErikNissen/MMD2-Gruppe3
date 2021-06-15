@@ -14,7 +14,7 @@ UCN MMDA0920 */
 
 
     /* Sponsor SlideShowet er strækt inspiret af: https://codepen.io/Coding_Journey/pen/yWjWKd */
-    --sponsor-width: 80vw;
+    --sponsor-width: 100vw;
     --sponsor-height: 15vh;
     --sponsor-lier: 11;
     /* Man kan fri ændre display antalet i mellem 1-5. Hvis det er over 5, opstår der huller i "loop'et", og de bliver større ved stigning over 5. Man kan bruge 10, men så skal man ændre bredden på hver li (* 2). Men det giver samme resutalt som hvis man bruger display = 5*/
@@ -118,7 +118,7 @@ footer {
     margin-right: 1rem;
 }
 /* Rest of Header */
-#header img {width: auto; height: 77    px;}
+#header #desktopNav img {width: auto; height: 77    px;}
 #header #desktopNav ul li a {font-size: 1rem; color: black;}
 #header #desktopNav ul {display: flex; justify-content: space-between; align-items: center;}
 #header #desktopNav li {
@@ -126,13 +126,13 @@ footer {
     padding: .4rem .8rem;
     margin-right: 4rem;
 }
-#header li a:hover {
+#header #desktopNav li a:hover {
     color: var(--color-red);
 }
-#header li:active {
+#header #desktopNav li:active {
     transform: scale(0.95);
 }
-#header li.currentPage {
+#header #desktopNav li.currentPage {
     font-weight: bold;
 }
 #header #desktopNav #nav_BlivMedlem {
@@ -425,6 +425,10 @@ button[type=button] a {
     flex-direction: column;
     padding: 5vw 0;
 }
+#sponsorSection div {
+    width: 100%;
+    padding:  0 5vw;
+}
 #sponsorSection h2{
     flex: 100%;
     margin: 0 0 2rem 0;
@@ -483,7 +487,7 @@ footer > * {
     font-weight: bold;
 }
 footer h2 {
-    margin: 1rem 0;
+    margin: 0 0 1rem 0;
     font-weight: normal;
 }
 footer a {
@@ -955,7 +959,7 @@ div.krumme a {
     position: absolute;
     height: 100%;
     width: 18%; 
-    background-color: var(--color-lightblue-box);
+    background-color: var(--color-darkblue-box);
     clip-path: polygon(0 0, 77% 0, 100% 100%, 0 100%);
     display: flex;
     justify-content: center;
@@ -1095,7 +1099,7 @@ div#staevneFlexDiv {
     height: 30rem;
 }
 #infoIntro article:first-of-type {
-    width: 60%;
+    width: 40%;
 }
 #infoIntro article:first-of-type > * {
     margin: 1rem 0;
@@ -1108,7 +1112,7 @@ div#staevneFlexDiv {
     justify-content: center;
     align-items: center;
     background-color: var(--color-darkblue-box);
-    width: 40%;
+    width: 60%;
     clip-path: polygon(20% 1%, 100% 0, 100% 100%, 7% 100%);
 }
 #infoIntro article:last-of-type h2 {
@@ -1156,14 +1160,17 @@ div#staevneFlexDiv {
     color: black;
 }
  #introSejlUndervisning, #sejlNyeIntro, #sejlErfarendeIntro, #mentorIntro  {
-     display: flex;
-     justify-content: space-between;
-     height: 30rem;
-    padding: 0 5vw;
+    display: flex;
+    justify-content: space-between;
+    height: 30rem;
+    padding: 0;
     margin: 5rem 0;
  }
+#bodyTemplate_1799 #introSejlUndervisning, #bodyTemplate_1799  #sejlNyeIntro {
+    padding: 0 5vw;
+}
 #introSejlUndervisning article:first-of-type, #sejlNyeIntro article:first-of-type, #sejlErfarendeIntro article:first-of-type, #mentorIntro article:first-of-type {
-    width: 50%;
+    width: 40%;
 }
 #introSejlUndervisning article:first-of-type > *, #sejlNyeIntro  article:first-of-type > *, #sejlErfarendeIntro article:first-of-type > *, #mentorIntro article:first-of-type > * {
     margin: 1rem 0;
@@ -1180,11 +1187,14 @@ div#staevneFlexDiv {
     align-items: center;
     flex-direction: column;
     background-color: var(--color-darkblue-box);
-    width: 50%;
+    width: 60%;
     clip-path: polygon(20% 1%, 100% 0, 100% 100%, 7% 100%);
 }
 #introSejlUndervisning article:last-of-type, #sejlNyeIntro article:last-of-type, #sejlErfarendeIntro article:last-of-type, #mentorIntro article:last-of-type {
-    padding-left: 5rem;
+    padding-left: 15rem;
+}
+#introSejlUndervisning article:last-of-type div , #sejlNyeIntro article:last-of-type div , #sejlErfarendeIntro article:last-of-type div , #mentorIntro article:last-of-type div {
+    width: 70%;
 }
 #introSejlUndervisning article:last-of-type h2, #sejlNyeIntro article:last-of-type h2,#sejlErfarendeIntro article:last-of-type h2, #mentorIntro article:last-of-type h2 {
     font-weight: 600;
@@ -1195,7 +1205,7 @@ div#staevneFlexDiv {
     font-weight: 400;
     font-size: 1.2rem;
     list-style-type: disc;
-    width: var(--para-width-banner);
+    width: fit-content;
 }
 
 #galleriSejlUndervisning {
@@ -1238,12 +1248,15 @@ div#staevneFlexDiv {
 #nyeSejlUndervisning div.blueBoxUngUnder, #erfarendeSejlUndervisning div.blueBoxUngUnder {
     position: absolute;
     height: 100%;
-    width: 18%; 
-    background-color: var(--color-lightblue-box);
+    width: 25%; 
+    background-color: var(--color-darkblue-box);
     clip-path: polygon(0 0, 77% 0, 100% 100%, 0 100%);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+#nyeSejlUndervisning div.blueBoxUngUnder h2, #erfarendeSejlUndervisning div.blueBoxUngUnder h2 {
+    color: white;
 }
 #nyeSejlUndervisning > article, #erfarendeSejlUndervisning > article {
     display: flex; 
@@ -1255,7 +1268,7 @@ div#staevneFlexDiv {
     height: 100%;
 }
 #nyeSejlUndervisning p, #erfarendeSejlUndervisning p {
-    width: var(--para-width);
+    width: calc(var(--para-width-banner) - 80px);
 }
 #nyeSejlUndervisning button, #erfarendeSejlUndervisning button {
     color: var(--color-red);
@@ -1769,7 +1782,10 @@ i {
     display: inline-block;
 }
 
-#header #desktopNav .currentPage a {
+header#header #desktopNav #nav_BlivMedlem.currentPage {
+    background-color: var(--color-red);
+}
+header#header #desktopNav .currentPage a {
     color: var(--color-red);
 }
 .hideReferat {
@@ -2812,4 +2828,9 @@ i {
         background-color: var(--color-darkblue);
         padding-bottom: 5rem;
     }
+}
+/* Rød Navigation */
+#bodyTemplate_1720 #header #desktopNav #nav_Afdelinger a , #bodyTemplate_1799 #header #desktopNav #nav_Afdelinger a {
+    color: var(--color-red);
+    font-weight: bold;
 }
