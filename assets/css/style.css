@@ -974,7 +974,7 @@ div.krumme a {
     height: 100%;
 }
 #ungAldersgruppe1 p, #ungAldersgruppe2 p {
-    width: var(--para-width);
+    width: calc(var(--para-width-banner) - 70px);
 }
 #ungAldersgruppe1 h3, #ungAldersgruppe1 h4, #ungAldersgruppe2 h3, #ungAldersgruppe2 h4 {
     color: white;
@@ -1024,7 +1024,7 @@ div.krumme a {
     margin-top: -1px;
 }
 #staevne_1Intro > article p {
-    width: var(--para-width);
+    width: calc(var(--para-width-banner) - 70px);
     padding-top: 2rem;
 }
 #staevne_1Intro > article div {
